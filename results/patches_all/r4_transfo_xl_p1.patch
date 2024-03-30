@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/transfo_xl/modeling_transfo_xl.py.ori	2023-11-21 18:21:45.973398226 +0000
++++ models/huggingface_transformers/src/transformers/models/transfo_xl/modeling_transfo_xl.py.opt_1	2023-11-21 18:21:45.973398226 +0000
+@@ -339,7 +339,8 @@
+                 attn_score = attn_score.float().masked_fill(attn_mask[:, :, :, None], mask_value).type_as(attn_score)
+ 
+         # [qlen x klen x bsz x n_head]
+-        attn_prob = nn.functional.softmax(attn_score, dim=1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_prob = softmax_softmax(attn_score)
+         attn_prob = self.dropatt(attn_prob)
+ 
+         # Mask heads if we want to

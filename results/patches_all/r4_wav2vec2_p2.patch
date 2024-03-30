@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/wav2vec2/modeling_wav2vec2.py.ori	2023-11-21 18:21:59.361373982 +0000
++++ models/huggingface_transformers/src/transformers/models/wav2vec2/modeling_wav2vec2.py.opt_2	2023-11-21 18:21:59.361373982 +0000
+@@ -2130,7 +2130,8 @@
+         if attention_mask is None:
+             pooled_output = hidden_states.mean(dim=1)
+         else:
+-            padding_mask = self._get_feature_vector_attention_mask(hidden_states.shape[1], attention_mask)
++            from xformers.triton.softmax import softmax as softmax_softmax
++            norm_weights = softmax_softmax(self.layer_weights)
+             hidden_states[~padding_mask] = 0.0
+             pooled_output = hidden_states.sum(dim=1) / padding_mask.sum(dim=1).view(-1, 1)
+ 

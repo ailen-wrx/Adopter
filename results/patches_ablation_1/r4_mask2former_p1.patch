@@ -1,0 +1,14 @@
+--- models/huggingface_transformers/src/transformers/models/mask2former/modeling_mask2former.py.ori	2023-12-14 20:52:32.625608927 +0000
++++ models/huggingface_transformers/src/transformers/models/mask2former/modeling_mask2former.py.opt_1	2023-12-14 20:52:32.629608918 +0000
+@@ -953,9 +953,8 @@
+         attention_weights = self.attention_weights(hidden_states).view(
+             batch_size, num_queries, self.n_heads, self.n_levels * self.n_points
+         )
+-        attention_weights = nn.functional.softmax(attention_weights, -1).view(
+-            batch_size, num_queries, self.n_heads, self.n_levels, self.n_points
+-        )
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_weights = softmax_softmax(attention_weights).view(batch_size, num_queries, self.n_heads, self.n_levels, self.n_points)
+         # batch_size, num_queries, n_heads, n_levels, n_points, 2
+         if reference_points.shape[-1] == 2:
+             offset_normalizer = torch.stack([spatial_shapes[..., 1], spatial_shapes[..., 0]], -1)

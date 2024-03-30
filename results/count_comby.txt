@@ -1,0 +1,12 @@
+model: 19900
+rule_1: 1
+rule_2: 2
+rule_3: 1
+rule_4: 137
+rule_5_1: 88
+rule_5_2: 147
+rule_6: 66
+rule_7: 2
+rule_8: 0
+rule_9_1: 7
+rule_9_2: 3

@@ -1,0 +1,47 @@
+--- models/huggingface_transformers/src/transformers/models/dpt/modeling_dpt.py.ori	2023-11-21 18:32:26.664235776 +0000
++++ models/huggingface_transformers/src/transformers/models/dpt/modeling_dpt.py.opt_2	2023-11-21 18:32:26.664235776 +0000
+@@ -717,14 +717,12 @@
+ 
+         self.use_batch_norm = config.use_batch_norm_in_fusion_residual
+         self.activation1 = ACT2FN["relu"]
+-        self.convolution1 = nn.Conv2d(
+-            config.fusion_hidden_size,
+-            config.fusion_hidden_size,
+-            kernel_size=3,
+-            stride=1,
+-            padding=1,
+-            bias=not self.use_batch_norm,
+-        )
++        if self.use_batch_norm:
++            from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++            self.conv_batchnorm = torchscript_ops_FusedConv2dBatchNorm2d(3, stride=1, bias=(not self.use_batch_norm))
++            self.batch_norm2 = nn.BatchNorm2d(config.fusion_hidden_size)
++        else:
++            self.convolution1 = nn.Conv2d(config.fusion_hidden_size, config.fusion_hidden_size, kernel_size=3, stride=1, padding=1, bias=(not self.use_batch_norm))
+ 
+         self.activation2 = ACT2FN["relu"]
+         self.convolution2 = nn.Conv2d(
+@@ -736,18 +734,17 @@
+             bias=not self.use_batch_norm,
+         )
+ 
+-        if self.use_batch_norm:
+-            self.batch_norm1 = nn.BatchNorm2d(config.fusion_hidden_size)
+-            self.batch_norm2 = nn.BatchNorm2d(config.fusion_hidden_size)
+ 
+     def forward(self, hidden_state: torch.Tensor) -> torch.Tensor:
+         residual = hidden_state
+         hidden_state = self.activation1(hidden_state)
+ 
+-        hidden_state = self.convolution1(hidden_state)
+-
+         if self.use_batch_norm:
+-            hidden_state = self.batch_norm1(hidden_state)
++            hidden_state = self.conv_batchnorm(hidden_state)
++        else:
++            hidden_state = self.convolution1(hidden_state)
++        hidden_state = self.batch_norm1(hidden_state)
++
+ 
+         hidden_state = self.activation2(hidden_state)
+         hidden_state = self.convolution2(hidden_state)

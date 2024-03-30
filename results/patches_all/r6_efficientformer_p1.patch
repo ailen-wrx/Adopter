@@ -1,0 +1,14 @@
+--- models/huggingface_transformers/src/transformers/models/efficientformer/modeling_efficientformer.py.ori	2023-11-21 18:27:55.480728243 +0000
++++ models/huggingface_transformers/src/transformers/models/efficientformer/modeling_efficientformer.py.opt_1	2023-11-21 18:27:55.480728243 +0000
+@@ -195,8 +195,9 @@
+         out_features = out_features or in_features
+         hidden_features = hidden_features or in_features
+ 
+-        self.linear_in = nn.Linear(in_features, hidden_features)
+-        self.activation = ACT2FN[config.hidden_act]
++        self.linear_in = torch.nn.Linear(in_features, hidden_features, bias=False)
++        from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++        self.activation = torchscript_ops_FusedBiasGELU(hidden_features, prev_weight=self.linear_in.weight)
+         self.dropout = nn.Dropout(config.hidden_dropout_prob)
+         self.linear_out = nn.Linear(hidden_features, out_features)
+ 

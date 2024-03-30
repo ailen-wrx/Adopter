@@ -1,0 +1,14 @@
+--- models/huggingface_transformers/src/transformers/models/focalnet/modeling_focalnet.py.ori	2023-11-21 18:28:08.144705256 +0000
++++ models/huggingface_transformers/src/transformers/models/focalnet/modeling_focalnet.py.opt_1	2023-11-21 18:28:08.148705249 +0000
+@@ -397,8 +397,9 @@
+         super().__init__()
+         out_features = out_features or in_features
+         hidden_features = hidden_features or in_features
+-        self.fc1 = nn.Linear(in_features, hidden_features)
+-        self.activation = ACT2FN[config.hidden_act]
++        self.fc1 = torch.nn.Linear(in_features, hidden_features, bias=False)
++        from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++        self.activation = torchscript_ops_FusedBiasGELU(hidden_features, prev_weight=self.fc1.weight)
+         self.fc2 = nn.Linear(hidden_features, out_features)
+         self.drop = nn.Dropout(drop)
+ 

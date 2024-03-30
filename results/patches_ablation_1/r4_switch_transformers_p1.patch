@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/switch_transformers/modeling_switch_transformers.py.ori	2023-12-14 20:55:41.569195763 +0000
++++ models/huggingface_transformers/src/transformers/models/switch_transformers/modeling_switch_transformers.py.opt_1	2023-12-14 20:55:41.573195754 +0000
+@@ -187,7 +187,8 @@
+         router_logits = self.classifier(hidden_states)
+ 
+         # Apply Softmax and cast back to the original `dtype`
+-        router_probabilities = nn.functional.softmax(router_logits, dim=-1, dtype=self.dtype).to(self.input_dtype)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        router_probabilities = softmax_softmax(router_logits).to(self.input_dtype)
+         return router_probabilities, router_logits
+ 
+     def _cast_classifier(self):

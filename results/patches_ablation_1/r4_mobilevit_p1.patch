@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/mobilevit/modeling_mobilevit.py.ori	2023-12-14 20:52:58.641551622 +0000
++++ models/huggingface_transformers/src/transformers/models/mobilevit/modeling_mobilevit.py.opt_1	2023-12-14 20:52:58.641551622 +0000
+@@ -257,7 +257,8 @@
+         attention_scores = attention_scores / math.sqrt(self.attention_head_size)
+ 
+         # Normalize the attention scores to probabilities.
+-        attention_probs = nn.functional.softmax(attention_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_probs = softmax_softmax(attention_scores)
+ 
+         # This is actually dropping out entire tokens to attend to, which might
+         # seem a bit unusual, but is taken from the original Transformer paper.

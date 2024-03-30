@@ -1,0 +1,22 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/git/modeling_git.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/git/modeling_git.py
+@@ -278,8 +278,7 @@
+ 
+     def forward(self, hidden_states: torch.Tensor, input_tensor: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense(hidden_states)
+-        hidden_states = self.dropout(hidden_states)
+-        hidden_states = self.LayerNorm(hidden_states + input_tensor)
++        self.fused_dropout_layernorm(hidden_states + input_tensor)
+         return hidden_states
+ 
+ 
+@@ -358,8 +357,7 @@
+ 
+     def forward(self, hidden_states: torch.Tensor, input_tensor: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense(hidden_states)
+-        hidden_states = self.dropout(hidden_states)
+-        hidden_states = self.LayerNorm(hidden_states + input_tensor)
++        self.fused_dropout_layernorm(hidden_states + input_tensor)
+         return hidden_states
+ 
+ 

@@ -1,0 +1,12 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gpt_neox/modeling_gpt_neox.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gpt_neox/modeling_gpt_neox.py
+@@ -405,8 +405,7 @@
+         super().__init__()
+         self.use_parallel_residual = config.use_parallel_residual
+         self.input_layernorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
+-        self.post_attention_layernorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
+-        self.post_attention_dropout = nn.Dropout(config.hidden_dropout)
++        from epoi.ops.torchscript_ops import FusedDropoutAddLayerNorm; self.fused_dropout_layernorm = epoi.ops.torchscript_ops.FusedDropoutAddLayerNorm(config.hidden_size, config.hidden_dropout, config.layer_norm_eps)
+         self.post_mlp_dropout = nn.Dropout(config.hidden_dropout)
+         self.attention = GPTNeoXAttention(config)
+         self.mlp = GPTNeoXMLP(config)

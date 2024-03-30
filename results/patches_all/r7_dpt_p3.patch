@@ -1,0 +1,19 @@
+--- models/huggingface_transformers/src/transformers/models/dpt/modeling_dpt.py.ori	2023-11-21 18:32:26.720235675 +0000
++++ models/huggingface_transformers/src/transformers/models/dpt/modeling_dpt.py.opt_3	2023-11-21 18:32:26.724235667 +0000
+@@ -1174,14 +1174,8 @@
+         self.config = config
+ 
+         features = config.fusion_hidden_size
+-        self.head = nn.Sequential(
+-            nn.Conv2d(features, features, kernel_size=3, padding=1, bias=False),
+-            nn.BatchNorm2d(features),
+-            ACT2FN["relu"],
+-            nn.Dropout(config.semantic_classifier_dropout),
+-            nn.Conv2d(features, config.num_labels, kernel_size=1),
+-            nn.Upsample(scale_factor=2, mode="bilinear", align_corners=True),
+-        )
++        from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++        self.head = nn.Sequential(torchscript_ops_FusedConv2dBatchNorm2d(features, features, 3, bias=False), ACT2FN['relu'], nn.Dropout(config.semantic_classifier_dropout), nn.Conv2d(features, config.num_labels, kernel_size=1), nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True))
+ 
+     def forward(self, hidden_states: List[torch.Tensor]) -> torch.Tensor:
+         # use last features

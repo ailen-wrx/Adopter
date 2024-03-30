@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/falcon/modeling_falcon.py.ori	2023-12-14 20:50:19.825903998 +0000
++++ models/huggingface_transformers/src/transformers/models/falcon/modeling_falcon.py.opt_2	2023-12-14 20:50:19.829903989 +0000
+@@ -522,7 +522,8 @@
+             # and you'd like to experiment and maybe file a PR, feel free!
+             attention_logits = attention_scores + alibi.view(batch_size, self.num_heads, 1, -1)
+             attention_logits *= self.inv_norm_factor
+-            attention_probs = F.softmax(attention_logits + attention_mask_float, dim=-1, dtype=hidden_states.dtype)
++            from xformers.triton.softmax import softmax as softmax_softmax
++            attention_probs = softmax_softmax((attention_logits + attention_mask_float))
+             # [batch_size, num_heads, q_length, kv_length]
+             attention_probs = self.attention_dropout(attention_probs)
+ 

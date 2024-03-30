@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/swin/modeling_swin.py.ori	2023-12-14 20:55:31.401217835 +0000
++++ models/huggingface_transformers/src/transformers/models/swin/modeling_swin.py.opt_1	2023-12-14 20:55:31.405217827 +0000
+@@ -495,7 +495,8 @@
+             attention_scores = attention_scores.view(-1, self.num_attention_heads, dim, dim)
+ 
+         # Normalize the attention scores to probabilities.
+-        attention_probs = nn.functional.softmax(attention_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_probs = softmax_softmax(attention_scores)
+ 
+         # This is actually dropping out entire tokens to attend to, which might
+         # seem a bit unusual, but is taken from the original Transformer paper.

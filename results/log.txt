@@ -1,0 +1,4 @@
+[rule_1] torch.nn.functional.softmax($as, dim=-1) -> $ap => xformers.triton.softmax.softmax($as) -> $ap
+[rule_1][module_1] models.huggingface_transformers.src.transformers.models.big_bird.modeling_big_bird
+[rule_1][module_1][stat] 2
+

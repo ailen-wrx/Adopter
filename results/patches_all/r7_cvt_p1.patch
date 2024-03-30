@@ -1,0 +1,26 @@
+--- models/huggingface_transformers/src/transformers/models/cvt/modeling_cvt.py.ori	2023-11-21 18:32:10.720264742 +0000
++++ models/huggingface_transformers/src/transformers/models/cvt/modeling_cvt.py.opt_1	2023-11-21 18:32:10.720264742 +0000
+@@ -159,20 +159,11 @@
+ class CvtSelfAttentionConvProjection(nn.Module):
+     def __init__(self, embed_dim, kernel_size, padding, stride):
+         super().__init__()
+-        self.convolution = nn.Conv2d(
+-            embed_dim,
+-            embed_dim,
+-            kernel_size=kernel_size,
+-            padding=padding,
+-            stride=stride,
+-            bias=False,
+-            groups=embed_dim,
+-        )
+-        self.normalization = nn.BatchNorm2d(embed_dim)
++        from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++        self.conv_batchnorm = torchscript_ops_FusedConv2dBatchNorm2d(kernel_size, stride=stride, bias=False)
+ 
+     def forward(self, hidden_state):
+-        hidden_state = self.convolution(hidden_state)
+-        hidden_state = self.normalization(hidden_state)
++        hidden_state = self.conv_batchnorm(hidden_state)
+         return hidden_state
+ 
+ 

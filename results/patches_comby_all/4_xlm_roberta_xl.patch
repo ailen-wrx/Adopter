@@ -1,0 +1,11 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/xlm_roberta_xl/modeling_xlm_roberta_xl.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/xlm_roberta_xl/modeling_xlm_roberta_xl.py
+@@ -257,7 +257,7 @@
+             attention_scores = attention_scores + attention_mask
+ 
+         # Normalize the attention scores to probabilities.
+-        attention_probs = nn.functional.softmax(attention_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax; attention_probs = softmax_softmax(attention_scores)
+ 
+         # This is actually dropping out entire tokens to attend to, which might
+         # seem a bit unusual, but is taken from the original Transformer paper.

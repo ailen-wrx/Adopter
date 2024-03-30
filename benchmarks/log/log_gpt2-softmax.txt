@@ -1,0 +1,336 @@
+[2023-11-07 20:18:56,376] [INFO] [real_accelerator.py:133:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+11/07/2023 20:18:57 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1distributed training: True, 16-bits training: True
+11/07/2023 20:18:57 - INFO - __main__ - Training/evaluation parameters TrainingArguments(
+_n_gpu=1,
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_pin_memory=True,
+ddp_backend=None,
+ddp_broadcast_buffers=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+dispatch_batches=None,
+do_eval=False,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_steps=None,
+evaluation_strategy=no,
+fp16=True,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O2,
+fsdp=[],
+fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=apex,
+hub_always_push=False,
+hub_model_id=None,
+hub_private_repo=False,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_inputs_for_metrics=False,
+include_tokens_per_second=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=5e-05,
+length_column_name=length,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=/tmp/gptneo/runs/Nov07_20-18-57_ip-172-31-81-243,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=500,
+logging_strategy=steps,
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=20,
+metric_for_best_model=None,
+mp_parameters=,
+no_cuda=False,
+num_train_epochs=3.0,
+optim=adamw_hf,
+optim_args=None,
+output_dir=/tmp/gptneo/,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=4,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=True,
+report_to=[],
+resume_from_checkpoint=None,
+run_name=/tmp/gptneo/,
+save_on_each_node=False,
+save_safetensors=False,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+skip_memory_metrics=False,
+tf32=None,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_cpu=False,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.0,
+)
+Loading Dataset Infos from /home/ubuntu/.cache/huggingface/modules/datasets_modules/datasets/wikitext/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+11/07/2023 20:18:57 - INFO - datasets.info - Loading Dataset Infos from /home/ubuntu/.cache/huggingface/modules/datasets_modules/datasets/wikitext/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+Overwrite dataset info from restored data version if exists.
+11/07/2023 20:18:57 - INFO - datasets.builder - Overwrite dataset info from restored data version if exists.
+Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+11/07/2023 20:18:57 - INFO - datasets.info - Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+Found cached dataset wikitext (/home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126)
+11/07/2023 20:18:57 - INFO - datasets.builder - Found cached dataset wikitext (/home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126)
+Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+11/07/2023 20:18:57 - INFO - datasets.info - Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+[INFO|configuration_utils.py:716] 2023-11-07 20:18:57,529 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--gpt2/snapshots/11c5a3d5811f50298f278a704980280950aedb10/config.json
+[INFO|configuration_utils.py:776] 2023-11-07 20:18:57,530 >> Model config GPT2Config {
+  "_name_or_path": "gpt2",
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 768,
+  "n_head": 12,
+  "n_inner": null,
+  "n_layer": 12,
+  "n_positions": 1024,
+  "reorder_and_upcast_attn": false,
+  "resid_pdrop": 0.1,
+  "scale_attn_by_inverse_layer_idx": false,
+  "scale_attn_weights": true,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "text-generation": {
+      "do_sample": true,
+      "max_length": 50
+    }
+  },
+  "transformers_version": "4.35.0.dev0",
+  "use_cache": true,
+  "vocab_size": 50257
+}
+
+[INFO|tokenization_auto.py:551] 2023-11-07 20:18:57,546 >> Could not locate the tokenizer configuration file, will try to use the model config instead.
+[INFO|configuration_utils.py:716] 2023-11-07 20:18:57,559 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--gpt2/snapshots/11c5a3d5811f50298f278a704980280950aedb10/config.json
+[INFO|configuration_utils.py:776] 2023-11-07 20:18:57,560 >> Model config GPT2Config {
+  "_name_or_path": "gpt2",
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 768,
+  "n_head": 12,
+  "n_inner": null,
+  "n_layer": 12,
+  "n_positions": 1024,
+  "reorder_and_upcast_attn": false,
+  "resid_pdrop": 0.1,
+  "scale_attn_by_inverse_layer_idx": false,
+  "scale_attn_weights": true,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "text-generation": {
+      "do_sample": true,
+      "max_length": 50
+    }
+  },
+  "transformers_version": "4.35.0.dev0",
+  "use_cache": true,
+  "vocab_size": 50257
+}
+
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:18:57,603 >> loading file vocab.json from cache at /home/ubuntu/.cache/huggingface/hub/models--gpt2/snapshots/11c5a3d5811f50298f278a704980280950aedb10/vocab.json
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:18:57,603 >> loading file merges.txt from cache at /home/ubuntu/.cache/huggingface/hub/models--gpt2/snapshots/11c5a3d5811f50298f278a704980280950aedb10/merges.txt
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:18:57,603 >> loading file tokenizer.json from cache at /home/ubuntu/.cache/huggingface/hub/models--gpt2/snapshots/11c5a3d5811f50298f278a704980280950aedb10/tokenizer.json
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:18:57,603 >> loading file added_tokens.json from cache at None
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:18:57,603 >> loading file special_tokens_map.json from cache at None
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:18:57,603 >> loading file tokenizer_config.json from cache at None
+[INFO|configuration_utils.py:716] 2023-11-07 20:18:57,603 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--gpt2/snapshots/11c5a3d5811f50298f278a704980280950aedb10/config.json
+[INFO|configuration_utils.py:776] 2023-11-07 20:18:57,604 >> Model config GPT2Config {
+  "_name_or_path": "gpt2",
+  "activation_function": "gelu_new",
+  "architectures": [
+    "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 768,
+  "n_head": 12,
+  "n_inner": null,
+  "n_layer": 12,
+  "n_positions": 1024,
+  "reorder_and_upcast_attn": false,
+  "resid_pdrop": 0.1,
+  "scale_attn_by_inverse_layer_idx": false,
+  "scale_attn_weights": true,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+    "text-generation": {
+      "do_sample": true,
+      "max_length": 50
+    }
+  },
+  "transformers_version": "4.35.0.dev0",
+  "use_cache": true,
+  "vocab_size": 50257
+}
+
+[INFO|configuration_utils.py:789] 2023-11-07 20:18:57,695 >> Generate config GenerationConfig {
+  "bos_token_id": 50256,
+  "eos_token_id": 50256
+}
+
+11/07/2023 20:19:00 - INFO - __main__ - Training new model from scratch - Total size=118.68M params
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-78d1cd1d87d1c43a.arrow
+11/07/2023 20:19:00 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-78d1cd1d87d1c43a.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-ee4de0494e2fcd9a.arrow
+11/07/2023 20:19:00 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-ee4de0494e2fcd9a.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-b1e6bbf3659baee5.arrow
+11/07/2023 20:19:00 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-b1e6bbf3659baee5.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-cf5fb3b9173acf97.arrow
+11/07/2023 20:19:00 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-cf5fb3b9173acf97.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-92d0011585b86690.arrow
+11/07/2023 20:19:00 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-92d0011585b86690.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-764908d2b3c8b957.arrow
+11/07/2023 20:19:00 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-764908d2b3c8b957.arrow
+[INFO|trainer.py:535] 2023-11-07 20:19:01,767 >> max_steps is given, it will override any value given in num_train_epochs
+/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/optimization.py:411: FutureWarning: This implementation of AdamW is deprecated and will be removed in a future version. Use the PyTorch implementation torch.optim.AdamW instead, or set `no_deprecation_warning=True` to disable this warning
+  warnings.warn(
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+  warnings.warn(msg, DeprecatedFeatureWarning)
+Selected optimization level O2:  FP16 training with FP32 batchnorm and FP32 master weights.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O2
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : True
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O2
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : True
+loss_scale             : dynamic
+[INFO|trainer.py:1669] 2023-11-07 20:19:02,369 >> ***** Running training *****
+[INFO|trainer.py:1670] 2023-11-07 20:19:02,369 >>   Num examples = 2,318
+[INFO|trainer.py:1671] 2023-11-07 20:19:02,371 >>   Num Epochs = 1
+[INFO|trainer.py:1672] 2023-11-07 20:19:02,371 >>   Instantaneous batch size per device = 4
+[INFO|trainer.py:1675] 2023-11-07 20:19:02,371 >>   Total train batch size (w. parallel, distributed & accumulation) = 4
+[INFO|trainer.py:1676] 2023-11-07 20:19:02,371 >>   Gradient Accumulation steps = 1
+[INFO|trainer.py:1677] 2023-11-07 20:19:02,372 >>   Total optimization steps = 20
+[INFO|trainer.py:1678] 2023-11-07 20:19:02,372 >>   Number of trainable parameters = 124,439,808
+  0%|          | 0/20 [00:00<?, ?it/s][W reducer.cpp:1300] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32768.0
+  5%|▌         | 1/20 [00:03<01:12,  3.81s/it] 10%|█         | 2/20 [00:04<00:33,  1.84s/it] 15%|█▌        | 3/20 [00:04<00:20,  1.21s/it] 20%|██        | 4/20 [00:05<00:14,  1.09it/s] 25%|██▌       | 5/20 [00:05<00:11,  1.31it/s] 30%|███       | 6/20 [00:06<00:09,  1.51it/s] 35%|███▌      | 7/20 [00:06<00:07,  1.66it/s] 40%|████      | 8/20 [00:07<00:06,  1.78it/s] 45%|████▌     | 9/20 [00:07<00:05,  1.87it/s] 50%|█████     | 10/20 [00:08<00:05,  1.93it/s] 55%|█████▌    | 11/20 [00:08<00:04,  1.98it/s] 60%|██████    | 12/20 [00:09<00:03,  2.02it/s] 65%|██████▌   | 13/20 [00:09<00:03,  2.04it/s] 70%|███████   | 14/20 [00:09<00:02,  2.06it/s] 75%|███████▌  | 15/20 [00:10<00:02,  2.07it/s] 80%|████████  | 16/20 [00:10<00:01,  2.08it/s] 85%|████████▌ | 17/20 [00:11<00:01,  2.08it/s] 90%|█████████ | 18/20 [00:11<00:00,  2.09it/s] 95%|█████████▌| 19/20 [00:12<00:00,  2.10it/s]100%|██████████| 20/20 [00:12<00:00,  2.10it/s][INFO|trainer.py:1905] 2023-11-07 20:19:15,204 >> 
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+                                               {'train_runtime': 12.8502, 'train_samples_per_second': 6.226, 'train_steps_per_second': 1.556, 'step_time_list': [3.7942936420440674, 0.4613986015319824, 0.44493889808654785, 0.44740796089172363, 0.4490938186645508, 0.44585609436035156, 0.4514801502227783, 0.4483170509338379, 0.4517638683319092, 0.4583914279937744, 0.449908971786499, 0.4492614269256592, 0.45016050338745117, 0.4464302062988281, 0.4505503177642822, 0.4494631290435791, 0.4525339603424072, 0.4480268955230713, 0.4492330551147461, 0.4499344825744629], 'train_loss': 9.66328125, 'init_mem_cpu_alloc_delta': 484724736, 'init_mem_gpu_alloc_delta': 511148032, 'init_mem_cpu_peaked_delta': 465506304, 'init_mem_gpu_peaked_delta': 0, 'train_mem_cpu_alloc_delta': 897413120, 'train_mem_gpu_alloc_delta': 2026973184, 'train_mem_cpu_peaked_delta': 0, 'train_mem_gpu_peaked_delta': 7797478912, 'before_init_mem_cpu': 1081397248, 'before_init_mem_gpu': 0, 'epoch': 0.03}
+100%|██████████| 20/20 [00:13<00:00,  2.10it/s]100%|██████████| 20/20 [00:13<00:00,  1.54it/s]
+[INFO|trainer.py:2810] 2023-11-07 20:19:15,402 >> Saving model checkpoint to /tmp/gptneo/
+[INFO|configuration_utils.py:461] 2023-11-07 20:19:15,403 >> Configuration saved in /tmp/gptneo/config.json
+[INFO|configuration_utils.py:563] 2023-11-07 20:19:15,404 >> Configuration saved in /tmp/gptneo/generation_config.json
+[INFO|modeling_utils.py:2121] 2023-11-07 20:19:20,329 >> Model weights saved in /tmp/gptneo/pytorch_model.bin
+[INFO|tokenization_utils_base.py:2447] 2023-11-07 20:19:20,330 >> tokenizer config file saved in /tmp/gptneo/tokenizer_config.json
+[INFO|tokenization_utils_base.py:2456] 2023-11-07 20:19:20,331 >> Special tokens file saved in /tmp/gptneo/special_tokens_map.json
+***** train metrics *****
+  before_init_mem_cpu        =                                                                                                                                     1031MB
+  before_init_mem_gpu        =                                                                                                                                        0MB
+  epoch                      =                                                                                                                                       0.03
+  init_mem_cpu_alloc_delta   =                                                                                                                                      462MB
+  init_mem_cpu_peaked_delta  =                                                                                                                                      443MB
+  init_mem_gpu_alloc_delta   =                                                                                                                                      487MB
+  init_mem_gpu_peaked_delta  =                                                                                                                                        0MB
+  step_time_list             = 3.7943,0.4614,0.4449,0.4474,0.4491,0.4459,0.4515,0.4483,0.4518,0.4584,0.4499,0.4493,0.4502,0.4464,0.4506,0.4495,0.4525,0.448,0.4492,0.4499
+  train_loss                 =                                                                                                                                     9.6633
+  train_mem_cpu_alloc_delta  =                                                                                                                                      855MB
+  train_mem_cpu_peaked_delta =                                                                                                                                        0MB
+  train_mem_gpu_alloc_delta  =                                                                                                                                     1933MB
+  train_mem_gpu_peaked_delta =                                                                                                                                     7436MB
+  train_runtime              =                                                                                                                                 0:00:12.85
+  train_samples              =                                                                                                                                       2318
+  train_samples_per_second   =                                                                                                                                      6.226
+  train_steps_per_second     =                                                                                                                                      1.556
+[INFO|modelcard.py:452] 2023-11-07 20:19:20,799 >> Dropping the following result as it does not have all the necessary fields:
+{'task': {'name': 'Causal Language Modeling', 'type': 'text-generation'}, 'dataset': {'name': 'wikitext wikitext-2-raw-v1', 'type': 'wikitext', 'config': 'wikitext-2-raw-v1', 'split': 'train', 'args': 'wikitext-2-raw-v1'}}

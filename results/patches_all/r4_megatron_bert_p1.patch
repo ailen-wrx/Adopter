@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/megatron_bert/modeling_megatron_bert.py.ori	2023-11-21 18:20:34.469527659 +0000
++++ models/huggingface_transformers/src/transformers/models/megatron_bert/modeling_megatron_bert.py.opt_1	2023-11-21 18:20:34.469527659 +0000
+@@ -302,7 +302,8 @@
+             attention_scores = attention_scores + attention_mask
+ 
+         # Normalize the attention scores to probabilities.
+-        attention_probs = nn.functional.softmax(attention_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_probs = softmax_softmax(attention_scores)
+ 
+         # This is actually dropping out entire tokens to attend to, which might
+         # seem a bit unusual, but is taken from the original Transformer paper.

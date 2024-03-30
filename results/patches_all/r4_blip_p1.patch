@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/blip/modeling_blip.py.ori	2023-11-21 18:19:11.573677592 +0000
++++ models/huggingface_transformers/src/transformers/models/blip/modeling_blip.py.opt_1	2023-11-21 18:19:11.573677592 +0000
+@@ -336,7 +336,8 @@
+         attention_scores = attention_scores * self.scale
+ 
+         # Normalize the attention scores to probabilities.
+-        attention_probs = nn.functional.softmax(attention_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_probs = softmax_softmax(attention_scores)
+ 
+         # This is actually dropping out entire tokens to attend to, which might
+         # seem a bit unusual, but is taken from the original Transformer paper.

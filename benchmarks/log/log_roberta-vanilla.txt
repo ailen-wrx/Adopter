@@ -1,0 +1,295 @@
+[2023-11-07 20:12:37,930] [INFO] [real_accelerator.py:133:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+11/07/2023 20:12:38 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1distributed training: True, 16-bits training: True
+11/07/2023 20:12:38 - INFO - __main__ - Training/evaluation parameters TrainingArguments(
+_n_gpu=1,
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_pin_memory=True,
+ddp_backend=None,
+ddp_broadcast_buffers=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+dispatch_batches=None,
+do_eval=False,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_steps=None,
+evaluation_strategy=no,
+fp16=True,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O1,
+fsdp=[],
+fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=apex,
+hub_always_push=False,
+hub_model_id=None,
+hub_private_repo=False,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_inputs_for_metrics=False,
+include_tokens_per_second=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=5e-05,
+length_column_name=length,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=/tmp/bert/runs/Nov07_20-12-38_ip-172-31-81-243,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=500,
+logging_strategy=steps,
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=20,
+metric_for_best_model=None,
+mp_parameters=,
+no_cuda=False,
+num_train_epochs=3.0,
+optim=adamw_hf,
+optim_args=None,
+output_dir=/tmp/bert/,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=16,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=True,
+report_to=[],
+resume_from_checkpoint=None,
+run_name=/tmp/bert/,
+save_on_each_node=False,
+save_safetensors=False,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+skip_memory_metrics=False,
+tf32=None,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_cpu=False,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.0,
+)
+Loading Dataset Infos from /home/ubuntu/.cache/huggingface/modules/datasets_modules/datasets/wikitext/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+11/07/2023 20:12:38 - INFO - datasets.info - Loading Dataset Infos from /home/ubuntu/.cache/huggingface/modules/datasets_modules/datasets/wikitext/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+Overwrite dataset info from restored data version if exists.
+11/07/2023 20:12:38 - INFO - datasets.builder - Overwrite dataset info from restored data version if exists.
+Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+11/07/2023 20:12:38 - INFO - datasets.info - Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+Found cached dataset wikitext (/home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126)
+11/07/2023 20:12:38 - INFO - datasets.builder - Found cached dataset wikitext (/home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126)
+Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+11/07/2023 20:12:38 - INFO - datasets.info - Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+[INFO|configuration_utils.py:716] 2023-11-07 20:12:38,999 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--roberta-base/snapshots/bc2764f8af2e92b6eb5679868df33e224075ca68/config.json
+[INFO|configuration_utils.py:776] 2023-11-07 20:12:39,000 >> Model config RobertaConfig {
+  "_name_or_path": "roberta-base",
+  "architectures": [
+    "RobertaForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": 0,
+  "classifier_dropout": null,
+  "eos_token_id": 2,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-05,
+  "max_position_embeddings": 514,
+  "model_type": "roberta",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "pad_token_id": 1,
+  "position_embedding_type": "absolute",
+  "transformers_version": "4.35.0.dev0",
+  "type_vocab_size": 1,
+  "use_cache": true,
+  "vocab_size": 50265
+}
+
+[INFO|tokenization_auto.py:551] 2023-11-07 20:12:39,016 >> Could not locate the tokenizer configuration file, will try to use the model config instead.
+[INFO|configuration_utils.py:716] 2023-11-07 20:12:39,039 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--roberta-base/snapshots/bc2764f8af2e92b6eb5679868df33e224075ca68/config.json
+[INFO|configuration_utils.py:776] 2023-11-07 20:12:39,040 >> Model config RobertaConfig {
+  "_name_or_path": "roberta-base",
+  "architectures": [
+    "RobertaForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": 0,
+  "classifier_dropout": null,
+  "eos_token_id": 2,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-05,
+  "max_position_embeddings": 514,
+  "model_type": "roberta",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "pad_token_id": 1,
+  "position_embedding_type": "absolute",
+  "transformers_version": "4.35.0.dev0",
+  "type_vocab_size": 1,
+  "use_cache": true,
+  "vocab_size": 50265
+}
+
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:12:39,095 >> loading file vocab.json from cache at /home/ubuntu/.cache/huggingface/hub/models--roberta-base/snapshots/bc2764f8af2e92b6eb5679868df33e224075ca68/vocab.json
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:12:39,095 >> loading file merges.txt from cache at /home/ubuntu/.cache/huggingface/hub/models--roberta-base/snapshots/bc2764f8af2e92b6eb5679868df33e224075ca68/merges.txt
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:12:39,095 >> loading file tokenizer.json from cache at /home/ubuntu/.cache/huggingface/hub/models--roberta-base/snapshots/bc2764f8af2e92b6eb5679868df33e224075ca68/tokenizer.json
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:12:39,095 >> loading file added_tokens.json from cache at None
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:12:39,095 >> loading file special_tokens_map.json from cache at None
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:12:39,095 >> loading file tokenizer_config.json from cache at None
+[INFO|configuration_utils.py:716] 2023-11-07 20:12:39,095 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--roberta-base/snapshots/bc2764f8af2e92b6eb5679868df33e224075ca68/config.json
+[INFO|configuration_utils.py:776] 2023-11-07 20:12:39,096 >> Model config RobertaConfig {
+  "_name_or_path": "roberta-base",
+  "architectures": [
+    "RobertaForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "bos_token_id": 0,
+  "classifier_dropout": null,
+  "eos_token_id": 2,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-05,
+  "max_position_embeddings": 514,
+  "model_type": "roberta",
+  "num_attention_heads": 12,
+  "num_hidden_layers": 12,
+  "pad_token_id": 1,
+  "position_embedding_type": "absolute",
+  "transformers_version": "4.35.0.dev0",
+  "type_vocab_size": 1,
+  "use_cache": true,
+  "vocab_size": 50265
+}
+
+11/07/2023 20:12:39 - INFO - __main__ - Training new model from scratch
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-7acc970f6d14c1b3.arrow
+11/07/2023 20:12:41 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-7acc970f6d14c1b3.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-4dd9deef54e369f7.arrow
+11/07/2023 20:12:41 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-4dd9deef54e369f7.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-6ddfe6d0877db775.arrow
+11/07/2023 20:12:41 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-6ddfe6d0877db775.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-ad57831dbe9cb23a.arrow
+11/07/2023 20:12:41 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-ad57831dbe9cb23a.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-b3e1e4a6b82efe4f.arrow
+11/07/2023 20:12:41 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-b3e1e4a6b82efe4f.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-f3b67a4566add8ed.arrow
+11/07/2023 20:12:41 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-f3b67a4566add8ed.arrow
+[INFO|trainer.py:535] 2023-11-07 20:12:42,963 >> max_steps is given, it will override any value given in num_train_epochs
+[INFO|trainer.py:693] 2023-11-07 20:12:43,304 >> The following columns in the training set don't have a corresponding argument in `RobertaForMaskedLM.forward` and have been ignored: special_tokens_mask. If special_tokens_mask are not expected by `RobertaForMaskedLM.forward`,  you can safely ignore this message.
+/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/optimization.py:411: FutureWarning: This implementation of AdamW is deprecated and will be removed in a future version. Use the PyTorch implementation torch.optim.AdamW instead, or set `no_deprecation_warning=True` to disable this warning
+  warnings.warn(
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+  warnings.warn(msg, DeprecatedFeatureWarning)
+Selected optimization level O1:  Insert automatic casts around Pytorch functions and Tensor methods.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+[INFO|trainer.py:1669] 2023-11-07 20:12:43,559 >> ***** Running training *****
+[INFO|trainer.py:1670] 2023-11-07 20:12:43,559 >>   Num examples = 19,242
+[INFO|trainer.py:1671] 2023-11-07 20:12:43,559 >>   Num Epochs = 1
+[INFO|trainer.py:1672] 2023-11-07 20:12:43,559 >>   Instantaneous batch size per device = 16
+[INFO|trainer.py:1675] 2023-11-07 20:12:43,559 >>   Total train batch size (w. parallel, distributed & accumulation) = 16
+[INFO|trainer.py:1676] 2023-11-07 20:12:43,559 >>   Gradient Accumulation steps = 1
+[INFO|trainer.py:1677] 2023-11-07 20:12:43,559 >>   Total optimization steps = 20
+[INFO|trainer.py:1678] 2023-11-07 20:12:43,560 >>   Number of trainable parameters = 124,697,433
+  0%|          | 0/20 [00:00<?, ?it/s][WARNING|logging.py:316] 2023-11-07 20:12:43,579 >> You're using a RobertaTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+[W reducer.cpp:1300] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+  5%|▌         | 1/20 [00:00<00:16,  1.12it/s] 10%|█         | 2/20 [00:01<00:08,  2.00it/s] 15%|█▌        | 3/20 [00:01<00:06,  2.67it/s] 20%|██        | 4/20 [00:01<00:05,  3.17it/s] 25%|██▌       | 5/20 [00:01<00:04,  3.53it/s] 30%|███       | 6/20 [00:02<00:03,  3.77it/s] 35%|███▌      | 7/20 [00:02<00:03,  3.98it/s] 40%|████      | 8/20 [00:02<00:02,  4.11it/s] 45%|████▌     | 9/20 [00:02<00:02,  4.22it/s] 50%|█████     | 10/20 [00:02<00:02,  4.28it/s] 55%|█████▌    | 11/20 [00:03<00:02,  4.30it/s] 60%|██████    | 12/20 [00:03<00:01,  4.36it/s] 65%|██████▌   | 13/20 [00:03<00:01,  4.38it/s] 70%|███████   | 14/20 [00:03<00:01,  4.32it/s] 75%|███████▌  | 15/20 [00:04<00:01,  4.18it/s] 80%|████████  | 16/20 [00:04<00:00,  4.22it/s] 85%|████████▌ | 17/20 [00:04<00:00,  4.30it/s] 90%|█████████ | 18/20 [00:04<00:00,  4.36it/s] 95%|█████████▌| 19/20 [00:04<00:00,  4.39it/s]100%|██████████| 20/20 [00:05<00:00,  4.32it/s][INFO|trainer.py:1905] 2023-11-07 20:12:48,799 >> 
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+                                               {'train_runtime': 5.2388, 'train_samples_per_second': 61.082, 'train_steps_per_second': 3.818, 'step_time_list': [0.8462784290313721, 0.20819425582885742, 0.2091388702392578, 0.20820951461791992, 0.2085115909576416, 0.21595144271850586, 0.21127820014953613, 0.21026206016540527, 0.2084660530090332, 0.2101905345916748, 0.21396160125732422, 0.21012163162231445, 0.21042752265930176, 0.22436094284057617, 0.24396347999572754, 0.21915483474731445, 0.20946598052978516, 0.20760345458984375, 0.20982909202575684, 0.2261042594909668], 'train_loss': 10.057485961914063, 'init_mem_cpu_alloc_delta': 585076736, 'init_mem_gpu_alloc_delta': 500092416, 'init_mem_cpu_peaked_delta': 380243968, 'init_mem_gpu_peaked_delta': 0, 'train_mem_cpu_alloc_delta': 737067008, 'train_mem_gpu_alloc_delta': 1537289728, 'train_mem_cpu_peaked_delta': 0, 'train_mem_gpu_peaked_delta': 2599503872, 'before_init_mem_cpu': 1055797248, 'before_init_mem_gpu': 0, 'epoch': 0.02}
+100%|██████████| 20/20 [00:05<00:00,  4.32it/s]100%|██████████| 20/20 [00:05<00:00,  3.73it/s]
+[INFO|trainer.py:2810] 2023-11-07 20:12:48,931 >> Saving model checkpoint to /tmp/bert/
+[INFO|configuration_utils.py:461] 2023-11-07 20:12:48,932 >> Configuration saved in /tmp/bert/config.json
+[INFO|modeling_utils.py:2121] 2023-11-07 20:12:52,522 >> Model weights saved in /tmp/bert/pytorch_model.bin
+[INFO|tokenization_utils_base.py:2447] 2023-11-07 20:12:52,523 >> tokenizer config file saved in /tmp/bert/tokenizer_config.json
+[INFO|tokenization_utils_base.py:2456] 2023-11-07 20:12:52,523 >> Special tokens file saved in /tmp/bert/special_tokens_map.json
+***** train metrics *****
+  before_init_mem_cpu        =                                                                                                                                   1006MB
+  before_init_mem_gpu        =                                                                                                                                      0MB
+  epoch                      =                                                                                                                                     0.02
+  init_mem_cpu_alloc_delta   =                                                                                                                                    557MB
+  init_mem_cpu_peaked_delta  =                                                                                                                                    362MB
+  init_mem_gpu_alloc_delta   =                                                                                                                                    476MB
+  init_mem_gpu_peaked_delta  =                                                                                                                                      0MB
+  step_time_list             = 0.8463,0.2082,0.2091,0.2082,0.2085,0.216,0.2113,0.2103,0.2085,0.2102,0.214,0.2101,0.2104,0.2244,0.244,0.2192,0.2095,0.2076,0.2098,0.2261
+  train_loss                 =                                                                                                                                  10.0575
+  train_mem_cpu_alloc_delta  =                                                                                                                                    702MB
+  train_mem_cpu_peaked_delta =                                                                                                                                      0MB
+  train_mem_gpu_alloc_delta  =                                                                                                                                   1466MB
+  train_mem_gpu_peaked_delta =                                                                                                                                   2479MB
+  train_runtime              =                                                                                                                               0:00:05.23
+  train_samples              =                                                                                                                                    19242
+  train_samples_per_second   =                                                                                                                                   61.082
+  train_steps_per_second     =                                                                                                                                    3.818
+[INFO|modelcard.py:452] 2023-11-07 20:12:52,656 >> Dropping the following result as it does not have all the necessary fields:
+{'task': {'name': 'Masked Language Modeling', 'type': 'fill-mask'}, 'dataset': {'name': 'wikitext wikitext-2-raw-v1', 'type': 'wikitext', 'config': 'wikitext-2-raw-v1', 'split': 'train', 'args': 'wikitext-2-raw-v1'}}

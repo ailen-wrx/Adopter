@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/xlnet/modeling_xlnet.py.ori	2023-11-21 18:22:12.937349395 +0000
++++ models/huggingface_transformers/src/transformers/models/xlnet/modeling_xlnet.py.opt_2	2023-11-21 18:22:12.941349388 +0000
+@@ -2043,7 +2043,8 @@
+             bsz, slen, hsz = hidden_states.size()
+             start_log_probs = nn.functional.softmax(start_logits, dim=-1)  # shape (bsz, slen)
+ 
+-            start_top_log_probs, start_top_index = torch.topk(
++            from xformers.triton.softmax import softmax as softmax_softmax
++            start_log_probs = softmax_softmax(start_logits)
+                 start_log_probs, self.start_n_top, dim=-1
+             )  # shape (bsz, start_n_top)
+             start_top_index_exp = start_top_index.unsqueeze(-1).expand(-1, -1, hsz)  # shape (bsz, start_n_top, hsz)

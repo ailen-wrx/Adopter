@@ -1,0 +1,12 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/regnet/modeling_regnet.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/regnet/modeling_regnet.py
+@@ -113,8 +113,7 @@
+ 
+     def __init__(self, in_channels: int, out_channels: int, stride: int = 2):
+         super().__init__()
+-        self.convolution = nn.Conv2d(in_channels, out_channels, kernel_size=1, stride=stride, bias=False)
+-        self.normalization = nn.BatchNorm2d(out_channels)
++        self.conv_batchnorm = torchscript_ops_FusedConv2dBatchNorm2d(in_channels, out_channels, 1, stride=stride, bias=False)
+ 
+     def forward(self, input: Tensor) -> Tensor:
+         hidden_state = self.convolution(input)

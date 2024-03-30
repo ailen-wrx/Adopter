@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/flava/modeling_flava.py.ori	2023-11-21 18:19:47.101613351 +0000
++++ models/huggingface_transformers/src/transformers/models/flava/modeling_flava.py.opt_1	2023-11-21 18:19:47.105613343 +0000
+@@ -475,7 +475,8 @@
+             attention_scores = attention_scores + attention_mask
+ 
+         # Normalize the attention scores to probabilities.
+-        attention_probs = nn.functional.softmax(attention_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_probs = softmax_softmax(attention_scores)
+         # Normalize the attention scores to probabilities.
+         attention_probs = nn.functional.softmax(attention_scores, dim=-1)
+ 

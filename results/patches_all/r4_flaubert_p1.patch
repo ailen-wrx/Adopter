@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/flaubert/modeling_flaubert.py.ori	2023-11-21 18:19:46.389614638 +0000
++++ models/huggingface_transformers/src/transformers/models/flaubert/modeling_flaubert.py.opt_1	2023-11-21 18:19:46.389614638 +0000
+@@ -176,7 +176,8 @@
+         mask = (mask == 0).view(mask_reshape).expand_as(scores)  # (bs, n_heads, qlen, klen)
+         scores.masked_fill_(mask, torch.finfo(scores.dtype).min)  # (bs, n_heads, qlen, klen)
+ 
+-        weights = nn.functional.softmax(scores.float(), dim=-1).type_as(scores)  # (bs, n_heads, qlen, klen)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        weights = softmax_softmax(scores.float()).type_as(scores)
+         weights = nn.functional.dropout(weights, p=self.dropout, training=self.training)  # (bs, n_heads, qlen, klen)
+ 
+         # Mask heads if we want to

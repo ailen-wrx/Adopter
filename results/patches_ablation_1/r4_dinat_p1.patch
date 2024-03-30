@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/dinat/modeling_dinat.py.ori	2023-12-14 20:49:54.585960623 +0000
++++ models/huggingface_transformers/src/transformers/models/dinat/modeling_dinat.py.opt_1	2023-12-14 20:49:54.589960614 +0000
+@@ -351,7 +351,8 @@
+         attention_scores = natten2dqkrpb(query_layer, key_layer, self.rpb, self.kernel_size, self.dilation)
+ 
+         # Normalize the attention scores to probabilities.
+-        attention_probs = nn.functional.softmax(attention_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_probs = softmax_softmax(attention_scores)
+ 
+         # This is actually dropping out entire tokens to attend to, which might
+         # seem a bit unusual, but is taken from the original Transformer paper.

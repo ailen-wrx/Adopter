@@ -1,0 +1,30 @@
+--- models/huggingface_transformers/src/transformers/models/gptj/modeling_gptj.py.ori	2023-11-21 18:41:45.155196831 +0000
++++ models/huggingface_transformers/src/transformers/models/gptj/modeling_gptj.py.opt_1	2023-11-21 18:41:45.159196822 +0000
+@@ -106,9 +106,8 @@
+             )
+         self.scale_attn = torch.sqrt(torch.tensor(self.head_dim, dtype=torch.float32)).to(torch.get_default_dtype())
+ 
+-        self.k_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)
+-        self.v_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)
+-        self.q_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)
++        from slapo.op.linear import FusedQKV as linear_FusedQKV
++        self.qkv = linear_FusedQKV(self.embed_dim, self.num_heads, 1)
+         self.out_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)
+         self.rotary_dim = config.rotary_dim
+         pos_embd_dim = self.rotary_dim or self.embed_dim
+@@ -204,13 +203,8 @@
+         Tuple[torch.Tensor, Tuple[torch.Tensor]],
+         Optional[Tuple[torch.Tensor, Tuple[torch.Tensor], Tuple[torch.Tensor, ...]]],
+     ]:
+-        query = self.q_proj(hidden_states)
+-        key = self.k_proj(hidden_states)
+-        value = self.v_proj(hidden_states)
+-
+-        query = self._split_heads(query, self.num_attention_heads, self.head_dim, True)
+-        key = self._split_heads(key, self.num_attention_heads, self.head_dim, True)
+-        value = self._split_heads(value, self.num_attention_heads, self.head_dim, False)
++        (query, key, value) = self.qkv(hidden_states)
++
+ 
+         if is_torch_fx_proxy(position_ids) or torch.jit.is_tracing():
+             # The logic to conditionally copy to GPU could not be traced, so we do this

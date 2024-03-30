@@ -1,0 +1,270 @@
+[2023-11-07 20:37:05,275] [INFO] [real_accelerator.py:133:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+11/07/2023 20:37:05 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1distributed training: True, 16-bits training: True
+11/07/2023 20:37:05 - INFO - __main__ - Training/evaluation parameters TrainingArguments(
+_n_gpu=1,
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_pin_memory=True,
+ddp_backend=None,
+ddp_broadcast_buffers=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+dispatch_batches=None,
+do_eval=False,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_steps=None,
+evaluation_strategy=no,
+fp16=True,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O1,
+fsdp=[],
+fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=apex,
+hub_always_push=False,
+hub_model_id=None,
+hub_private_repo=False,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_inputs_for_metrics=False,
+include_tokens_per_second=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=5e-05,
+length_column_name=length,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=./groupvit/runs/Nov07_20-37-05_ip-172-31-81-243,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=500,
+logging_strategy=steps,
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=20,
+metric_for_best_model=None,
+mp_parameters=,
+no_cuda=False,
+num_train_epochs=3.0,
+optim=adamw_hf,
+optim_args=None,
+output_dir=./groupvit,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=8,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=False,
+report_to=[],
+resume_from_checkpoint=None,
+run_name=./groupvit,
+save_on_each_node=False,
+save_safetensors=False,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+skip_memory_metrics=False,
+tf32=None,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_cpu=False,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.1,
+)
+Repo card metadata block was not found. Setting CardData to empty.
+11/07/2023 20:37:06 - WARNING - huggingface_hub.repocard - Repo card metadata block was not found. Setting CardData to empty.
+Downloading (…)okenizer_config.json:   0%|          | 0.00/997 [00:00<?, ?B/s]Downloading (…)okenizer_config.json: 100%|██████████| 997/997 [00:00<00:00, 150kB/s]
+Downloading (…)olve/main/vocab.json:   0%|          | 0.00/862k [00:00<?, ?B/s]Downloading (…)olve/main/vocab.json: 100%|██████████| 862k/862k [00:00<00:00, 55.5MB/s]
+Downloading (…)olve/main/merges.txt:   0%|          | 0.00/525k [00:00<?, ?B/s]Downloading (…)olve/main/merges.txt: 100%|██████████| 525k/525k [00:00<00:00, 55.2MB/s]
+Downloading (…)/main/tokenizer.json:   0%|          | 0.00/2.22M [00:00<?, ?B/s]Downloading (…)/main/tokenizer.json: 100%|██████████| 2.22M/2.22M [00:00<00:00, 5.38MB/s]Downloading (…)/main/tokenizer.json: 100%|██████████| 2.22M/2.22M [00:00<00:00, 5.35MB/s]
+Downloading (…)cial_tokens_map.json:   0%|          | 0.00/472 [00:00<?, ?B/s]Downloading (…)cial_tokens_map.json: 100%|██████████| 472/472 [00:00<00:00, 294kB/s]
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:37:06,929 >> loading file vocab.json from cache at /home/ubuntu/.cache/huggingface/hub/models--nvidia--groupvit-gcc-yfcc/snapshots/751f6d9a37c9e9e42ba527cc99d3c21b137bd2a3/vocab.json
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:37:06,929 >> loading file merges.txt from cache at /home/ubuntu/.cache/huggingface/hub/models--nvidia--groupvit-gcc-yfcc/snapshots/751f6d9a37c9e9e42ba527cc99d3c21b137bd2a3/merges.txt
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:37:06,929 >> loading file tokenizer.json from cache at /home/ubuntu/.cache/huggingface/hub/models--nvidia--groupvit-gcc-yfcc/snapshots/751f6d9a37c9e9e42ba527cc99d3c21b137bd2a3/tokenizer.json
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:37:06,929 >> loading file added_tokens.json from cache at None
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:37:06,929 >> loading file special_tokens_map.json from cache at /home/ubuntu/.cache/huggingface/hub/models--nvidia--groupvit-gcc-yfcc/snapshots/751f6d9a37c9e9e42ba527cc99d3c21b137bd2a3/special_tokens_map.json
+[INFO|tokenization_utils_base.py:2053] 2023-11-07 20:37:06,929 >> loading file tokenizer_config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--nvidia--groupvit-gcc-yfcc/snapshots/751f6d9a37c9e9e42ba527cc99d3c21b137bd2a3/tokenizer_config.json
+Downloading (…)rocessor_config.json:   0%|          | 0.00/380 [00:00<?, ?B/s]Downloading (…)rocessor_config.json: 100%|██████████| 380/380 [00:00<00:00, 234kB/s]
+[INFO|image_processing_utils.py:369] 2023-11-07 20:37:07,045 >> loading configuration file preprocessor_config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--nvidia--groupvit-gcc-yfcc/snapshots/751f6d9a37c9e9e42ba527cc99d3c21b137bd2a3/preprocessor_config.json
+[WARNING|image_processing_auto.py:358] 2023-11-07 20:37:07,045 >> Could not find image processor class in the image processor config or the model config. Loading based on pattern matching with the model's feature extractor configuration.
+[INFO|image_processing_utils.py:732] 2023-11-07 20:37:07,048 >> size should be a dictionary on of the following set of keys: ({'width', 'height'}, {'shortest_edge'}, {'shortest_edge', 'longest_edge'}, {'longest_edge'}), got 224. Converted to {'shortest_edge': 224}.
+[INFO|image_processing_utils.py:732] 2023-11-07 20:37:07,048 >> crop_size should be a dictionary on of the following set of keys: ({'width', 'height'}, {'shortest_edge'}, {'shortest_edge', 'longest_edge'}, {'longest_edge'}), got 224. Converted to {'height': 224, 'width': 224}.
+[INFO|image_processing_utils.py:419] 2023-11-07 20:37:07,048 >> Image processor CLIPImageProcessor {
+  "crop_size": {
+    "height": 224,
+    "width": 224
+  },
+  "do_center_crop": true,
+  "do_convert_rgb": true,
+  "do_normalize": true,
+  "do_rescale": true,
+  "do_resize": true,
+  "image_mean": [
+    0.48145466,
+    0.4578275,
+    0.40821073
+  ],
+  "image_processor_type": "CLIPImageProcessor",
+  "image_std": [
+    0.26862954,
+    0.26130258,
+    0.27577711
+  ],
+  "processor_class": "CLIPProcessor",
+  "resample": 3,
+  "rescale_factor": 0.00392156862745098,
+  "size": {
+    "shortest_edge": 224
+  }
+}
+
+[INFO|configuration_utils.py:716] 2023-11-07 20:37:07,072 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--nvidia--groupvit-gcc-yfcc/snapshots/751f6d9a37c9e9e42ba527cc99d3c21b137bd2a3/config.json
+[INFO|configuration_groupvit.py:380] 2023-11-07 20:37:07,077 >> `text_config` is `None`. Initializing the `GroupViTTextConfig` with default values.
+[INFO|configuration_groupvit.py:384] 2023-11-07 20:37:07,078 >> `vision_config` is `None`. initializing the `GroupViTVisionConfig` with default values.
+[INFO|configuration_utils.py:776] 2023-11-07 20:37:07,079 >> Model config GroupViTConfig {
+  "_name_or_path": "nvidia/groupvit-gcc-yfcc",
+  "architectures": [
+    "GroupViTModel"
+  ],
+  "initializer_factor": 1.0,
+  "initializer_range": 0.02,
+  "logit_scale_init_value": 2.6592,
+  "model_type": "groupvit",
+  "output_segmentation": false,
+  "projection_dim": 256,
+  "projection_intermediate_dim": 4096,
+  "text_config": {
+    "bos_token_id": 0,
+    "eos_token_id": 2,
+    "model_type": "groupvit_text_model"
+  },
+  "torch_dtype": "float32",
+  "transformers_version": "4.35.0.dev0",
+  "vision_config": {
+    "model_type": "groupvit_vision_model",
+    "qkv_bias": true
+  }
+}
+
+Downloading pytorch_model.bin:   0%|          | 0.00/223M [00:00<?, ?B/s]Downloading pytorch_model.bin:  19%|█▉        | 41.9M/223M [00:00<00:00, 358MB/s]Downloading pytorch_model.bin:  38%|███▊      | 83.9M/223M [00:00<00:00, 357MB/s]Downloading pytorch_model.bin:  56%|█████▋    | 126M/223M [00:00<00:00, 357MB/s] Downloading pytorch_model.bin:  75%|███████▌  | 168M/223M [00:00<00:00, 360MB/s]Downloading pytorch_model.bin:  94%|█████████▍| 210M/223M [00:00<00:00, 362MB/s]Downloading pytorch_model.bin: 100%|██████████| 223M/223M [00:00<00:00, 357MB/s]
+[INFO|modeling_utils.py:3013] 2023-11-07 20:37:08,299 >> loading weights file pytorch_model.bin from cache at /home/ubuntu/.cache/huggingface/hub/models--nvidia--groupvit-gcc-yfcc/snapshots/751f6d9a37c9e9e42ba527cc99d3c21b137bd2a3/pytorch_model.bin
+[INFO|modeling_utils.py:3803] 2023-11-07 20:37:09,013 >> All model checkpoint weights were used when initializing GroupViTModel.
+
+[WARNING|modeling_utils.py:3824] 2023-11-07 20:37:09,013 >> Some weights of GroupViTModel were not initialized from the model checkpoint at nvidia/groupvit-gcc-yfcc and are newly initialized because the shapes did not match:
+- text_model.embeddings.position_embedding.weight: found shape torch.Size([77, 256]) in the checkpoint and torch.Size([256, 256]) in the model instantiated
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+[INFO|trainer.py:535] 2023-11-07 20:37:10,088 >> max_steps is given, it will override any value given in num_train_epochs
+/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/optimization.py:411: FutureWarning: This implementation of AdamW is deprecated and will be removed in a future version. Use the PyTorch implementation torch.optim.AdamW instead, or set `no_deprecation_warning=True` to disable this warning
+  warnings.warn(
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+  warnings.warn(msg, DeprecatedFeatureWarning)
+Selected optimization level O1:  Insert automatic casts around Pytorch functions and Tensor methods.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O1
+cast_model_type        : None
+patch_torch_functions  : True
+keep_batchnorm_fp32    : None
+master_weights         : None
+loss_scale             : dynamic
+[INFO|trainer.py:1669] 2023-11-07 20:37:10,747 >> ***** Running training *****
+[INFO|trainer.py:1670] 2023-11-07 20:37:10,748 >>   Num examples = 80
+[INFO|trainer.py:1671] 2023-11-07 20:37:10,748 >>   Num Epochs = 2
+[INFO|trainer.py:1672] 2023-11-07 20:37:10,748 >>   Instantaneous batch size per device = 8
+[INFO|trainer.py:1675] 2023-11-07 20:37:10,748 >>   Total train batch size (w. parallel, distributed & accumulation) = 8
+[INFO|trainer.py:1676] 2023-11-07 20:37:10,748 >>   Gradient Accumulation steps = 1
+[INFO|trainer.py:1677] 2023-11-07 20:37:10,748 >>   Total optimization steps = 20
+[INFO|trainer.py:1678] 2023-11-07 20:37:10,749 >>   Number of trainable parameters = 55,772,433
+  0%|          | 0/20 [00:00<?, ?it/s]/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torchvision/transforms/functional.py:1603: UserWarning: The default value of the antialias parameter of all the resizing transforms (Resize(), RandomResizedCrop(), etc.) will change from None to True in v0.17, in order to be consistent across the PIL and Tensor backends. To suppress this warning, directly pass antialias=True (recommended, future default), antialias=None (current default, which means False for Tensors and True for PIL), or antialias=False (only works on Tensors - PIL will still use antialiasing). This also applies if you are using the inference transforms from the models weights: update the call to weights.transforms(antialias=True).
+  warnings.warn(
+[W reducer.cpp:1300] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32768.0
+  5%|▌         | 1/20 [00:01<00:24,  1.31s/it]Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16384.0
+ 10%|█         | 2/20 [00:01<00:12,  1.43it/s]Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8192.0
+ 15%|█▌        | 3/20 [00:01<00:08,  1.99it/s]Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4096.0
+ 20%|██        | 4/20 [00:02<00:06,  2.44it/s] 25%|██▌       | 5/20 [00:02<00:05,  2.51it/s]Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 2048.0
+ 30%|███       | 6/20 [00:02<00:04,  2.81it/s] 35%|███▌      | 7/20 [00:03<00:04,  2.83it/s] 40%|████      | 8/20 [00:03<00:04,  2.87it/s] 45%|████▌     | 9/20 [00:03<00:03,  2.89it/s] 50%|█████     | 10/20 [00:04<00:03,  3.03it/s] 55%|█████▌    | 11/20 [00:04<00:03,  2.85it/s] 60%|██████    | 12/20 [00:04<00:02,  2.86it/s] 65%|██████▌   | 13/20 [00:05<00:02,  2.89it/s] 70%|███████   | 14/20 [00:05<00:02,  2.92it/s] 75%|███████▌  | 15/20 [00:05<00:01,  2.93it/s] 80%|████████  | 16/20 [00:06<00:01,  2.92it/s] 85%|████████▌ | 17/20 [00:06<00:01,  2.92it/s] 90%|█████████ | 18/20 [00:06<00:00,  2.93it/s] 95%|█████████▌| 19/20 [00:07<00:00,  2.92it/s]100%|██████████| 20/20 [00:07<00:00,  3.07it/s][INFO|trainer.py:1905] 2023-11-07 20:37:18,256 >> 
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+                                               {'train_runtime': 7.5065, 'train_samples_per_second': 21.315, 'train_steps_per_second': 2.664, 'step_time_list': [0.28745460510253906, 0.2897226810455322, 0.28548479080200195, 0.28359174728393555, 0.2877781391143799, 0.28642702102661133, 0.28373026847839355, 0.2847096920013428, 0.2862379550933838, 0.28581762313842773], 'train_loss': 4.253501510620117, 'init_mem_cpu_alloc_delta': 787451904, 'init_mem_gpu_alloc_delta': 223816192, 'init_mem_cpu_peaked_delta': 50016256, 'init_mem_gpu_peaked_delta': 0, 'train_mem_cpu_alloc_delta': 1422336000, 'train_mem_gpu_alloc_delta': 699059712, 'train_mem_cpu_peaked_delta': 0, 'train_mem_gpu_peaked_delta': 711696384, 'before_init_mem_cpu': 951697408, 'before_init_mem_gpu': 0, 'epoch': 2.0}
+100%|██████████| 20/20 [00:07<00:00,  3.07it/s]100%|██████████| 20/20 [00:07<00:00,  2.61it/s]
+[INFO|trainer.py:2810] 2023-11-07 20:37:18,404 >> Saving model checkpoint to ./groupvit
+[INFO|configuration_groupvit.py:380] 2023-11-07 20:37:18,405 >> `text_config` is `None`. Initializing the `GroupViTTextConfig` with default values.
+[INFO|configuration_groupvit.py:384] 2023-11-07 20:37:18,405 >> `vision_config` is `None`. initializing the `GroupViTVisionConfig` with default values.
+[INFO|configuration_utils.py:461] 2023-11-07 20:37:18,406 >> Configuration saved in ./groupvit/config.json
+[INFO|modeling_utils.py:2121] 2023-11-07 20:37:19,392 >> Model weights saved in ./groupvit/pytorch_model.bin
+[INFO|tokenization_utils_base.py:2447] 2023-11-07 20:37:19,393 >> tokenizer config file saved in ./groupvit/tokenizer_config.json
+[INFO|tokenization_utils_base.py:2456] 2023-11-07 20:37:19,399 >> Special tokens file saved in ./groupvit/special_tokens_map.json
+[INFO|image_processing_utils.py:253] 2023-11-07 20:37:19,447 >> Image processor saved in ./groupvit/preprocessor_config.json
+***** train metrics *****
+  before_init_mem_cpu        =                                                                 907MB
+  before_init_mem_gpu        =                                                                   0MB
+  epoch                      =                                                                   2.0
+  init_mem_cpu_alloc_delta   =                                                                 750MB
+  init_mem_cpu_peaked_delta  =                                                                  47MB
+  init_mem_gpu_alloc_delta   =                                                                 213MB
+  init_mem_gpu_peaked_delta  =                                                                   0MB
+  step_time_list             = 0.2875,0.2897,0.2855,0.2836,0.2878,0.2864,0.2837,0.2847,0.2862,0.2858
+  train_loss                 =                                                                4.2535
+  train_mem_cpu_alloc_delta  =                                                                1356MB
+  train_mem_cpu_peaked_delta =                                                                   0MB
+  train_mem_gpu_alloc_delta  =                                                                 666MB
+  train_mem_gpu_peaked_delta =                                                                 678MB
+  train_runtime              =                                                            0:00:07.50
+  train_samples_per_second   =                                                                21.315
+  train_steps_per_second     =                                                                 2.664
+[INFO|modelcard.py:452] 2023-11-07 20:37:19,472 >> Dropping the following result as it does not have all the necessary fields:
+{'dataset': {'name': 'ydshieh/coco_dataset_script 2017', 'type': 'ydshieh/coco_dataset_script', 'config': '2017', 'split': 'train', 'args': '2017'}}

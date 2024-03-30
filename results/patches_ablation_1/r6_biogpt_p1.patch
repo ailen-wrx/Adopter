@@ -1,0 +1,18 @@
+--- models/huggingface_transformers/src/transformers/models/biogpt/modeling_biogpt.py.ori	2023-12-14 21:08:22.983572567 +0000
++++ models/huggingface_transformers/src/transformers/models/biogpt/modeling_biogpt.py.opt_1	2023-12-14 21:08:22.987572558 +0000
+@@ -278,12 +278,13 @@
+             is_decoder=True,
+         )
+         self.dropout = config.hidden_dropout_prob
+-        self.activation_fn = ACT2FN[config.hidden_act]
+         self.activation_dropout = config.activation_dropout
+ 
+         self.self_attn_layer_norm = nn.LayerNorm(self.embed_dim)
+ 
+-        self.fc1 = nn.Linear(self.embed_dim, config.intermediate_size)
++        self.fc1 = torch.nn.Linear(self.embed_dim, config.intermediate_size, bias=False)
++        from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++        self.activation_fn = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.fc1.weight)
+         self.fc2 = nn.Linear(config.intermediate_size, self.embed_dim)
+         self.final_layer_norm = nn.LayerNorm(self.embed_dim)
+ 

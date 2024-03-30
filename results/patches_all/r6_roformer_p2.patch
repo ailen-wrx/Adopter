@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/roformer/modeling_roformer.py.ori	2023-11-21 18:30:08.540486664 +0000
++++ models/huggingface_transformers/src/transformers/models/roformer/modeling_roformer.py.opt_2	2023-11-21 18:30:08.544486657 +0000
+@@ -641,10 +641,12 @@
+ class RoFormerPredictionHeadTransform(nn.Module):
+     def __init__(self, config):
+         super().__init__()
+-        self.dense = nn.Linear(config.hidden_size, config.embedding_size)
+         if isinstance(config.hidden_act, str):
+-            self.transform_act_fn = ACT2FN[config.hidden_act]
++            self.dense = torch.nn.Linear(config.hidden_size, config.embedding_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.transform_act_fn = torchscript_ops_FusedBiasGELU(config.embedding_size, prev_weight=self.dense.weight)
+         else:
++            self.dense = nn.Linear(config.hidden_size, config.embedding_size)
+             self.transform_act_fn = config.hidden_act
+         self.LayerNorm = nn.LayerNorm(config.embedding_size, eps=config.layer_norm_eps)
+ 

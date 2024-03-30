@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/mobilevitv2/modeling_mobilevitv2.py.ori	2023-11-21 18:20:38.233520848 +0000
++++ models/huggingface_transformers/src/transformers/models/mobilevitv2/modeling_mobilevitv2.py.opt_1	2023-11-21 18:20:38.237520841 +0000
+@@ -268,7 +268,8 @@
+         query, key, value = torch.split(qkv, split_size_or_sections=[1, self.embed_dim, self.embed_dim], dim=1)
+ 
+         # apply softmax along num_patches dimension
+-        context_scores = torch.nn.functional.softmax(query, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        context_scores = softmax_softmax(query)
+         context_scores = self.attn_dropout(context_scores)
+ 
+         # Compute context vector

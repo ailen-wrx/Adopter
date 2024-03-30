@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/umt5/modeling_umt5.py.ori	2023-11-21 18:21:48.777393148 +0000
++++ models/huggingface_transformers/src/transformers/models/umt5/modeling_umt5.py.opt_1	2023-11-21 18:21:48.781393141 +0000
+@@ -301,7 +301,8 @@
+ 
+         attention_scores += position_bias
+         # (batch_size, n_heads, seq_length, key_length)
+-        attn_weights = nn.functional.softmax(attention_scores.float(), dim=-1).type_as(attention_scores)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attention_scores.float()).type_as(attention_scores)
+         attn_weights = nn.functional.dropout(attn_weights, p=self.dropout, training=self.training)
+ 
+         # Mask heads if we want to

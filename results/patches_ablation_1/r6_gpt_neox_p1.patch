@@ -1,0 +1,15 @@
+--- models/huggingface_transformers/src/transformers/models/gpt_neox/modeling_gpt_neox.py.ori	2023-12-14 21:11:04.059233371 +0000
++++ models/huggingface_transformers/src/transformers/models/gpt_neox/modeling_gpt_neox.py.opt_1	2023-12-14 21:11:04.059233371 +0000
+@@ -389,9 +389,10 @@
+ class GPTNeoXMLP(nn.Module):
+     def __init__(self, config):
+         super().__init__()
+-        self.dense_h_to_4h = nn.Linear(config.hidden_size, config.intermediate_size)
++        self.dense_h_to_4h = torch.nn.Linear(config.hidden_size, config.intermediate_size, bias=False)
++        from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++        self.act = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.dense_h_to_4h.weight)
+         self.dense_4h_to_h = nn.Linear(config.intermediate_size, config.hidden_size)
+-        self.act = ACT2FN[config.hidden_act]
+ 
+     def forward(self, hidden_states):
+         hidden_states = self.dense_h_to_4h(hidden_states)

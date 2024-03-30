@@ -1,0 +1,13 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/graphormer/modeling_graphormer.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/graphormer/modeling_graphormer.py
+@@ -412,9 +412,7 @@
+                         "The batch shape does not match the key or value shapes provided to the attention."
+                     )
+ 
+-        q = self.q_proj(query)
+-        k = self.k_proj(query)
+-        v = self.v_proj(query)
++        (q, k, v) = self.qkv(query)
+ 
+         q *= self.scaling
+ 

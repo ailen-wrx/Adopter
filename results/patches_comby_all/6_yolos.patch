@@ -1,0 +1,15 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/yolos/modeling_yolos.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/yolos/modeling_yolos.py
+@@ -372,11 +372,7 @@
+ class YolosIntermediate(nn.Module):
+     def __init__(self, config: YolosConfig) -> None:
+         super().__init__()
+-        self.dense = nn.Linear(config.hidden_size, config.intermediate_size)
+-        if isinstance(config.hidden_act, str):
+-            self.intermediate_act_fn = ACT2FN[config.hidden_act]
+-        else:
+-            self.intermediate_act_fn = config.hidden_act
++        self.dense = nn.Linear(config.hidden_size, config.intermediate_size, bias=False); assert (config.hidden_act == gelu); self.intermediate_act_fn = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.dense.weight)
+ 
+     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense(hidden_states)

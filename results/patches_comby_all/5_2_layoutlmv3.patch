@@ -1,0 +1,42 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/layoutlmv3/modeling_layoutlmv3.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/layoutlmv3/modeling_layoutlmv3.py
+@@ -241,8 +241,7 @@
+         self.word_embeddings = nn.Embedding(config.vocab_size, config.hidden_size, padding_idx=config.pad_token_id)
+         self.token_type_embeddings = nn.Embedding(config.type_vocab_size, config.hidden_size)
+ 
+-        self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
+-        self.dropout = nn.Dropout(config.hidden_dropout_prob)
++        from epoi.ops.torchscript_ops import FusedDropoutAddLayerNorm; self.fused_dropout_layernorm = epoi.ops.torchscript_ops.FusedDropoutAddLayerNorm(config.hidden_size, config.hidden_dropout_prob, config.layer_norm_eps)
+ 
+         # position_ids (1, len position emb) is contiguous in memory and exported when serialized
+         self.register_buffer(
+@@ -470,8 +469,7 @@
+     def __init__(self, config):
+         super().__init__()
+         self.dense = nn.Linear(config.hidden_size, config.hidden_size)
+-        self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
+-        self.dropout = nn.Dropout(config.hidden_dropout_prob)
++        from epoi.ops.torchscript_ops import FusedDropoutAddLayerNorm; self.fused_dropout_layernorm = epoi.ops.torchscript_ops.FusedDropoutAddLayerNorm(config.hidden_size, config.hidden_dropout_prob, config.layer_norm_eps)
+ 
+     def forward(self, hidden_states: torch.Tensor, input_tensor: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense(hidden_states)
+@@ -732,8 +730,7 @@
+     def __init__(self, config):
+         super().__init__()
+         self.dense = nn.Linear(config.intermediate_size, config.hidden_size)
+-        self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
+-        self.dropout = nn.Dropout(config.hidden_dropout_prob)
++        from epoi.ops.torchscript_ops import FusedDropoutAddLayerNorm; self.fused_dropout_layernorm = epoi.ops.torchscript_ops.FusedDropoutAddLayerNorm(config.hidden_size, config.hidden_dropout_prob, config.layer_norm_eps)
+ 
+     def forward(self, hidden_states: torch.Tensor, input_tensor: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense(hidden_states)
+@@ -764,8 +761,7 @@
+             self.pos_embed = nn.Parameter(torch.zeros(1, size * size + 1, config.hidden_size))
+             self.pos_drop = nn.Dropout(p=0.0)
+ 
+-            self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
+-            self.dropout = nn.Dropout(config.hidden_dropout_prob)
++            from epoi.ops.torchscript_ops import FusedDropoutAddLayerNorm; self.fused_dropout_layernorm = epoi.ops.torchscript_ops.FusedDropoutAddLayerNorm(config.hidden_size, config.hidden_dropout_prob, config.layer_norm_eps)
+ 
+             if self.config.has_relative_attention_bias or self.config.has_spatial_attention_bias:
+                 self.init_visual_bbox(image_size=(size, size))

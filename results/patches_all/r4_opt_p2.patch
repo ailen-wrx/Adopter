@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/opt/modeling_opt.py.ori	2023-11-21 18:20:59.005483256 +0000
++++ models/huggingface_transformers/src/transformers/models/opt/modeling_opt.py.opt_2	2023-11-21 18:20:59.009483248 +0000
+@@ -230,7 +230,8 @@
+         if attn_weights.dtype == torch.float16:
+             attn_weights = nn.functional.softmax(attn_weights, dim=-1, dtype=torch.float32).to(torch.float16)
+         else:
+-            attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++            from xformers.triton.softmax import softmax as softmax_softmax
++            attn_weights = softmax_softmax(attn_weights)
+ 
+         if layer_head_mask is not None:
+             if layer_head_mask.size() != (self.num_heads,):

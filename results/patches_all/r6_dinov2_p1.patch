@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/dinov2/modeling_dinov2.py.ori	2023-11-21 18:27:53.368732076 +0000
++++ models/huggingface_transformers/src/transformers/models/dinov2/modeling_dinov2.py.opt_1	2023-11-21 18:27:53.372732069 +0000
+@@ -338,10 +338,12 @@
+         super().__init__()
+         in_features = out_features = config.hidden_size
+         hidden_features = int(config.hidden_size * config.mlp_ratio)
+-        self.fc1 = nn.Linear(in_features, hidden_features, bias=True)
+         if isinstance(config.hidden_act, str):
+-            self.activation = ACT2FN[config.hidden_act]
++            self.fc1 = torch.nn.Linear(in_features, hidden_features, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.activation = torchscript_ops_FusedBiasGELU(hidden_features, prev_weight=self.fc1.weight)
+         else:
++            self.fc1 = nn.Linear(in_features, hidden_features, bias=True)
+             self.activation = config.hidden_act
+         self.fc2 = nn.Linear(hidden_features, out_features, bias=True)
+ 

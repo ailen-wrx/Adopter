@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/unispeech_sat/modeling_unispeech_sat.py.ori	2023-12-14 20:56:21.769108651 +0000
++++ models/huggingface_transformers/src/transformers/models/unispeech_sat/modeling_unispeech_sat.py.opt_3	2023-12-14 20:56:21.769108651 +0000
+@@ -1763,7 +1763,8 @@
+         logits = self.classifier(hidden_states)
+ 
+         loss = None
+-        if labels is not None:
++        from xformers.triton.softmax import softmax as softmax_softmax
++        norm_weights = softmax_softmax(self.layer_weights)
+             loss_fct = CrossEntropyLoss()
+             loss = loss_fct(logits.view(-1, self.num_labels), torch.argmax(labels.view(-1, self.num_labels), axis=1))
+ 

@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/wavlm/modeling_wavlm.py.ori	2023-11-21 18:22:02.249368752 +0000
++++ models/huggingface_transformers/src/transformers/models/wavlm/modeling_wavlm.py.opt_1	2023-11-21 18:22:02.249368752 +0000
+@@ -1524,7 +1524,8 @@
+         hidden_states = self.projector(hidden_states)
+         if attention_mask is None:
+             pooled_output = hidden_states.mean(dim=1)
+-        else:
++        from xformers.triton.softmax import softmax as softmax_softmax
++        norm_weights = softmax_softmax(self.layer_weights)
+             padding_mask = self._get_feature_vector_attention_mask(hidden_states.shape[1], attention_mask)
+             hidden_states[~padding_mask] = 0.0
+             pooled_output = hidden_states.sum(dim=1) / padding_mask.sum(dim=1).view(-1, 1)

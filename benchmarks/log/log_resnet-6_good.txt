@@ -1,0 +1,233 @@
+[2023-09-22 19:03:31,101] [INFO] [real_accelerator.py:133:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+09/22/2023 19:03:31 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1distributed training: True, 16-bits training: True
+09/22/2023 19:03:31 - INFO - __main__ - Training/evaluation parameters TrainingArguments(
+_n_gpu=1,
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_pin_memory=True,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+do_eval=False,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_steps=None,
+evaluation_strategy=no,
+fp16=True,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O2,
+fsdp=[],
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=apex,
+hub_model_id=None,
+hub_private_repo=False,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_inputs_for_metrics=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=2e-05,
+length_column_name=length,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=passive,
+log_on_each_node=True,
+logging_dir=/tmp/beans/runs/Sep22_19-03-31_ip-172-31-81-243,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=500,
+logging_strategy=steps,
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=20,
+metric_for_best_model=None,
+mp_parameters=,
+no_cuda=False,
+num_train_epochs=3.0,
+optim=adamw_apex_fused,
+output_dir=/tmp/beans/,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=8,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=False,
+report_to=[],
+resume_from_checkpoint=None,
+run_name=/tmp/beans/,
+save_on_each_node=False,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+sharded_ddp=[],
+skip_memory_metrics=False,
+tf32=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.0,
+xpu_backend=None,
+)
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/datasets/load.py:2072: FutureWarning: 'use_auth_token' was deprecated in favor of 'token' in version 2.14.0 and will be removed in 3.0.0.
+You can remove this warning by passing 'token=None' instead.
+  warnings.warn(
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/datasets/load.py:2086: FutureWarning: 'task' was deprecated in version 2.13.0 and will be removed in 3.0.0.
+
+  warnings.warn(
+[INFO|configuration_utils.py:653] 2023-09-22 19:03:31,972 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--microsoft--resnet-50/snapshots/4067a2728b9c93fbd67b9d5a30b03495ac74a46e/config.json
+[INFO|configuration_utils.py:705] 2023-09-22 19:03:31,973 >> Model config ResNetConfig {
+  "_name_or_path": "microsoft/resnet-50",
+  "architectures": [
+    "ResNetForImageClassification"
+  ],
+  "depths": [
+    3,
+    4,
+    6,
+    3
+  ],
+  "downsample_in_first_stage": false,
+  "embedding_size": 64,
+  "finetuning_task": "image-classification",
+  "hidden_act": "relu",
+  "hidden_sizes": [
+    256,
+    512,
+    1024,
+    2048
+  ],
+  "id2label": {
+    "0": "angular_leaf_spot",
+    "1": "bean_rust",
+    "2": "healthy"
+  },
+  "label2id": {
+    "angular_leaf_spot": "0",
+    "bean_rust": "1",
+    "healthy": "2"
+  },
+  "layer_type": "bottleneck",
+  "model_type": "resnet",
+  "num_channels": 3,
+  "torch_dtype": "float32",
+  "transformers_version": "4.24.0.dev0"
+}
+
+[INFO|feature_extraction_utils.py:437] 2023-09-22 19:03:32,920 >> loading configuration file preprocessor_config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--microsoft--resnet-50/snapshots/4067a2728b9c93fbd67b9d5a30b03495ac74a46e/preprocessor_config.json
+[INFO|feature_extraction_utils.py:474] 2023-09-22 19:03:32,923 >> Feature extractor ConvNextFeatureExtractor {
+  "crop_pct": 0.875,
+  "do_normalize": true,
+  "do_resize": true,
+  "feature_extractor_type": "ConvNextFeatureExtractor",
+  "image_mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "image_std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "resample": 3,
+  "size": 224
+}
+
+[INFO|trainer.py:503] 2023-09-22 19:03:34,221 >> max_steps is given, it will override any value given in num_train_epochs
+[INFO|trainer.py:557] 2023-09-22 19:03:34,222 >> Using apex half precision backend
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+  warnings.warn(msg, DeprecatedFeatureWarning)
+Selected optimization level O2:  FP16 training with FP32 batchnorm and FP32 master weights.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O2
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : True
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O2
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : True
+loss_scale             : dynamic
+[INFO|trainer.py:1607] 2023-09-22 19:03:34,921 >> ***** Running training *****
+[INFO|trainer.py:1608] 2023-09-22 19:03:34,921 >>   Num examples = 1034
+[INFO|trainer.py:1609] 2023-09-22 19:03:34,921 >>   Num Epochs = 1
+[INFO|trainer.py:1610] 2023-09-22 19:03:34,921 >>   Instantaneous batch size per device = 8
+[INFO|trainer.py:1611] 2023-09-22 19:03:34,921 >>   Total train batch size (w. parallel, distributed & accumulation) = 8
+[INFO|trainer.py:1612] 2023-09-22 19:03:34,921 >>   Gradient Accumulation steps = 1
+[INFO|trainer.py:1613] 2023-09-22 19:03:34,921 >>   Total optimization steps = 20
+  0%|          | 0/20 [00:00<?, ?it/s]Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32768.0
+  5%|▌         | 1/20 [00:01<00:26,  1.41s/it]Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 16384.0
+ 10%|█         | 2/20 [00:01<00:11,  1.52it/s]Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 8192.0
+ 15%|█▌        | 3/20 [00:01<00:07,  2.38it/s] 20%|██        | 4/20 [00:01<00:05,  3.19it/s]Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 4096.0
+ 25%|██▌       | 5/20 [00:01<00:03,  4.09it/s] 30%|███       | 6/20 [00:02<00:02,  4.91it/s] 35%|███▌      | 7/20 [00:02<00:02,  5.48it/s] 40%|████      | 8/20 [00:02<00:01,  6.19it/s] 45%|████▌     | 9/20 [00:02<00:01,  6.79it/s] 50%|█████     | 10/20 [00:02<00:01,  7.39it/s] 55%|█████▌    | 11/20 [00:02<00:01,  7.57it/s] 60%|██████    | 12/20 [00:02<00:01,  7.99it/s] 65%|██████▌   | 13/20 [00:02<00:00,  8.35it/s] 70%|███████   | 14/20 [00:03<00:00,  8.66it/s] 75%|███████▌  | 15/20 [00:03<00:00,  8.96it/s] 80%|████████  | 16/20 [00:03<00:00,  9.03it/s] 85%|████████▌ | 17/20 [00:03<00:00,  9.06it/s] 90%|█████████ | 18/20 [00:03<00:00,  9.20it/s] 95%|█████████▌| 19/20 [00:03<00:00,  9.25it/s]100%|██████████| 20/20 [00:03<00:00,  9.23it/s][INFO|trainer.py:1855] 2023-09-22 19:03:38,569 >> 
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+                                               {'train_runtime': 3.6487, 'train_samples_per_second': 43.852, 'train_steps_per_second': 5.481, 'step_time_list': [1.332766056060791, 0.07232856750488281, 0.07193136215209961, 0.08848261833190918, 0.06711721420288086, 0.06993818283081055, 0.07364964485168457, 0.06628918647766113, 0.05969715118408203, 0.05763506889343262, 0.0656588077545166, 0.05725598335266113, 0.05609846115112305, 0.05637788772583008, 0.056214332580566406, 0.05553579330444336, 0.05608630180358887, 0.05706191062927246, 0.05582404136657715, 0.05565786361694336], 'train_loss': 1.1785400390625, 'init_mem_cpu_alloc_delta': 1039896576, 'init_mem_gpu_alloc_delta': 94319616, 'init_mem_cpu_peaked_delta': 36716544, 'init_mem_gpu_peaked_delta': 0, 'train_mem_cpu_alloc_delta': 1566556160, 'train_mem_gpu_alloc_delta': 309824512, 'train_mem_cpu_peaked_delta': 0, 'train_mem_gpu_peaked_delta': 364332544, 'before_init_mem_cpu': 647593984, 'before_init_mem_gpu': 0, 'epoch': 0.15}
+100%|██████████| 20/20 [00:03<00:00,  9.23it/s]100%|██████████| 20/20 [00:03<00:00,  5.28it/s]
+[INFO|trainer.py:2675] 2023-09-22 19:03:38,713 >> Saving model checkpoint to /tmp/beans/
+[INFO|configuration_utils.py:447] 2023-09-22 19:03:38,714 >> Configuration saved in /tmp/beans/config.json
+[INFO|modeling_utils.py:1624] 2023-09-22 19:03:39,334 >> Model weights saved in /tmp/beans/pytorch_model.bin
+[INFO|feature_extraction_utils.py:341] 2023-09-22 19:03:39,335 >> Feature extractor saved in /tmp/beans/preprocessor_config.json
+***** train metrics *****
+  before_init_mem_cpu        =                                                                                                                                       617MB
+  before_init_mem_gpu        =                                                                                                                                         0MB
+  epoch                      =                                                                                                                                        0.15
+  init_mem_cpu_alloc_delta   =                                                                                                                                       991MB
+  init_mem_cpu_peaked_delta  =                                                                                                                                        35MB
+  init_mem_gpu_alloc_delta   =                                                                                                                                        89MB
+  init_mem_gpu_peaked_delta  =                                                                                                                                         0MB
+  step_time_list             = 1.3328,0.0723,0.0719,0.0885,0.0671,0.0699,0.0736,0.0663,0.0597,0.0576,0.0657,0.0573,0.0561,0.0564,0.0562,0.0555,0.0561,0.0571,0.0558,0.0557
+  train_loss                 =                                                                                                                                      1.1785
+  train_mem_cpu_alloc_delta  =                                                                                                                                      1493MB
+  train_mem_cpu_peaked_delta =                                                                                                                                         0MB
+  train_mem_gpu_alloc_delta  =                                                                                                                                       295MB
+  train_mem_gpu_peaked_delta =                                                                                                                                       347MB
+  train_runtime              =                                                                                                                                  0:00:03.64
+  train_samples_per_second   =                                                                                                                                      43.852
+  train_steps_per_second     =                                                                                                                                       5.481
+[INFO|modelcard.py:444] 2023-09-22 19:03:39,375 >> Dropping the following result as it does not have all the necessary fields:
+{'task': {'name': 'Image Classification', 'type': 'image-classification'}, 'dataset': {'name': 'beans', 'type': 'beans', 'config': 'default', 'split': 'train', 'args': 'default'}}

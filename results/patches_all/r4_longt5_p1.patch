@@ -1,0 +1,14 @@
+--- models/huggingface_transformers/src/transformers/models/longt5/modeling_longt5.py.ori	2023-11-21 18:20:22.521549278 +0000
++++ models/huggingface_transformers/src/transformers/models/longt5/modeling_longt5.py.opt_1	2023-11-21 18:20:22.525549270 +0000
+@@ -536,9 +536,8 @@
+             position_bias_masked = position_bias
+ 
+         scores += position_bias_masked
+-        attn_weights = nn.functional.softmax(scores.float(), dim=-1).type_as(
+-            scores
+-        )  # (batch_size, n_heads, seq_length, key_length)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(scores.float()).type_as(scores)
+         attn_weights = nn.functional.dropout(
+             attn_weights, p=self.dropout, training=self.training
+         )  # (batch_size, n_heads, seq_length, key_length)

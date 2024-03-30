@@ -1,0 +1,14 @@
+--- models/huggingface_transformers/src/transformers/models/lxmert/modeling_lxmert.py.ori	2023-12-14 21:12:24.759063696 +0000
++++ models/huggingface_transformers/src/transformers/models/lxmert/modeling_lxmert.py.opt_2	2023-12-14 21:12:24.763063687 +0000
+@@ -679,8 +679,9 @@
+ class LxmertPredictionHeadTransform(nn.Module):
+     def __init__(self, config):
+         super(LxmertPredictionHeadTransform, self).__init__()
+-        self.dense = nn.Linear(config.hidden_size, config.hidden_size)
+-        self.transform_act_fn = ACT2FN[config.hidden_act]
++        self.dense = torch.nn.Linear(config.hidden_size, config.hidden_size, bias=False)
++        from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++        self.transform_act_fn = torchscript_ops_FusedBiasGELU(config.hidden_size, prev_weight=self.dense.weight)
+         self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=1e-12)
+ 
+     def forward(self, hidden_states):

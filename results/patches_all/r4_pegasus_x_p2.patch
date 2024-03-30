@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/pegasus_x/modeling_pegasus_x.py.ori	2023-11-21 18:21:03.865474459 +0000
++++ models/huggingface_transformers/src/transformers/models/pegasus_x/modeling_pegasus_x.py.opt_2	2023-11-21 18:21:03.865474459 +0000
+@@ -467,7 +467,8 @@
+         # [batch_size, num_heads, global_len, global_len+padded_seq_len]
+         attn_weights = torch.einsum("BHGF,BHXF->BHGX", global_q, global_and_local_k)
+         attn_weights = attn_weights + extended_mask[:, None, None, :]
+-        attn_probs = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_probs = softmax_softmax(attn_weights)
+         attn_probs = nn.functional.dropout(attn_probs, p=self.dropout, training=self.training)
+ 
+         # [batch_size, num_heads, global_len, F]

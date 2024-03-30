@@ -1,0 +1,391 @@
+[2023-09-28 02:36:03,658] [INFO] [real_accelerator.py:133:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/cuda/__init__.py:546: UserWarning: Can't initialize NVML
+  warnings.warn("Can't initialize NVML")
+09/28/2023 02:36:04 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1distributed training: True, 16-bits training: True
+09/28/2023 02:36:04 - INFO - __main__ - Training/evaluation parameters Seq2SeqTrainingArguments(
+_n_gpu=1,
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_pin_memory=True,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+do_eval=False,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_steps=None,
+evaluation_strategy=no,
+fp16=True,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O2,
+fsdp=[],
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+generation_max_length=None,
+generation_num_beams=None,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=apex,
+hub_model_id=None,
+hub_private_repo=False,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_inputs_for_metrics=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=5e-05,
+length_column_name=length,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=passive,
+log_on_each_node=True,
+logging_dir=/tmp/gptneo/runs/Sep28_02-36-04_ip-172-31-2-86,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=500,
+logging_strategy=steps,
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=20,
+metric_for_best_model=None,
+mp_parameters=,
+no_cuda=False,
+num_train_epochs=3.0,
+optim=adamw_apex_fused,
+output_dir=/tmp/gptneo/,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=8,
+predict_with_generate=True,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=True,
+report_to=[],
+resume_from_checkpoint=None,
+run_name=/tmp/gptneo/,
+save_on_each_node=False,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+sharded_ddp=[],
+skip_memory_metrics=False,
+sortish_sampler=False,
+tf32=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.0,
+xpu_backend=None,
+)
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/datasets/load.py:2072: FutureWarning: 'use_auth_token' was deprecated in favor of 'token' in version 2.14.0 and will be removed in 3.0.0.
+You can remove this warning by passing 'token=None' instead.
+  warnings.warn(
+Loading Dataset Infos from /home/ubuntu/.cache/huggingface/modules/datasets_modules/datasets/wmt16/746749a11d25c02058042da7502d973ff410e73457f3d305fc1177dc0e8c4227
+09/28/2023 02:36:04 - INFO - datasets.info - Loading Dataset Infos from /home/ubuntu/.cache/huggingface/modules/datasets_modules/datasets/wmt16/746749a11d25c02058042da7502d973ff410e73457f3d305fc1177dc0e8c4227
+Overwrite dataset info from restored data version if exists.
+09/28/2023 02:36:04 - INFO - datasets.builder - Overwrite dataset info from restored data version if exists.
+Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wmt16/ro-en/1.0.0/746749a11d25c02058042da7502d973ff410e73457f3d305fc1177dc0e8c4227
+09/28/2023 02:36:04 - INFO - datasets.info - Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wmt16/ro-en/1.0.0/746749a11d25c02058042da7502d973ff410e73457f3d305fc1177dc0e8c4227
+Found cached dataset wmt16 (/home/ubuntu/.cache/huggingface/datasets/wmt16/ro-en/1.0.0/746749a11d25c02058042da7502d973ff410e73457f3d305fc1177dc0e8c4227)
+09/28/2023 02:36:04 - INFO - datasets.builder - Found cached dataset wmt16 (/home/ubuntu/.cache/huggingface/datasets/wmt16/ro-en/1.0.0/746749a11d25c02058042da7502d973ff410e73457f3d305fc1177dc0e8c4227)
+Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wmt16/ro-en/1.0.0/746749a11d25c02058042da7502d973ff410e73457f3d305fc1177dc0e8c4227
+09/28/2023 02:36:04 - INFO - datasets.info - Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wmt16/ro-en/1.0.0/746749a11d25c02058042da7502d973ff410e73457f3d305fc1177dc0e8c4227
+[INFO|configuration_utils.py:653] 2023-09-28 02:36:04,524 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--t5-base/snapshots/fe6d9bf207cd3337512ca838a8b453f87a9178ef/config.json
+[INFO|configuration_utils.py:705] 2023-09-28 02:36:04,533 >> Model config T5Config {
+  "_name_or_path": "t5-base",
+  "architectures": [
+    "T5ForConditionalGeneration"
+  ],
+  "d_ff": 3072,
+  "d_kv": 64,
+  "d_model": 768,
+  "decoder_start_token_id": 0,
+  "dense_act_fn": "relu",
+  "dropout_rate": 0.1,
+  "eos_token_id": 1,
+  "feed_forward_proj": "relu",
+  "initializer_factor": 1.0,
+  "is_encoder_decoder": true,
+  "is_gated_act": false,
+  "layer_norm_epsilon": 1e-06,
+  "model_type": "t5",
+  "n_positions": 512,
+  "num_decoder_layers": 12,
+  "num_heads": 12,
+  "num_layers": 12,
+  "output_past": true,
+  "pad_token_id": 0,
+  "relative_attention_max_distance": 128,
+  "relative_attention_num_buckets": 32,
+  "task_specific_params": {
+    "summarization": {
+      "early_stopping": true,
+      "length_penalty": 2.0,
+      "max_length": 200,
+      "min_length": 30,
+      "no_repeat_ngram_size": 3,
+      "num_beams": 4,
+      "prefix": "summarize: "
+    },
+    "translation_en_to_de": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to German: "
+    },
+    "translation_en_to_fr": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to French: "
+    },
+    "translation_en_to_ro": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to Romanian: "
+    }
+  },
+  "transformers_version": "4.24.0.dev0",
+  "use_cache": true,
+  "vocab_size": 32128
+}
+
+[INFO|tokenization_auto.py:420] 2023-09-28 02:36:04,566 >> Could not locate the tokenizer configuration file, will try to use the model config instead.
+[INFO|configuration_utils.py:653] 2023-09-28 02:36:04,593 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--t5-base/snapshots/fe6d9bf207cd3337512ca838a8b453f87a9178ef/config.json
+[INFO|configuration_utils.py:705] 2023-09-28 02:36:04,593 >> Model config T5Config {
+  "_name_or_path": "t5-base",
+  "architectures": [
+    "T5ForConditionalGeneration"
+  ],
+  "d_ff": 3072,
+  "d_kv": 64,
+  "d_model": 768,
+  "decoder_start_token_id": 0,
+  "dense_act_fn": "relu",
+  "dropout_rate": 0.1,
+  "eos_token_id": 1,
+  "feed_forward_proj": "relu",
+  "initializer_factor": 1.0,
+  "is_encoder_decoder": true,
+  "is_gated_act": false,
+  "layer_norm_epsilon": 1e-06,
+  "model_type": "t5",
+  "n_positions": 512,
+  "num_decoder_layers": 12,
+  "num_heads": 12,
+  "num_layers": 12,
+  "output_past": true,
+  "pad_token_id": 0,
+  "relative_attention_max_distance": 128,
+  "relative_attention_num_buckets": 32,
+  "task_specific_params": {
+    "summarization": {
+      "early_stopping": true,
+      "length_penalty": 2.0,
+      "max_length": 200,
+      "min_length": 30,
+      "no_repeat_ngram_size": 3,
+      "num_beams": 4,
+      "prefix": "summarize: "
+    },
+    "translation_en_to_de": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to German: "
+    },
+    "translation_en_to_fr": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to French: "
+    },
+    "translation_en_to_ro": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to Romanian: "
+    }
+  },
+  "transformers_version": "4.24.0.dev0",
+  "use_cache": true,
+  "vocab_size": 32128
+}
+
+[INFO|tokenization_utils_base.py:1776] 2023-09-28 02:36:04,650 >> loading file spiece.model from cache at /home/ubuntu/.cache/huggingface/hub/models--t5-base/snapshots/fe6d9bf207cd3337512ca838a8b453f87a9178ef/spiece.model
+[INFO|tokenization_utils_base.py:1776] 2023-09-28 02:36:04,650 >> loading file tokenizer.json from cache at /home/ubuntu/.cache/huggingface/hub/models--t5-base/snapshots/fe6d9bf207cd3337512ca838a8b453f87a9178ef/tokenizer.json
+[INFO|tokenization_utils_base.py:1776] 2023-09-28 02:36:04,650 >> loading file added_tokens.json from cache at None
+[INFO|tokenization_utils_base.py:1776] 2023-09-28 02:36:04,650 >> loading file special_tokens_map.json from cache at None
+[INFO|tokenization_utils_base.py:1776] 2023-09-28 02:36:04,650 >> loading file tokenizer_config.json from cache at None
+[INFO|configuration_utils.py:653] 2023-09-28 02:36:04,650 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--t5-base/snapshots/fe6d9bf207cd3337512ca838a8b453f87a9178ef/config.json
+[INFO|configuration_utils.py:705] 2023-09-28 02:36:04,651 >> Model config T5Config {
+  "_name_or_path": "t5-base",
+  "architectures": [
+    "T5ForConditionalGeneration"
+  ],
+  "d_ff": 3072,
+  "d_kv": 64,
+  "d_model": 768,
+  "decoder_start_token_id": 0,
+  "dense_act_fn": "relu",
+  "dropout_rate": 0.1,
+  "eos_token_id": 1,
+  "feed_forward_proj": "relu",
+  "initializer_factor": 1.0,
+  "is_encoder_decoder": true,
+  "is_gated_act": false,
+  "layer_norm_epsilon": 1e-06,
+  "model_type": "t5",
+  "n_positions": 512,
+  "num_decoder_layers": 12,
+  "num_heads": 12,
+  "num_layers": 12,
+  "output_past": true,
+  "pad_token_id": 0,
+  "relative_attention_max_distance": 128,
+  "relative_attention_num_buckets": 32,
+  "task_specific_params": {
+    "summarization": {
+      "early_stopping": true,
+      "length_penalty": 2.0,
+      "max_length": 200,
+      "min_length": 30,
+      "no_repeat_ngram_size": 3,
+      "num_beams": 4,
+      "prefix": "summarize: "
+    },
+    "translation_en_to_de": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to German: "
+    },
+    "translation_en_to_fr": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to French: "
+    },
+    "translation_en_to_ro": {
+      "early_stopping": true,
+      "max_length": 300,
+      "num_beams": 4,
+      "prefix": "translate English to Romanian: "
+    }
+  },
+  "transformers_version": "4.24.0.dev0",
+  "use_cache": true,
+  "vocab_size": 32128
+}
+
+/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/models/t5/tokenization_t5_fast.py:156: FutureWarning: This tokenizer was incorrectly instantiated with a model max length of 512 which will be corrected in Transformers v5.
+For now, this behavior is kept to avoid breaking backwards compatibility when padding/encoding with `truncation is True`.
+- Be aware that you SHOULD NOT rely on t5-base automatically truncating your input to 512 when padding/encoding.
+- If you want to encode/pad to sequences longer than 512 you can either instantiate this tokenizer with `model_max_length` or pass `max_length` when encoding/padding.
+- To avoid this warning, please instantiate this tokenizer with `model_max_length` set to your preferred value.
+  warnings.warn(
+[INFO|modeling_t5.py:270] 2023-09-28 02:36:04,752 >> Discovered apex.normalization.FusedRMSNorm - will use it instead of T5LayerNorm
+[INFO|modeling_utils.py:2156] 2023-09-28 02:36:04,753 >> loading weights file pytorch_model.bin from cache at /home/ubuntu/.cache/huggingface/hub/models--t5-base/snapshots/fe6d9bf207cd3337512ca838a8b453f87a9178ef/pytorch_model.bin
+[INFO|modeling_utils.py:2606] 2023-09-28 02:36:08,563 >> All model checkpoint weights were used when initializing T5ForConditionalGeneration.
+
+[INFO|modeling_utils.py:2614] 2023-09-28 02:36:08,563 >> All the weights of T5ForConditionalGeneration were initialized from the model checkpoint at t5-base.
+If your task is similar to the task the model of the checkpoint was trained on, you can already use T5ForConditionalGeneration for predictions without further training.
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wmt16/ro-en/1.0.0/746749a11d25c02058042da7502d973ff410e73457f3d305fc1177dc0e8c4227/cache-db59bb8dbf24c1b2.arrow
+09/28/2023 02:36:08 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wmt16/ro-en/1.0.0/746749a11d25c02058042da7502d973ff410e73457f3d305fc1177dc0e8c4227/cache-db59bb8dbf24c1b2.arrow
+[INFO|trainer.py:503] 2023-09-28 02:36:10,188 >> max_steps is given, it will override any value given in num_train_epochs
+[INFO|trainer.py:557] 2023-09-28 02:36:10,188 >> Using apex half precision backend
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/apex-0.1-py3.8-linux-x86_64.egg/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+  warnings.warn(msg, DeprecatedFeatureWarning)
+Selected optimization level O2:  FP16 training with FP32 batchnorm and FP32 master weights.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O2
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : True
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O2
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : True
+loss_scale             : dynamic
+[INFO|trainer.py:1607] 2023-09-28 02:36:10,712 >> ***** Running training *****
+[INFO|trainer.py:1608] 2023-09-28 02:36:10,712 >>   Num examples = 610320
+[INFO|trainer.py:1609] 2023-09-28 02:36:10,712 >>   Num Epochs = 1
+[INFO|trainer.py:1610] 2023-09-28 02:36:10,712 >>   Instantaneous batch size per device = 8
+[INFO|trainer.py:1611] 2023-09-28 02:36:10,712 >>   Total train batch size (w. parallel, distributed & accumulation) = 8
+[INFO|trainer.py:1612] 2023-09-28 02:36:10,712 >>   Gradient Accumulation steps = 1
+[INFO|trainer.py:1613] 2023-09-28 02:36:10,712 >>   Total optimization steps = 20
+  0%|          | 0/20 [00:00<?, ?it/s][WARNING|logging.py:281] 2023-09-28 02:36:10,757 >> You're using a T5TokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+[W reducer.cpp:1300] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32768.0
+  5%|▌         | 1/20 [00:00<00:11,  1.58it/s] 10%|█         | 2/20 [00:00<00:07,  2.28it/s] 15%|█▌        | 3/20 [00:01<00:05,  2.84it/s] 20%|██        | 4/20 [00:01<00:04,  3.24it/s] 25%|██▌       | 5/20 [00:01<00:04,  3.52it/s] 30%|███       | 6/20 [00:01<00:03,  3.71it/s] 35%|███▌      | 7/20 [00:02<00:03,  3.83it/s] 40%|████      | 8/20 [00:02<00:03,  3.91it/s] 45%|████▌     | 9/20 [00:02<00:02,  3.94it/s] 50%|█████     | 10/20 [00:02<00:02,  3.93it/s] 55%|█████▌    | 11/20 [00:03<00:02,  4.01it/s] 60%|██████    | 12/20 [00:03<00:01,  4.04it/s] 65%|██████▌   | 13/20 [00:03<00:01,  4.08it/s] 70%|███████   | 14/20 [00:03<00:01,  4.11it/s] 75%|███████▌  | 15/20 [00:04<00:01,  4.10it/s] 80%|████████  | 16/20 [00:04<00:00,  4.10it/s] 85%|████████▌ | 17/20 [00:04<00:00,  4.11it/s] 90%|█████████ | 18/20 [00:04<00:00,  4.11it/s] 95%|█████████▌| 19/20 [00:05<00:00,  4.11it/s]100%|██████████| 20/20 [00:05<00:00,  4.11it/s][INFO|trainer.py:1855] 2023-09-28 02:36:16,043 >> 
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+                                               {'train_runtime': 5.3311, 'train_samples_per_second': 30.013, 'train_steps_per_second': 3.752, 'step_time_list': [0.5883936882019043, 0.299940824508667, 0.24690461158752441, 0.24073052406311035, 0.2378082275390625, 0.23907732963562012, 0.24045395851135254, 0.2429027557373047, 0.24724435806274414, 0.2527482509613037, 0.23622965812683105, 0.24086833000183105, 0.23598980903625488, 0.23821234703063965, 0.24223065376281738, 0.24106693267822266, 0.24071335792541504, 0.24042129516601562, 0.23995542526245117, 0.2406759262084961], 'train_loss': 0.442333984375, 'init_mem_cpu_alloc_delta': 366759936, 'init_mem_gpu_alloc_delta': 891528192, 'init_mem_cpu_peaked_delta': 452694016, 'init_mem_gpu_peaked_delta': 0, 'train_mem_cpu_alloc_delta': 442040320, 'train_mem_gpu_alloc_delta': 2730580480, 'train_mem_cpu_peaked_delta': 17559552, 'train_mem_gpu_peaked_delta': 2067013120, 'before_init_mem_cpu': 1783205888, 'before_init_mem_gpu': 0, 'epoch': 0.0}
+100%|██████████| 20/20 [00:05<00:00,  4.11it/s]100%|██████████| 20/20 [00:05<00:00,  3.66it/s]
+[INFO|trainer.py:2675] 2023-09-28 02:36:16,185 >> Saving model checkpoint to /tmp/gptneo/
+[INFO|configuration_utils.py:447] 2023-09-28 02:36:16,186 >> Configuration saved in /tmp/gptneo/config.json
+[INFO|modeling_utils.py:1624] 2023-09-28 02:36:21,644 >> Model weights saved in /tmp/gptneo/pytorch_model.bin
+[INFO|tokenization_utils_base.py:2126] 2023-09-28 02:36:21,645 >> tokenizer config file saved in /tmp/gptneo/tokenizer_config.json
+[INFO|tokenization_utils_base.py:2133] 2023-09-28 02:36:21,646 >> Special tokens file saved in /tmp/gptneo/special_tokens_map.json
+***** train metrics *****
+  before_init_mem_cpu        =                                                                                                                                   1700MB
+  before_init_mem_gpu        =                                                                                                                                      0MB
+  epoch                      =                                                                                                                                      0.0
+  init_mem_cpu_alloc_delta   =                                                                                                                                    349MB
+  init_mem_cpu_peaked_delta  =                                                                                                                                    431MB
+  init_mem_gpu_alloc_delta   =                                                                                                                                    850MB
+  init_mem_gpu_peaked_delta  =                                                                                                                                      0MB
+  step_time_list             = 0.5884,0.2999,0.2469,0.2407,0.2378,0.2391,0.2405,0.2429,0.2472,0.2527,0.2362,0.2409,0.236,0.2382,0.2422,0.2411,0.2407,0.2404,0.24,0.2407
+  train_loss                 =                                                                                                                                   0.4423
+  train_mem_cpu_alloc_delta  =                                                                                                                                    421MB
+  train_mem_cpu_peaked_delta =                                                                                                                                     16MB
+  train_mem_gpu_alloc_delta  =                                                                                                                                   2604MB
+  train_mem_gpu_peaked_delta =                                                                                                                                   1971MB
+  train_runtime              =                                                                                                                               0:00:05.33
+  train_samples              =                                                                                                                                   610320
+  train_samples_per_second   =                                                                                                                                   30.013
+  train_steps_per_second     =                                                                                                                                    3.752
+[INFO|modelcard.py:444] 2023-09-28 02:36:21,807 >> Dropping the following result as it does not have all the necessary fields:
+{'task': {'name': 'Translation', 'type': 'translation'}, 'dataset': {'name': 'wmt16 ro-en', 'type': 'wmt16', 'args': 'ro-en'}}

@@ -1,0 +1,14 @@
+--- models/huggingface_transformers/src/transformers/models/led/modeling_led.py.ori	2023-11-21 18:20:15.961561146 +0000
++++ models/huggingface_transformers/src/transformers/models/led/modeling_led.py.opt_1	2023-11-21 18:20:15.961561146 +0000
+@@ -254,9 +254,8 @@
+             # free memory
+             del global_key_attn_scores
+ 
+-        attn_probs = nn.functional.softmax(
+-            attn_scores, dim=-1, dtype=torch.float32
+-        )  # use fp32 for numerical stability
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_probs = softmax_softmax(attn_scores)
+ 
+         if layer_head_mask is not None:
+             assert layer_head_mask.size() == (

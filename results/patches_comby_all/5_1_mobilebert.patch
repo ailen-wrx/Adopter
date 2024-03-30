@@ -1,0 +1,32 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/mobilebert/modeling_mobilebert.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/mobilebert/modeling_mobilebert.py
+@@ -316,8 +316,7 @@
+     def forward(self, hidden_states: torch.Tensor, residual_tensor: torch.Tensor) -> torch.Tensor:
+         layer_outputs = self.dense(hidden_states)
+         if not self.use_bottleneck:
+-            layer_outputs = self.dropout(layer_outputs)
+-        layer_outputs = self.LayerNorm(layer_outputs + residual_tensor)
++            self.fused_dropout_layernorm(layer_outputs + residual_tensor)
+         return layer_outputs
+ 
+ 
+@@ -395,8 +394,7 @@
+ 
+     def forward(self, hidden_states: torch.Tensor, residual_tensor: torch.Tensor) -> torch.Tensor:
+         layer_outputs = self.dense(hidden_states)
+-        layer_outputs = self.dropout(layer_outputs)
+-        layer_outputs = self.LayerNorm(layer_outputs + residual_tensor)
++        self.fused_dropout_layernorm(layer_outputs + residual_tensor)
+         return layer_outputs
+ 
+ 
+@@ -416,8 +414,7 @@
+     ) -> torch.Tensor:
+         layer_output = self.dense(intermediate_states)
+         if not self.use_bottleneck:
+-            layer_output = self.dropout(layer_output)
+-            layer_output = self.LayerNorm(layer_output + residual_tensor_1)
++            self.fused_dropout_layernorm(layer_output + residual_tensor_1)
+         else:
+             layer_output = self.LayerNorm(layer_output + residual_tensor_1)
+             layer_output = self.bottleneck(layer_output, residual_tensor_2)

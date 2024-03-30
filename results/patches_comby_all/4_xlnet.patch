@@ -1,0 +1,11 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/xlnet/modeling_xlnet.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/xlnet/modeling_xlnet.py
+@@ -2041,7 +2041,7 @@
+         else:
+             # during inference, compute the end logits based on beam search
+             bsz, slen, hsz = hidden_states.size()
+-            start_log_probs = nn.functional.softmax(start_logits, dim=-1)  # shape (bsz, slen)
++            from xformers.triton.softmax import softmax as softmax_softmax; start_log_probs = softmax_softmax(start_logits)  # shape (bsz, slen)
+ 
+             start_top_log_probs, start_top_index = torch.topk(
+                 start_log_probs, self.start_n_top, dim=-1

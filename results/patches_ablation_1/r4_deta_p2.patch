@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/deta/modeling_deta.py.ori	2023-12-14 20:49:47.869975723 +0000
++++ models/huggingface_transformers/src/transformers/models/deta/modeling_deta.py.opt_2	2023-12-14 20:49:47.873975714 +0000
+@@ -697,7 +697,8 @@
+             attn_weights = attn_weights.view(batch_size, self.num_heads, target_len, source_len) + attention_mask
+             attn_weights = attn_weights.view(batch_size * self.num_heads, target_len, source_len)
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attn_weights)
+ 
+         if output_attentions:
+             # this operation is a bit awkward, but it's required to

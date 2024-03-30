@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/openai/modeling_openai.py.ori	2023-11-21 18:20:58.373484399 +0000
++++ models/huggingface_transformers/src/transformers/models/openai/modeling_openai.py.opt_1	2023-11-21 18:20:58.373484399 +0000
+@@ -183,7 +183,8 @@
+             # Apply the attention mask
+             w = w + attention_mask
+ 
+-        w = nn.functional.softmax(w, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        w = softmax_softmax(w)
+         w = self.attn_dropout(w)
+ 
+         # Mask heads if we want to

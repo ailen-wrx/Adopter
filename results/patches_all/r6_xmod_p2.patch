@@ -1,0 +1,20 @@
+--- models/huggingface_transformers/src/transformers/models/xmod/modeling_xmod.py.ori	2023-11-21 18:31:10.676373813 +0000
++++ models/huggingface_transformers/src/transformers/models/xmod/modeling_xmod.py.opt_2	2023-11-21 18:31:10.676373813 +0000
+@@ -371,12 +371,14 @@
+     def __init__(self, config):
+         super().__init__()
+         self.bottleneck_size = config.hidden_size // config.adapter_reduction_factor
+-        self.dense1 = nn.Linear(config.hidden_size, self.bottleneck_size)
+-        self.dense2 = nn.Linear(self.bottleneck_size, config.hidden_size)
+         if isinstance(config.hidden_act, str):
+-            self.adapter_act_fn = ACT2FN[config.hidden_act]
++            self.dense1 = torch.nn.Linear(config.hidden_size, self.bottleneck_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.adapter_act_fn = torchscript_ops_FusedBiasGELU(self.bottleneck_size, prev_weight=self.dense1.weight)
+         else:
++            self.dense1 = nn.Linear(config.hidden_size, self.bottleneck_size)
+             self.adapter_act_fn = config.hidden_act
++        self.dense2 = nn.Linear(self.bottleneck_size, config.hidden_size)
+ 
+     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense1(hidden_states)

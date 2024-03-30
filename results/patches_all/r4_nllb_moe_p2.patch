@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/nllb_moe/modeling_nllb_moe.py.ori	2023-11-21 18:20:52.125495707 +0000
++++ models/huggingface_transformers/src/transformers/models/nllb_moe/modeling_nllb_moe.py.opt_2	2023-11-21 18:20:52.129495700 +0000
+@@ -601,7 +601,8 @@
+             attn_weights = attn_weights.view(bsz, self.num_heads, tgt_len, src_len) + attention_mask
+             attn_weights = attn_weights.view(bsz * self.num_heads, tgt_len, src_len)
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attn_weights)
+ 
+         if layer_head_mask is not None:
+             if layer_head_mask.size() != (self.num_heads,):

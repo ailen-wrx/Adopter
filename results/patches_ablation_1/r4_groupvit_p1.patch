@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/groupvit/modeling_groupvit.py.ori	2023-12-14 20:51:12.417786596 +0000
++++ models/huggingface_transformers/src/transformers/models/groupvit/modeling_groupvit.py.opt_1	2023-12-14 20:51:12.421786587 +0000
+@@ -201,7 +201,8 @@
+             if hard:
+                 attn = hard_softmax(attn, dim=-2)
+             else:
+-                attn = nn.functional.softmax(attn, dim=-2)
++                from xformers.triton.softmax import softmax as softmax_softmax
++                attn = softmax_softmax(attn)
+ 
+         return attn
+ 

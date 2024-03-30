@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/xlnet/modeling_xlnet.py.ori	2023-11-21 18:22:12.869349518 +0000
++++ models/huggingface_transformers/src/transformers/models/xlnet/modeling_xlnet.py.opt_1	2023-11-21 18:22:12.869349518 +0000
+@@ -297,7 +297,8 @@
+                 attn_score = attn_score - 1e30 * torch.einsum("ijbn->bnij", attn_mask)
+ 
+         # attention probability
+-        attn_prob = nn.functional.softmax(attn_score, dim=3)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_prob = softmax_softmax(attn_score)
+         attn_prob = self.dropout(attn_prob)
+ 
+         # Mask heads if we want to

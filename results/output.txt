@@ -1,0 +1,60 @@
+[0;31m------ [0m[0;1m/Users/ruixinwang/Documents/Projects/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gpt_neo/modeling_gpt_neo.py[0m
+[0;32m++++++ [0m[0;1m/Users/ruixinwang/Documents/Projects/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gpt_neo/modeling_gpt_neo.py[0m
+[0;100;30m@|[0m[0;1m-200,7 +200,7[0m ============================================================
+[0;100;30m |[0m            # Apply the attention mask
+[0;100;30m |[0m            attn_weights = attn_weights + attention_mask
+[0;100;30m |[0m
+[0;41;30m-|[0m[0m[0;7;2m        [0m[0;2mattn_weights = [0m[0;31mnn.functional.[0m[0;2msoftmax(attn_weights[0m[0;31m, dim=-1[0m[0;2m)[0m[0m
+[0;42;30m+|[0m[0m        [0;32mfrom xformers.triton.softmax import softmax as softmax_softmax [0mattn_weights = [0;32msoftmax_[0msoftmax(attn_weights)[0m
+[0;100;30m |[0m        attn_weights = attn_weights.to(value.dtype)
+[0;100;30m |[0m        attn_weights = self.attn_dropout(attn_weights)
+[0;100;30m |[0m
+[0;31m------ [0m[0;1m/Users/ruixinwang/Documents/Projects/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gpt_neo/modeling_gpt_neo.py[0m
+[0;32m++++++ [0m[0;1m/Users/ruixinwang/Documents/Projects/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gpt_neo/modeling_gpt_neo.py[0m
+[0;100;30m@|[0m[0;1m-221,9 +221,7[0m ============================================================
+[0;100;30m |[0m        use_cache=False,
+[0;100;30m |[0m        output_attentions=False,
+[0;100;30m |[0m    ):
+[0;41;30m-|[0m[0m[0;7;2m        [0m[0;31mquery = self.q_proj(hidden_states)[0m[0m
+[0;41;30m-|[0m[0m[0;31m        key = self.k_proj(hidden_states)[0m[0m
+[0;41;30m-|[0m[0m[0;31m        value[0m[0;2m = self.[0m[0;31mv_proj[0m[0;2m(hidden_states)[0m[0m
+[0;42;30m+|[0m[0m        [0;32m(query, key, value)[0m = self.[0;32mqkv[0m(hidden_states)[0m
+[0;100;30m |[0m
+[0;100;30m |[0m        query = self._split_heads(query, self.num_heads, self.head_dim)
+[0;100;30m |[0m        key = self._split_heads(key, self.num_heads, self.head_dim)
+[0;31m------ [0m[0;1m/Users/ruixinwang/Documents/Projects/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gpt_neo/modeling_gpt_neo.py[0m
+[0;32m++++++ [0m[0;1m/Users/ruixinwang/Documents/Projects/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gpt_neo/modeling_gpt_neo.py[0m
+[0;100;30m@|[0m[0;1m-160,9 +160,7[0m ============================================================
+[0;100;30m |[0m                f" {self.num_heads})."
+[0;100;30m |[0m            )
+[0;100;30m |[0m
+[0;41;30m-|[0m[0m[0;7;2m        [0m[0;31mself.k_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)[0m[0m
+[0;41;30m-|[0m[0m[0;31m        self.v_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)[0m[0m
+[0;41;30m-|[0m[0m[0;31m        self.q_proj = nn.Linear[0m[0;2m(self.embed_dim, self.[0m[0;31membed[0m[0;2m_[0m[0;31mdim[0m[0;2m, [0m[0;31mbias=False[0m[0;2m)[0m[0m
+[0;42;30m+|[0m[0m        [0;32mfrom slapo.op.linear import FusedQKV as linear_FusedQKV self.qkv = linear_FusedQKV[0m(self.embed_dim, self.[0;32mnum[0m_[0;32mheads[0m, [0;32m1[0m)[0m
+[0;100;30m |[0m        self.out_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=True)
+[0;100;30m |[0m
+[0;100;30m |[0m    def _split_heads(self, tensor, num_heads, attn_head_size):
+1
+[RULE]0
+[MODEL]0
+[RULE]1
+[MODEL]0
+[RULE]2
+[MODEL]0
+[RULE]3
+[MODEL]0
+[RULE]4
+[MODEL]0
+[RULE]5
+[MODEL]0
+[RULE]6
+[MODEL]0
+[RULE]7
+[MODEL]0
+[RULE]8
+[MODEL]0
+[RULE]9
+[MODEL]0
+[RULE]10
+[MODEL]0

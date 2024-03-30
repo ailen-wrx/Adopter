@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/mobilevit/modeling_mobilevit.py.ori	2023-11-21 18:29:11.220590747 +0000
++++ models/huggingface_transformers/src/transformers/models/mobilevit/modeling_mobilevit.py.opt_1	2023-11-21 18:29:11.224590740 +0000
+@@ -317,10 +317,12 @@
+ class MobileViTIntermediate(nn.Module):
+     def __init__(self, config: MobileViTConfig, hidden_size: int, intermediate_size: int) -> None:
+         super().__init__()
+-        self.dense = nn.Linear(hidden_size, intermediate_size)
+         if isinstance(config.hidden_act, str):
+-            self.intermediate_act_fn = ACT2FN[config.hidden_act]
++            self.dense = torch.nn.Linear(hidden_size, intermediate_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.intermediate_act_fn = torchscript_ops_FusedBiasGELU(intermediate_size, prev_weight=self.dense.weight)
+         else:
++            self.dense = nn.Linear(hidden_size, intermediate_size)
+             self.intermediate_act_fn = config.hidden_act
+ 
+     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:

@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/perceiver/modeling_perceiver.py.ori	2023-11-21 18:29:44.284530712 +0000
++++ models/huggingface_transformers/src/transformers/models/perceiver/modeling_perceiver.py.opt_1	2023-11-21 18:29:44.288530705 +0000
+@@ -410,10 +410,12 @@
+ 
+     def __init__(self, config, input_size, widening_factor):
+         super().__init__()
+-        self.dense1 = nn.Linear(input_size, widening_factor * input_size)
+         if isinstance(config.hidden_act, str):
+-            self.intermediate_act_fn = ACT2FN[config.hidden_act]
++            self.dense1 = torch.nn.Linear(input_size, (widening_factor * input_size), bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.intermediate_act_fn = torchscript_ops_FusedBiasGELU((widening_factor * input_size), prev_weight=self.dense1.weight)
+         else:
++            self.dense1 = nn.Linear(input_size, (widening_factor * input_size))
+             self.intermediate_act_fn = config.hidden_act
+         self.dense2 = nn.Linear(widening_factor * input_size, input_size)
+ 

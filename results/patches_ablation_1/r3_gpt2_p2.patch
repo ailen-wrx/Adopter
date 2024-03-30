@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/gpt2/modeling_gpt2.py.ori	2023-12-14 20:40:26.915169358 +0000
++++ models/huggingface_transformers/src/transformers/models/gpt2/modeling_gpt2.py.opt_2	2023-12-14 20:40:26.919169350 +0000
+@@ -369,7 +369,8 @@
+         self.ln_2 = nn.LayerNorm(hidden_size, eps=config.layer_norm_epsilon)
+ 
+         if config.add_cross_attention:
+-            self.crossattention = GPT2Attention(config, is_cross_attention=True, layer_idx=layer_idx)
++            from epoi.ops.xformers_attn import GPT2AttentionWithXF as xformers_attn_GPT2AttentionWithXF
++            self.crossattention = xformers_attn_GPT2AttentionWithXF(config, is_cross_attention=True, layer_idx=layer_idx)
+             self.ln_cross_attn = nn.LayerNorm(hidden_size, eps=config.layer_norm_epsilon)
+ 
+         self.mlp = GPT2MLP(inner_dim, config)

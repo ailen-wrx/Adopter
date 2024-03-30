@@ -1,0 +1,11 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gpt_neox_japanese/modeling_gpt_neox_japanese.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gpt_neox_japanese/modeling_gpt_neox_japanese.py
+@@ -226,7 +226,7 @@
+             # Apply the attention mask
+             attn_scores = attn_scores + attention_mask
+ 
+-        attn_weights = nn.functional.softmax(attn_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax; attn_weights = softmax_softmax(attn_scores)
+         attn_weights = self.attention_dropout(attn_weights)
+         attn_weights = attn_weights.to(value.dtype)
+ 

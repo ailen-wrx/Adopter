@@ -1,0 +1,13 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gptj/modeling_gptj.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gptj/modeling_gptj.py
+@@ -106,9 +106,7 @@
+             )
+         self.scale_attn = torch.sqrt(torch.tensor(self.head_dim, dtype=torch.float32)).to(torch.get_default_dtype())
+ 
+-        self.k_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)
+-        self.v_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)
+-        self.q_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)
++        from slapo.op.linear import FusedQKV as linear_FusedQKV; self.qkv = linear_FusedQKV(self.embed_dim, self.num_heads, 1)
+         self.out_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)
+         self.rotary_dim = config.rotary_dim
+         pos_embd_dim = self.rotary_dim or self.embed_dim

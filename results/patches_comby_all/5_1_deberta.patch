@@ -1,0 +1,22 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/deberta/modeling_deberta.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/deberta/modeling_deberta.py
+@@ -292,8 +292,7 @@
+ 
+     def forward(self, hidden_states, input_tensor):
+         hidden_states = self.dense(hidden_states)
+-        hidden_states = self.dropout(hidden_states)
+-        hidden_states = self.LayerNorm(hidden_states + input_tensor)
++        self.fused_dropout_layernorm(hidden_states + input_tensor)
+         return hidden_states
+ 
+ 
+@@ -359,8 +358,7 @@
+ 
+     def forward(self, hidden_states, input_tensor):
+         hidden_states = self.dense(hidden_states)
+-        hidden_states = self.dropout(hidden_states)
+-        hidden_states = self.LayerNorm(hidden_states + input_tensor)
++        self.fused_dropout_layernorm(hidden_states + input_tensor)
+         return hidden_states
+ 
+ 

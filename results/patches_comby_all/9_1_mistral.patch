@@ -1,0 +1,24 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/mistral/modeling_mistral.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/mistral/modeling_mistral.py
+@@ -255,9 +255,7 @@
+     ) -> Tuple[torch.Tensor, Optional[torch.Tensor], Optional[Tuple[torch.Tensor]]]:
+         bsz, q_len, _ = hidden_states.size()
+ 
+-        query_states = self.q_proj(hidden_states)
+-        key_states = self.k_proj(hidden_states)
+-        value_states = self.v_proj(hidden_states)
++        (query_states, key_states, value_states) = self.qkv(hidden_states)
+ 
+         query_states = query_states.view(bsz, q_len, self.num_heads, self.head_dim).transpose(1, 2)
+         key_states = key_states.view(bsz, q_len, self.num_key_value_heads, self.head_dim).transpose(1, 2)
+@@ -336,9 +334,7 @@
+     ):
+         bsz, q_len, _ = hidden_states.size()
+ 
+-        query_states = self.q_proj(hidden_states)
+-        key_states = self.k_proj(hidden_states)
+-        value_states = self.v_proj(hidden_states)
++        (query_states, key_states, value_states) = self.qkv(hidden_states)
+ 
+         query_states = query_states.view(bsz, q_len, self.num_heads, self.head_dim).transpose(1, 2)
+         key_states = key_states.view(bsz, q_len, self.num_key_value_heads, self.head_dim).transpose(1, 2)

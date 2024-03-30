@@ -1,0 +1,14 @@
+Metadata-Version: 1.2
+Name: epoi
+Version: 0.1.dev0
+Summary: EPOI: Efficient PyTorch Operator Inventory.
+Home-page: https://github.com/comaniac/epoi
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7

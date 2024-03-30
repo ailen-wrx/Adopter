@@ -1,0 +1,15 @@
+--- models/huggingface_transformers/src/transformers/models/albert/modeling_albert.py.ori	2023-11-21 18:26:44.344857339 +0000
++++ models/huggingface_transformers/src/transformers/models/albert/modeling_albert.py.opt_1	2023-11-21 18:26:44.344857339 +0000
+@@ -871,9 +871,10 @@
+ 
+         self.LayerNorm = nn.LayerNorm(config.embedding_size, eps=config.layer_norm_eps)
+         self.bias = nn.Parameter(torch.zeros(config.vocab_size))
+-        self.dense = nn.Linear(config.hidden_size, config.embedding_size)
++        self.dense = torch.nn.Linear(config.hidden_size, config.embedding_size, bias=False)
++        from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++        self.activation = torchscript_ops_FusedBiasGELU(config.embedding_size, prev_weight=self.dense.weight)
+         self.decoder = nn.Linear(config.embedding_size, config.vocab_size)
+-        self.activation = ACT2FN[config.hidden_act]
+         self.decoder.bias = self.bias
+ 
+     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:

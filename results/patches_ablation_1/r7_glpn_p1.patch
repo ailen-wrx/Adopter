@@ -1,0 +1,16 @@
+--- models/huggingface_transformers/src/transformers/models/glpn/modeling_glpn.py.ori	2023-12-14 21:21:08.385965708 +0000
++++ models/huggingface_transformers/src/transformers/models/glpn/modeling_glpn.py.opt_1	2023-12-14 21:21:08.385965708 +0000
+@@ -549,11 +549,8 @@
+     def __init__(self, in_channel=64):
+         super().__init__()
+ 
+-        self.convolutional_layer1 = nn.Sequential(
+-            nn.Conv2d(in_channels=int(in_channel * 2), out_channels=in_channel, kernel_size=3, stride=1, padding=1),
+-            nn.BatchNorm2d(in_channel),
+-            nn.ReLU(),
+-        )
++        from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++        self.convolutional_layer1 = nn.Sequential(torchscript_ops_FusedConv2dBatchNorm2d(int((in_channel * 2)), in_channel, 3, stride=1), nn.ReLU())
+ 
+         self.convolutional_layer2 = nn.Sequential(
+             nn.Conv2d(in_channels=in_channel, out_channels=int(in_channel / 2), kernel_size=3, stride=1, padding=1),

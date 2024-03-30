@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/nystromformer/modeling_nystromformer.py.ori	2023-11-21 18:20:53.037494057 +0000
++++ models/huggingface_transformers/src/transformers/models/nystromformer/modeling_nystromformer.py.opt_1	2023-11-21 18:20:53.041494049 +0000
+@@ -213,7 +213,8 @@
+                 self.attention_head_size,
+             ).mean(dim=-2)
+ 
+-            kernel_1 = torch.nn.functional.softmax(torch.matmul(query_layer, k_landmarks.transpose(-1, -2)), dim=-1)
++            from xformers.triton.softmax import softmax as softmax_softmax
++            kernel_1 = softmax_softmax(torch.matmul(query_layer, k_landmarks.transpose((- 1), (- 2))))
+             kernel_2 = torch.nn.functional.softmax(torch.matmul(q_landmarks, k_landmarks.transpose(-1, -2)), dim=-1)
+ 
+             attention_scores = torch.matmul(q_landmarks, key_layer.transpose(-1, -2))

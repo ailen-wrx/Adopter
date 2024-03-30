@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/deberta_v2/modeling_deberta_v2.py.ori	2023-11-21 18:27:43.988749101 +0000
++++ models/huggingface_transformers/src/transformers/models/deberta_v2/modeling_deberta_v2.py.opt_2	2023-11-21 18:27:43.992749094 +0000
+@@ -1205,10 +1205,12 @@
+         super().__init__()
+         self.embedding_size = getattr(config, "embedding_size", config.hidden_size)
+ 
+-        self.dense = nn.Linear(config.hidden_size, self.embedding_size)
+         if isinstance(config.hidden_act, str):
+-            self.transform_act_fn = ACT2FN[config.hidden_act]
++            self.dense = torch.nn.Linear(config.hidden_size, self.embedding_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.transform_act_fn = torchscript_ops_FusedBiasGELU(self.embedding_size, prev_weight=self.dense.weight)
+         else:
++            self.dense = nn.Linear(config.hidden_size, self.embedding_size)
+             self.transform_act_fn = config.hidden_act
+         self.LayerNorm = nn.LayerNorm(self.embedding_size, eps=config.layer_norm_eps)
+ 

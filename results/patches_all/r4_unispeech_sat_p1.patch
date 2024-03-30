@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/unispeech_sat/modeling_unispeech_sat.py.ori	2023-11-21 18:21:50.701389665 +0000
++++ models/huggingface_transformers/src/transformers/models/unispeech_sat/modeling_unispeech_sat.py.opt_1	2023-11-21 18:21:50.705389657 +0000
+@@ -554,7 +554,8 @@
+             attn_weights = attn_weights.view(bsz, self.num_heads, tgt_len, src_len) + attention_mask
+             attn_weights = attn_weights.view(bsz * self.num_heads, tgt_len, src_len)
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attn_weights)
+ 
+         if layer_head_mask is not None:
+             if layer_head_mask.size() != (self.num_heads,):

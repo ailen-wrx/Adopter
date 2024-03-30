@@ -1,0 +1,22 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/roberta/modeling_roberta.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/roberta/modeling_roberta.py
+@@ -296,8 +296,7 @@
+ 
+     def forward(self, hidden_states: torch.Tensor, input_tensor: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense(hidden_states)
+-        hidden_states = self.dropout(hidden_states)
+-        hidden_states = self.LayerNorm(hidden_states + input_tensor)
++        self.fused_dropout_layernorm(hidden_states + input_tensor)
+         return hidden_states
+ 
+ 
+@@ -377,8 +376,7 @@
+ 
+     def forward(self, hidden_states: torch.Tensor, input_tensor: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense(hidden_states)
+-        hidden_states = self.dropout(hidden_states)
+-        hidden_states = self.LayerNorm(hidden_states + input_tensor)
++        self.fused_dropout_layernorm(hidden_states + input_tensor)
+         return hidden_states
+ 
+ 

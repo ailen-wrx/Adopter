@@ -1,0 +1,27 @@
+--- models/huggingface_transformers/src/transformers/models/ernie_m/modeling_ernie_m.py.ori	2023-11-21 18:28:01.036718158 +0000
++++ models/huggingface_transformers/src/transformers/models/ernie_m/modeling_ernie_m.py.opt_1	2023-11-21 18:28:01.040718151 +0000
+@@ -285,17 +285,19 @@
+         act_dropout = config.hidden_dropout_prob if config.act_dropout is None else config.act_dropout
+ 
+         self.self_attn = ErnieMAttention(config)
+-        self.linear1 = nn.Linear(config.hidden_size, config.intermediate_size)
++        if isinstance(config.hidden_act, str):
++            self.linear1 = torch.nn.Linear(config.hidden_size, config.intermediate_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.activation = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.linear1.weight)
++        else:
++            self.linear1 = nn.Linear(config.hidden_size, config.intermediate_size)
++            self.activation = config.hidden_act
+         self.dropout = nn.Dropout(act_dropout)
+         self.linear2 = nn.Linear(config.intermediate_size, config.hidden_size)
+         self.norm1 = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
+         self.norm2 = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
+         self.dropout1 = nn.Dropout(dropout)
+         self.dropout2 = nn.Dropout(dropout)
+-        if isinstance(config.hidden_act, str):
+-            self.activation = ACT2FN[config.hidden_act]
+-        else:
+-            self.activation = config.hidden_act
+ 
+     def forward(
+         self,

@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/nllb_moe/modeling_nllb_moe.py.ori	2023-12-14 20:53:34.657472527 +0000
++++ models/huggingface_transformers/src/transformers/models/nllb_moe/modeling_nllb_moe.py.opt_1	2023-12-14 20:53:34.657472527 +0000
+@@ -300,7 +300,8 @@
+         """
+         nb_tokens = router_logits.shape[0]
+         # Apply Softmax and cast back to the original `dtype`
+-        router_probs = nn.functional.softmax(router_logits, dim=-1, dtype=self.dtype).to(input_dtype)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        router_probs = softmax_softmax(router_logits).to(input_dtype)
+         top_1_expert_index = torch.argmax(router_probs, dim=-1)
+         top_1_mask = torch.nn.functional.one_hot(top_1_expert_index, num_classes=self.num_experts)
+ 

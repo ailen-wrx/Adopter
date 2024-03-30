@@ -1,0 +1,188 @@
+[rule_1] BertSelfAttention($hs, $am, $hm, $ehs, $eam, $pkv, $oa) -> $o => _
+[rule_1] @BertSelfAttention($c, position_embedding_type=$pet) -> $s => @epoi.ops.xformers_attn.BertSelfAttentionWithXF($c, position_embedding_type=$pet, attn_op_name="cutlass") -> $s
+[rule_1][module_1] models.huggingface_transformers.src.transformers.models.bert.modeling_bert
+[rule_1][module_1][stat] 1
+[rule_1][module_2] models.huggingface_transformers.src.transformers.models.roberta.modeling_roberta
+[rule_1][module_2][stat] 0
+[rule_1][module_3] models.huggingface_transformers.src.transformers.models.gpt2.modeling_gpt2
+[rule_1][module_3][stat] 0
+[rule_1][module_4] models.huggingface_transformers.src.transformers.models.gpt_neo.modeling_gpt_neo
+[rule_1][module_4][stat] 0
+[rule_1][module_5] models.huggingface_transformers.src.transformers.models.distilbert.modeling_distilbert
+[rule_1][module_5][stat] 0
+[rule_1][module_6] models.huggingface_transformers.src.transformers.models.t5.modeling_t5
+[rule_1][module_6][stat] 0
+[rule_1][module_7] models.huggingface_transformers.src.transformers.models.albert.modeling_albert
+[rule_1][module_7][stat] 0
+[rule_1][module_8] models.huggingface_transformers.src.transformers.models.groupvit.modeling_groupvit
+[rule_1][module_8][stat] 0
+[rule_1][module_9] models.huggingface_transformers.src.transformers.models.resnet.modeling_resnet
+[rule_1][module_9][stat] 0
+
+[rule_2] T5Attention($hs, mask=$am, position_bias=$pb, layer_head_mask=$lhm, past_key_value=$pkv, use_cache=$c, output_attentions=$oa) -> o => _
+[rule_2] @T5Attention($c, has_relative_attention_bias=$hrab) -> $s => @epoi.ops.xformers_attn.T5Attention($c, has_relative_attention_bias = $hrab, attn_op_name="cutlass") -> $s
+[rule_2][module_1] models.huggingface_transformers.src.transformers.models.bert.modeling_bert
+[rule_2][module_1][stat] 0
+[rule_2][module_2] models.huggingface_transformers.src.transformers.models.roberta.modeling_roberta
+[rule_2][module_2][stat] 0
+[rule_2][module_3] models.huggingface_transformers.src.transformers.models.gpt2.modeling_gpt2
+[rule_2][module_3][stat] 0
+[rule_2][module_4] models.huggingface_transformers.src.transformers.models.gpt_neo.modeling_gpt_neo
+[rule_2][module_4][stat] 0
+[rule_2][module_5] models.huggingface_transformers.src.transformers.models.distilbert.modeling_distilbert
+[rule_2][module_5][stat] 0
+[rule_2][module_6] models.huggingface_transformers.src.transformers.models.t5.modeling_t5
+[rule_2][module_6][stat] 2
+[rule_2][module_7] models.huggingface_transformers.src.transformers.models.albert.modeling_albert
+[rule_2][module_7][stat] 0
+[rule_2][module_8] models.huggingface_transformers.src.transformers.models.groupvit.modeling_groupvit
+[rule_2][module_8][stat] 0
+[rule_2][module_9] models.huggingface_transformers.src.transformers.models.resnet.modeling_resnet
+[rule_2][module_9][stat] 0
+
+[rule_3] GPT2Attention($hs, layer_past=$lp, attention_mask=$am, head_mask=$hm, use_cache=$c, output_attentions=$oa) -> o => _
+[rule_3] @GPT2Attention($c, is_cross_attention=$cr, layer_idx=$li) -> $s => @epoi.ops.xformers_attn.GPT2AttentionWithXF($c, is_cross_attention=$cr, layer_idx=$li) -> $s
+[rule_3][module_1] models.huggingface_transformers.src.transformers.models.bert.modeling_bert
+[rule_3][module_1][stat] 0
+[rule_3][module_2] models.huggingface_transformers.src.transformers.models.roberta.modeling_roberta
+[rule_3][module_2][stat] 0
+[rule_3][module_3] models.huggingface_transformers.src.transformers.models.gpt2.modeling_gpt2
+[rule_3][module_3][stat] 1
+[rule_3][module_4] models.huggingface_transformers.src.transformers.models.gpt_neo.modeling_gpt_neo
+[rule_3][module_4][stat] 0
+[rule_3][module_5] models.huggingface_transformers.src.transformers.models.distilbert.modeling_distilbert
+[rule_3][module_5][stat] 0
+[rule_3][module_6] models.huggingface_transformers.src.transformers.models.t5.modeling_t5
+[rule_3][module_6][stat] 0
+[rule_3][module_7] models.huggingface_transformers.src.transformers.models.albert.modeling_albert
+[rule_3][module_7][stat] 0
+[rule_3][module_8] models.huggingface_transformers.src.transformers.models.groupvit.modeling_groupvit
+[rule_3][module_8][stat] 0
+[rule_3][module_9] models.huggingface_transformers.src.transformers.models.resnet.modeling_resnet
+[rule_3][module_9][stat] 0
+
+[rule_4] torch.nn.functional.softmax($as, dim=-1) -> $ap => xformers.triton.softmax.softmax($as) -> $ap
+[rule_4][module_1] models.huggingface_transformers.src.transformers.models.bert.modeling_bert
+[rule_4][module_1][stat] 1
+[rule_4][module_2] models.huggingface_transformers.src.transformers.models.roberta.modeling_roberta
+[rule_4][module_2][stat] 1
+[rule_4][module_3] models.huggingface_transformers.src.transformers.models.gpt2.modeling_gpt2
+[rule_4][module_3][stat] 2
+[rule_4][module_4] models.huggingface_transformers.src.transformers.models.gpt_neo.modeling_gpt_neo
+[rule_4][module_4][stat] 1
+[rule_4][module_5] models.huggingface_transformers.src.transformers.models.distilbert.modeling_distilbert
+[rule_4][module_5][stat] 1
+[rule_4][module_6] models.huggingface_transformers.src.transformers.models.t5.modeling_t5
+[rule_4][module_6][stat] 1
+[rule_4][module_7] models.huggingface_transformers.src.transformers.models.albert.modeling_albert
+[rule_4][module_7][stat] 1
+[rule_4][module_8] models.huggingface_transformers.src.transformers.models.groupvit.modeling_groupvit
+[rule_4][module_8][stat] 2
+[rule_4][module_9] models.huggingface_transformers.src.transformers.models.resnet.modeling_resnet
+[rule_4][module_9][stat] 0
+
+[rule_5] torch.nn.Dropout($hs) -> $hs; $hs + $it -> $h; torch.nn.LayerNorm($h) -> $hs => epoi.ops.torchscript_ops.FusedDropoutAddLayerNorm($hs, $it) -> $hs
+[rule_5] @torch.nn.Dropout($chdp) -> _; @torch.nn.LayerNorm($chs, eps=$clne) -> _ => @epoi.ops.torchscript_ops.FusedDropoutAddLayerNorm($chs, $chdp, eps=$clne) -> self.dropout_add_layernorm
+[rule_5][module_1] models.huggingface_transformers.src.transformers.models.bert.modeling_bert
+[rule_5][module_1][stat] 2
+[rule_5][module_2] models.huggingface_transformers.src.transformers.models.roberta.modeling_roberta
+[rule_5][module_2][stat] 2
+[rule_5][module_3] models.huggingface_transformers.src.transformers.models.gpt2.modeling_gpt2
+[rule_5][module_3][stat] 0
+[rule_5][module_4] models.huggingface_transformers.src.transformers.models.gpt_neo.modeling_gpt_neo
+[rule_5][module_4][stat] 0
+[rule_5][module_5] models.huggingface_transformers.src.transformers.models.distilbert.modeling_distilbert
+[rule_5][module_5][stat] 0
+[rule_5][module_6] models.huggingface_transformers.src.transformers.models.t5.modeling_t5
+[rule_5][module_6][stat] 0
+[rule_5][module_7] models.huggingface_transformers.src.transformers.models.albert.modeling_albert
+[rule_5][module_7][stat] 0
+[rule_5][module_8] models.huggingface_transformers.src.transformers.models.groupvit.modeling_groupvit
+[rule_5][module_8][stat] 0
+[rule_5][module_9] models.huggingface_transformers.src.transformers.models.resnet.modeling_resnet
+[rule_5][module_9][stat] 0
+
+[rule_6] torch.nn.Linear($hs) -> $hs; ACT2FN[config.hidden_act]($hs) -> $hs => _
+[rule_6] @torch.nn.Linear($chs, $cis, bias=True) -> $sd; @ACT2FN[config.hidden_act] -> $siaf => @torch.nn.Linear($chs, $cis, bias=False) -> $sd; @epoi.ops.torchscript_ops.FusedBiasGELU($cis, prev_weight=$sd.weight) -> $siaf
+[rule_6][module_1] models.huggingface_transformers.src.transformers.models.bert.modeling_bert
+[rule_6][module_1][stat] 2
+[rule_6][module_2] models.huggingface_transformers.src.transformers.models.roberta.modeling_roberta
+[rule_6][module_2][stat] 1
+[rule_6][module_3] models.huggingface_transformers.src.transformers.models.gpt2.modeling_gpt2
+[rule_6][module_3][stat] 0
+[rule_6][module_4] models.huggingface_transformers.src.transformers.models.gpt_neo.modeling_gpt_neo
+[rule_6][module_4][stat] 0
+[rule_6][module_5] models.huggingface_transformers.src.transformers.models.distilbert.modeling_distilbert
+[rule_6][module_5][stat] 0
+[rule_6][module_6] models.huggingface_transformers.src.transformers.models.t5.modeling_t5
+[rule_6][module_6][stat] 0
+[rule_6][module_7] models.huggingface_transformers.src.transformers.models.albert.modeling_albert
+[rule_6][module_7][stat] 1
+[rule_6][module_8] models.huggingface_transformers.src.transformers.models.groupvit.modeling_groupvit
+[rule_6][module_8][stat] 1
+[rule_6][module_9] models.huggingface_transformers.src.transformers.models.resnet.modeling_resnet
+[rule_6][module_9][stat] 0
+
+[rule_7] torch.nn.Conv2d($x) -> $h; torch.nn.BatchNorm2d($h) -> $h => epoi.ops.torchscript_ops.FusedConv2dBatchNorm2d($x) -> $h
+[rule_7] @torch.nn.Conv2d(in_channels=$ic, out_channels=$oc, kernel_size=$ks, stride=$st, bias=$bs) -> _; @torch.nn.BatchNorm2d(num_features=$oc) -> _ => @epoi.ops.torchscript_ops.FusedConv2dBatchNorm2d($ic, $oc, $ks, stride=$st, bias=$bs) -> self.conv_batchnorm
+[rule_7][module_1] models.huggingface_transformers.src.transformers.models.bert.modeling_bert
+[rule_7][module_1][stat] 0
+[rule_7][module_2] models.huggingface_transformers.src.transformers.models.roberta.modeling_roberta
+[rule_7][module_2][stat] 0
+[rule_7][module_3] models.huggingface_transformers.src.transformers.models.gpt2.modeling_gpt2
+[rule_7][module_3][stat] 0
+[rule_7][module_4] models.huggingface_transformers.src.transformers.models.gpt_neo.modeling_gpt_neo
+[rule_7][module_4][stat] 0
+[rule_7][module_5] models.huggingface_transformers.src.transformers.models.distilbert.modeling_distilbert
+[rule_7][module_5][stat] 0
+[rule_7][module_6] models.huggingface_transformers.src.transformers.models.t5.modeling_t5
+[rule_7][module_6][stat] 0
+[rule_7][module_7] models.huggingface_transformers.src.transformers.models.albert.modeling_albert
+[rule_7][module_7][stat] 0
+[rule_7][module_8] models.huggingface_transformers.src.transformers.models.groupvit.modeling_groupvit
+[rule_7][module_8][stat] 0
+[rule_7][module_9] models.huggingface_transformers.src.transformers.models.resnet.modeling_resnet
+[rule_7][module_9][stat] 2
+
+[rule_8] torch.nn.Linear($hs) -> $hs; torch.nn.BatchNorm1d($hs) -> $hs => torch.nn.intrinsic.qat.modules.LinearBn1d($hs) -> $hs
+[rule_8] @torch.nn.Linear($in, $out, $b) -> _; @torch.nn.BatchNorm1d($out) -> _ => @torch.nn.intrinsic.qat.modules.LinearBn1d($in, $out, $b) -> self.linear_bn
+[rule_8][module_1] models.huggingface_transformers.src.transformers.models.bert.modeling_bert
+[rule_8][module_1][stat] 0
+[rule_8][module_2] models.huggingface_transformers.src.transformers.models.roberta.modeling_roberta
+[rule_8][module_2][stat] 0
+[rule_8][module_3] models.huggingface_transformers.src.transformers.models.gpt2.modeling_gpt2
+[rule_8][module_3][stat] 0
+[rule_8][module_4] models.huggingface_transformers.src.transformers.models.gpt_neo.modeling_gpt_neo
+[rule_8][module_4][stat] 0
+[rule_8][module_5] models.huggingface_transformers.src.transformers.models.distilbert.modeling_distilbert
+[rule_8][module_5][stat] 0
+[rule_8][module_6] models.huggingface_transformers.src.transformers.models.t5.modeling_t5
+[rule_8][module_6][stat] 0
+[rule_8][module_7] models.huggingface_transformers.src.transformers.models.albert.modeling_albert
+[rule_8][module_7][stat] 0
+[rule_8][module_8] models.huggingface_transformers.src.transformers.models.groupvit.modeling_groupvit
+[rule_8][module_8][stat] 1
+[rule_8][module_9] models.huggingface_transformers.src.transformers.models.resnet.modeling_resnet
+[rule_8][module_9][stat] 0
+
+[rule_9] torch.nn.Linear($hs) -> $q; torch.nn.Linear($hs) -> $k; torch.nn.Linear($hs) -> $v; self._split_heads($q, $nh, $hd) -> $q; self._split_heads($k, $nh, $hd) -> $k; self._split_heads($v, $nh, $hd) -> $v => slapo.op.linear.FusedQKV($hs) -> $q, $k, $v
+[rule_9] @torch.nn.Linear($sed, $sed, bias=False) -> _; @torch.nn.Linear($sed, $sed, bias=False) -> _; @torch.nn.Linear($sed, $sed, bias=False) -> _ => @slapo.op.linear.FusedQKV($sed, self.num_heads, 1) -> self.qkv
+[rule_9][module_1] models.huggingface_transformers.src.transformers.models.bert.modeling_bert
+[rule_9][module_1][stat] 0
+[rule_9][module_2] models.huggingface_transformers.src.transformers.models.roberta.modeling_roberta
+[rule_9][module_2][stat] 0
+[rule_9][module_3] models.huggingface_transformers.src.transformers.models.gpt2.modeling_gpt2
+[rule_9][module_3][stat] 0
+[rule_9][module_4] models.huggingface_transformers.src.transformers.models.gpt_neo.modeling_gpt_neo
+[rule_9][module_4][stat] 1
+[rule_9][module_5] models.huggingface_transformers.src.transformers.models.distilbert.modeling_distilbert
+[rule_9][module_5][stat] 0
+[rule_9][module_6] models.huggingface_transformers.src.transformers.models.t5.modeling_t5
+[rule_9][module_6][stat] 0
+[rule_9][module_7] models.huggingface_transformers.src.transformers.models.albert.modeling_albert
+[rule_9][module_7][stat] 0
+[rule_9][module_8] models.huggingface_transformers.src.transformers.models.groupvit.modeling_groupvit
+[rule_9][module_8][stat] 0
+[rule_9][module_9] models.huggingface_transformers.src.transformers.models.resnet.modeling_resnet
+[rule_9][module_9][stat] 0
+

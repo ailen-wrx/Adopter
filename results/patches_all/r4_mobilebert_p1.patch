@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/mobilebert/modeling_mobilebert.py.ori	2023-11-21 18:20:36.749523533 +0000
++++ models/huggingface_transformers/src/transformers/models/mobilebert/modeling_mobilebert.py.opt_1	2023-11-21 18:20:36.753523526 +0000
+@@ -289,7 +289,8 @@
+             # Apply the attention mask is (precomputed for all layers in BertModel forward() function)
+             attention_scores = attention_scores + attention_mask
+         # Normalize the attention scores to probabilities.
+-        attention_probs = nn.functional.softmax(attention_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_probs = softmax_softmax(attention_scores)
+         # This is actually dropping out entire tokens to attend to, which might
+         # seem a bit unusual, but is taken from the original Transformer paper.
+         attention_probs = self.dropout(attention_probs)

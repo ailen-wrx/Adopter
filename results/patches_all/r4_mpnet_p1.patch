@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/mpnet/modeling_mpnet.py.ori	2023-11-21 18:20:38.721519965 +0000
++++ models/huggingface_transformers/src/transformers/models/mpnet/modeling_mpnet.py.opt_1	2023-11-21 18:20:38.725519958 +0000
+@@ -185,7 +185,8 @@
+             attention_scores = attention_scores + attention_mask
+ 
+         # Normalize the attention scores to probabilities.
+-        attention_probs = nn.functional.softmax(attention_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_probs = softmax_softmax(attention_scores)
+ 
+         attention_probs = self.dropout(attention_probs)
+ 

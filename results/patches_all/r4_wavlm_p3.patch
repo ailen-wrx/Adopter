@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/wavlm/modeling_wavlm.py.ori	2023-11-21 18:22:02.369368535 +0000
++++ models/huggingface_transformers/src/transformers/models/wavlm/modeling_wavlm.py.opt_3	2023-11-21 18:22:02.369368535 +0000
+@@ -1827,7 +1827,8 @@
+         hidden_states = self.projector(hidden_states)
+ 
+         for tdnn_layer in self.tdnn:
+-            hidden_states = tdnn_layer(hidden_states)
++            from xformers.triton.softmax import softmax as softmax_softmax
++            norm_weights = softmax_softmax(self.layer_weights)
+ 
+         # Statistic Pooling
+         if attention_mask is None:

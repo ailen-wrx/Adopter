@@ -1,0 +1,20 @@
+--- models/huggingface_transformers/src/transformers/models/levit/modeling_levit.py.ori	2023-11-21 18:33:17.776142913 +0000
++++ models/huggingface_transformers/src/transformers/models/levit/modeling_levit.py.opt_1	2023-11-21 18:33:17.776142913 +0000
+@@ -88,14 +88,11 @@
+         self, in_channels, out_channels, kernel_size, stride, padding, dilation=1, groups=1, bn_weight_init=1
+     ):
+         super().__init__()
+-        self.convolution = nn.Conv2d(
+-            in_channels, out_channels, kernel_size, stride, padding, dilation=dilation, groups=groups, bias=False
+-        )
+-        self.batch_norm = nn.BatchNorm2d(out_channels)
++        from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++        self.conv_batchnorm = torchscript_ops_FusedConv2dBatchNorm2d(bias=False)
+ 
+     def forward(self, embeddings):
+-        embeddings = self.convolution(embeddings)
+-        embeddings = self.batch_norm(embeddings)
++        embeddings = self.conv_batchnorm(embeddings)
+         return embeddings
+ 
+ 

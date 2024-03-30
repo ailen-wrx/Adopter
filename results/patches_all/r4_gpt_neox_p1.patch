@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/gpt_neox/modeling_gpt_neox.py.ori	2023-11-21 18:19:57.025595401 +0000
++++ models/huggingface_transformers/src/transformers/models/gpt_neox/modeling_gpt_neox.py.opt_1	2023-11-21 18:19:57.025595401 +0000
+@@ -268,7 +268,8 @@
+             # Apply the attention mask
+             attn_scores = attn_scores + attention_mask
+ 
+-        attn_weights = nn.functional.softmax(attn_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attn_scores)
+         attn_weights = attn_weights.to(value.dtype)
+ 
+         # Mask heads if we want to

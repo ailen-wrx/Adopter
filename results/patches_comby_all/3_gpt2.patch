@@ -1,0 +1,11 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gpt2/modeling_gpt2.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gpt2/modeling_gpt2.py
+@@ -369,7 +369,7 @@
+         self.ln_2 = nn.LayerNorm(hidden_size, eps=config.layer_norm_epsilon)
+ 
+         if config.add_cross_attention:
+-            self.crossattention = GPT2Attention(config, is_cross_attention=True, layer_idx=layer_idx)
++            from epoi.ops.xformers_attn import GPT2Attention as xformers_attn_GPT2Attention; self.crossattention = xformers_attn_T5Attention(config, is_cross_attention=True, layer_idx=layer_idx, attn_op_name="cutlass")
+             self.ln_cross_attn = nn.LayerNorm(hidden_size, eps=config.layer_norm_epsilon)
+ 
+         self.mlp = GPT2MLP(inner_dim, config)

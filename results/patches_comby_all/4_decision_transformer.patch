@@ -1,0 +1,20 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/decision_transformer/modeling_decision_transformer.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/decision_transformer/modeling_decision_transformer.py
+@@ -192,7 +192,7 @@
+             # Apply the attention mask
+             attn_weights = attn_weights + attention_mask
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax; attn_weights = softmax_softmax(attn_weights)
+ 
+         # Downcast (if necessary) back to V's dtype (if in mixed-precision) -- No-Op otherwise
+         attn_weights = attn_weights.type(value.dtype)
+@@ -242,7 +242,7 @@
+             # Apply the attention mask
+             attn_weights = attn_weights + attention_mask
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax; attn_weights = softmax_softmax(attn_weights)
+ 
+         # Downcast (if necessary) back to V's dtype (if in mixed-precision) -- No-Op if otherwise
+         if attn_weights.dtype != torch.float32:

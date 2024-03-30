@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/mobilebert/modeling_mobilebert.py.ori	2023-11-21 18:29:10.232592541 +0000
++++ models/huggingface_transformers/src/transformers/models/mobilebert/modeling_mobilebert.py.opt_1	2023-11-21 18:29:10.236592534 +0000
+@@ -374,10 +374,12 @@
+ class MobileBertIntermediate(nn.Module):
+     def __init__(self, config):
+         super().__init__()
+-        self.dense = nn.Linear(config.true_hidden_size, config.intermediate_size)
+         if isinstance(config.hidden_act, str):
+-            self.intermediate_act_fn = ACT2FN[config.hidden_act]
++            self.dense = torch.nn.Linear(config.true_hidden_size, config.intermediate_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.intermediate_act_fn = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.dense.weight)
+         else:
++            self.dense = nn.Linear(config.true_hidden_size, config.intermediate_size)
+             self.intermediate_act_fn = config.hidden_act
+ 
+     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:

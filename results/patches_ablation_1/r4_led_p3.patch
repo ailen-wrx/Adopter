@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/led/modeling_led.py.ori	2023-12-14 20:51:55.157691728 +0000
++++ models/huggingface_transformers/src/transformers/models/led/modeling_led.py.opt_3	2023-12-14 20:51:55.157691728 +0000
+@@ -896,7 +896,8 @@
+             attn_weights = attn_weights.view(bsz, self.num_heads, tgt_len, src_len) + attention_mask
+             attn_weights = attn_weights.view(bsz * self.num_heads, tgt_len, src_len)
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attn_weights)
+         if layer_head_mask is not None:
+             if layer_head_mask.size() != (self.num_heads,):
+                 raise ValueError(

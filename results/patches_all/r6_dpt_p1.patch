@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/dpt/modeling_dpt.py.ori	2023-11-21 18:27:55.156728831 +0000
++++ models/huggingface_transformers/src/transformers/models/dpt/modeling_dpt.py.opt_1	2023-11-21 18:27:55.160728824 +0000
+@@ -430,10 +430,12 @@
+ class DPTViTIntermediate(nn.Module):
+     def __init__(self, config: DPTConfig) -> None:
+         super().__init__()
+-        self.dense = nn.Linear(config.hidden_size, config.intermediate_size)
+         if isinstance(config.hidden_act, str):
+-            self.intermediate_act_fn = ACT2FN[config.hidden_act]
++            self.dense = torch.nn.Linear(config.hidden_size, config.intermediate_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.intermediate_act_fn = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.dense.weight)
+         else:
++            self.dense = nn.Linear(config.hidden_size, config.intermediate_size)
+             self.intermediate_act_fn = config.hidden_act
+ 
+     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:

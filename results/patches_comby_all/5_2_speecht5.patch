@@ -1,0 +1,12 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/speecht5/modeling_speecht5.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/speecht5/modeling_speecht5.py
+@@ -1293,8 +1293,7 @@
+ 
+     def __init__(self, config: SpeechT5Config):
+         super().__init__(config)
+-        self.layer_norm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
+-        self.dropout = nn.Dropout(config.hidden_dropout)
++        from epoi.ops.torchscript_ops import FusedDropoutAddLayerNorm; self.fused_dropout_layernorm = epoi.ops.torchscript_ops.FusedDropoutAddLayerNorm(config.hidden_size, config.hidden_dropout, config.layer_norm_eps)
+         self.layerdrop = config.encoder_layerdrop
+ 
+         self.layers = nn.ModuleList([SpeechT5EncoderLayer(config) for _ in range(config.encoder_layers)])

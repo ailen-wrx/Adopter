@@ -1,0 +1,29 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/bigbird_pegasus/modeling_bigbird_pegasus.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/bigbird_pegasus/modeling_bigbird_pegasus.py
+@@ -208,7 +208,7 @@
+             attention_scores = attention_scores + attention_mask
+ 
+         # Normalize the attention scores to probabilities.
+-        attention_probs = nn.functional.softmax(attention_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax; attention_probs = softmax_softmax(attention_scores)
+ 
+         # This is actually dropping out entire tokens to attend to, which might
+         # seem a bit unusual, but is taken from the original Transformer paper.
+@@ -644,7 +644,7 @@
+         last_product = self.torch_bmm_nd_transpose(blocked_query_matrix[:, :, -1], key_layer, ndim=4)
+         last_product = last_product * rsqrt_d
+         last_product += (1.0 - to_mask) * attn_mask_penalty
+-        last_attn_weights = nn.functional.softmax(last_product, dim=-1)  # [bsz, n_heads, from_block_size, n]
++        from xformers.triton.softmax import softmax as softmax_softmax; last_attn_weights = softmax_softmax(last_product)  # [bsz, n_heads, from_block_size, n]
+ 
+         # [bsz, n_heads, from_block_size, to_seq_len] x [bsz, n_heads, to_seq_len, -1] ==> [bsz, n_heads, from_block_size, -1]
+         last_context_layer = self.torch_bmm_nd(last_attn_weights, value_layer, ndim=4)
+@@ -1317,7 +1317,7 @@
+             attn_weights = attn_weights.view(bsz, self.num_heads, tgt_len, src_len) + attention_mask
+             attn_weights = attn_weights.view(bsz * self.num_heads, tgt_len, src_len)
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax; attn_weights = softmax_softmax(attn_weights)
+ 
+         if layer_head_mask is not None:
+             if layer_head_mask.size() != (self.num_heads,):

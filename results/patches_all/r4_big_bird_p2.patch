@@ -1,0 +1,14 @@
+--- models/huggingface_transformers/src/transformers/models/big_bird/modeling_big_bird.py.ori	2023-11-21 18:19:00.601697426 +0000
++++ models/huggingface_transformers/src/transformers/models/big_bird/modeling_big_bird.py.opt_2	2023-11-21 18:19:00.605697419 +0000
+@@ -622,9 +622,8 @@
+ 
+         first_product = first_product * rsqrt_d
+         first_product += (1.0 - to_mask) * attn_mask_penalty
+-        first_attn_weights = nn.functional.softmax(
+-            first_product, dim=-1
+-        )  # [bsz, n_heads, from_block_size, to_seq_len]
++        from xformers.triton.softmax import softmax as softmax_softmax
++        first_attn_weights = softmax_softmax(first_product)
+ 
+         # [bsz, n_heads, from_block_size, to_seq_len] x [bsz, n_heads, to_seq_len, -1] ==> [bsz, n_heads, from_block_size, -1]
+         first_context_layer = self.torch_bmm_nd(first_attn_weights, value_layer, ndim=4)

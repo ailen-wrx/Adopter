@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/swin/modeling_swin.py.ori	2023-11-21 18:30:21.084463884 +0000
++++ models/huggingface_transformers/src/transformers/models/swin/modeling_swin.py.opt_1	2023-11-21 18:30:21.088463877 +0000
+@@ -569,10 +569,12 @@
+ class SwinIntermediate(nn.Module):
+     def __init__(self, config, dim):
+         super().__init__()
+-        self.dense = nn.Linear(dim, int(config.mlp_ratio * dim))
+         if isinstance(config.hidden_act, str):
+-            self.intermediate_act_fn = ACT2FN[config.hidden_act]
++            self.dense = torch.nn.Linear(dim, int((config.mlp_ratio * dim)), bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.intermediate_act_fn = torchscript_ops_FusedBiasGELU(int((config.mlp_ratio * dim)), prev_weight=self.dense.weight)
+         else:
++            self.dense = nn.Linear(dim, int((config.mlp_ratio * dim)))
+             self.intermediate_act_fn = config.hidden_act
+ 
+     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:

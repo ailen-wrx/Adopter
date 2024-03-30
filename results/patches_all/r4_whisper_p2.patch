@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/whisper/modeling_whisper.py.ori	2023-11-21 18:22:04.825364087 +0000
++++ models/huggingface_transformers/src/transformers/models/whisper/modeling_whisper.py.opt_2	2023-11-21 18:22:04.829364080 +0000
+@@ -1981,7 +1981,8 @@
+             hidden_states = torch.stack(encoder_outputs, dim=1)
+             norm_weights = nn.functional.softmax(self.layer_weights, dim=-1)
+             hidden_states = (hidden_states * norm_weights.view(-1, 1, 1)).sum(dim=1)
+-        else:
++        from xformers.triton.softmax import softmax as softmax_softmax
++        norm_weights = softmax_softmax(self.layer_weights)
+             hidden_states = encoder_outputs[0]
+ 
+         hidden_states = self.projector(hidden_states)

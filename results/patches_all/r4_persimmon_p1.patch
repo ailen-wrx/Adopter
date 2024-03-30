@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/persimmon/modeling_persimmon.py.ori	2023-11-21 18:21:06.173470281 +0000
++++ models/huggingface_transformers/src/transformers/models/persimmon/modeling_persimmon.py.opt_1	2023-11-21 18:21:06.173470281 +0000
+@@ -333,7 +333,8 @@
+             attn_weights = attn_weights + attention_mask
+ 
+         # upcast attention to fp32
+-        attn_weights = nn.functional.softmax(attn_weights, dtype=torch.float32, dim=-1).to(query_states.dtype)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attn_weights).to(query_states.dtype)
+         attn_weights = self.attention_dropout(attn_weights)
+ 
+         attn_output = torch.matmul(attn_weights, value_states)

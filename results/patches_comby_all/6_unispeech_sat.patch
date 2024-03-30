@@ -1,0 +1,15 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/unispeech_sat/modeling_unispeech_sat.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/unispeech_sat/modeling_unispeech_sat.py
+@@ -603,11 +603,7 @@
+         super().__init__()
+         self.intermediate_dropout = nn.Dropout(config.activation_dropout)
+ 
+-        self.intermediate_dense = nn.Linear(config.hidden_size, config.intermediate_size)
+-        if isinstance(config.hidden_act, str):
+-            self.intermediate_act_fn = ACT2FN[config.hidden_act]
+-        else:
+-            self.intermediate_act_fn = config.hidden_act
++        self.intermediate_dense = nn.Linear(config.hidden_size, config.intermediate_size, bias=False); assert (config.hidden_act == gelu); self.intermediate_act_fn = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.intermediate_dense.weight)
+ 
+         self.output_dense = nn.Linear(config.intermediate_size, config.hidden_size)
+         self.output_dropout = nn.Dropout(config.hidden_dropout)

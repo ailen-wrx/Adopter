@@ -1,0 +1,26 @@
+--- models/huggingface_transformers/src/transformers/models/vitmatte/modeling_vitmatte.py.ori	2023-12-14 21:26:54.497250878 +0000
++++ models/huggingface_transformers/src/transformers/models/vitmatte/modeling_vitmatte.py.opt_1	2023-12-14 21:26:54.497250878 +0000
+@@ -98,20 +98,12 @@
+ 
+     def __init__(self, config, in_channels, out_channels, stride=2, padding=1):
+         super().__init__()
+-        self.conv = nn.Conv2d(
+-            in_channels=in_channels,
+-            out_channels=out_channels,
+-            kernel_size=3,
+-            stride=stride,
+-            padding=padding,
+-            bias=False,
+-        )
+-        self.batch_norm = nn.BatchNorm2d(out_channels, eps=config.batch_norm_eps)
++        from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++        self.conv_batchnorm = torchscript_ops_FusedConv2dBatchNorm2d(in_channels, out_channels, 3, stride=stride, bias=False)
+         self.relu = nn.ReLU()
+ 
+     def forward(self, hidden_state):
+-        hidden_state = self.conv(hidden_state)
+-        hidden_state = self.batch_norm(hidden_state)
++        hidden_state = self.conv_batchnorm(hidden_state)
+         hidden_state = self.relu(hidden_state)
+ 
+         return hidden_state

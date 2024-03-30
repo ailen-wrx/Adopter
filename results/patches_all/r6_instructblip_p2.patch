@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/instructblip/modeling_instructblip.py.ori	2023-11-21 18:28:32.764660564 +0000
++++ models/huggingface_transformers/src/transformers/models/instructblip/modeling_instructblip.py.opt_2	2023-11-21 18:28:32.764660564 +0000
+@@ -765,10 +765,12 @@
+ class InstructBlipQFormerIntermediate(nn.Module):
+     def __init__(self, config):
+         super().__init__()
+-        self.dense = nn.Linear(config.hidden_size, config.intermediate_size)
+         if isinstance(config.hidden_act, str):
+-            self.intermediate_act_fn = ACT2FN[config.hidden_act]
++            self.dense = torch.nn.Linear(config.hidden_size, config.intermediate_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.intermediate_act_fn = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.dense.weight)
+         else:
++            self.dense = nn.Linear(config.hidden_size, config.intermediate_size)
+             self.intermediate_act_fn = config.hidden_act
+ 
+     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:

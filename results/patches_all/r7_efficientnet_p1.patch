@@ -1,0 +1,22 @@
+--- models/huggingface_transformers/src/transformers/models/efficientnet/modeling_efficientnet.py.ori	2023-11-21 18:32:27.792233727 +0000
++++ models/huggingface_transformers/src/transformers/models/efficientnet/modeling_efficientnet.py.opt_1	2023-11-21 18:32:27.792233727 +0000
+@@ -128,16 +128,13 @@
+ 
+         self.out_dim = round_filters(config, 32)
+         self.padding = nn.ZeroPad2d(padding=(0, 1, 0, 1))
+-        self.convolution = nn.Conv2d(
+-            config.num_channels, self.out_dim, kernel_size=3, stride=2, padding="valid", bias=False
+-        )
+-        self.batchnorm = nn.BatchNorm2d(self.out_dim, eps=config.batch_norm_eps, momentum=config.batch_norm_momentum)
++        from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++        self.conv_batchnorm = torchscript_ops_FusedConv2dBatchNorm2d(3, stride=2, bias=False)
+         self.activation = ACT2FN[config.hidden_act]
+ 
+     def forward(self, pixel_values: torch.Tensor) -> torch.Tensor:
+         features = self.padding(pixel_values)
+-        features = self.convolution(features)
+-        features = self.batchnorm(features)
++        features = self.conv_batchnorm(features)
+         features = self.activation(features)
+ 
+         return features

@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/informer/modeling_informer.py.ori	2023-12-14 20:51:32.481742004 +0000
++++ models/huggingface_transformers/src/transformers/models/informer/modeling_informer.py.opt_2	2023-12-14 20:51:32.485741995 +0000
+@@ -620,7 +620,8 @@
+             )
+             attn_weights = attn_weights.view(bsz * self.num_heads, u, src_len)
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attn_weights)
+ 
+         if layer_head_mask is not None:
+             if layer_head_mask.size() != (self.num_heads,):

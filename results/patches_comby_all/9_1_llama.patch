@@ -1,0 +1,24 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/llama/modeling_llama.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/llama/modeling_llama.py
+@@ -344,9 +344,7 @@
+             value_states = torch.cat(value_states, dim=-1)
+ 
+         else:
+-            query_states = self.q_proj(hidden_states)
+-            key_states = self.k_proj(hidden_states)
+-            value_states = self.v_proj(hidden_states)
++            (query_states, key_states, value_states) = self.qkv(hidden_states)
+ 
+         query_states = query_states.view(bsz, q_len, self.num_heads, self.head_dim).transpose(1, 2)
+         key_states = key_states.view(bsz, q_len, self.num_key_value_heads, self.head_dim).transpose(1, 2)
+@@ -432,9 +430,7 @@
+ 
+         bsz, q_len, _ = hidden_states.size()
+ 
+-        query_states = self.q_proj(hidden_states)
+-        key_states = self.k_proj(hidden_states)
+-        value_states = self.v_proj(hidden_states)
++        (query_states, key_states, value_states) = self.qkv(hidden_states)
+ 
+         # Flash attention requires the input to have the shape
+         # batch_size x seq_length x head_dime x hidden_dim

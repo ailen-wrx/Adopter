@@ -1,0 +1,14 @@
+--- models/huggingface_transformers/src/transformers/models/vitdet/modeling_vitdet.py.ori	2023-12-14 21:16:56.666492937 +0000
++++ models/huggingface_transformers/src/transformers/models/vitdet/modeling_vitdet.py.opt_1	2023-12-14 21:16:56.666492937 +0000
+@@ -374,8 +374,9 @@
+ class VitDetMlp(nn.Module):
+     def __init__(self, config, in_features: int, hidden_features: int) -> None:
+         super().__init__()
+-        self.fc1 = nn.Linear(in_features, hidden_features)
+-        self.act = ACT2FN[config.hidden_act]
++        self.fc1 = torch.nn.Linear(in_features, hidden_features, bias=False)
++        from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++        self.act = torchscript_ops_FusedBiasGELU(hidden_features, prev_weight=self.fc1.weight)
+         self.fc2 = nn.Linear(hidden_features, in_features)
+         self.drop = nn.Dropout(config.dropout_prob)
+ 

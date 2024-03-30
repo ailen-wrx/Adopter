@@ -1,0 +1,11 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/bert/modeling_bert.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/bert/modeling_bert.py
+@@ -392,7 +392,7 @@
+ class BertAttention(nn.Module):
+     def __init__(self, config, position_embedding_type=None):
+         super().__init__()
+-        self.self = BertSelfAttention(config, position_embedding_type=position_embedding_type)
++        from epoi.ops.xformers_attn import BertSelfAttention as xformers_attn_BertSelfAttention; self.self = xformers_attn_BertSelfAttention(config, position_embedding_type=position_embedding_type, attn_op_name="cutlass")
+         self.output = BertSelfOutput(config)
+         self.pruned_heads = set()
+ 

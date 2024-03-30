@@ -1,0 +1,18 @@
+--- models/huggingface_transformers/src/transformers/models/layoutlmv3/modeling_layoutlmv3.py.ori	2023-11-21 18:28:40.816645947 +0000
++++ models/huggingface_transformers/src/transformers/models/layoutlmv3/modeling_layoutlmv3.py.opt_1	2023-11-21 18:28:40.820645940 +0000
+@@ -715,10 +715,13 @@
+ class LayoutLMv3Intermediate(nn.Module):
+     def __init__(self, config):
+         super().__init__()
+-        self.dense = nn.Linear(config.hidden_size, config.intermediate_size)
+         if isinstance(config.hidden_act, str):
+-            self.intermediate_act_fn = ACT2FN[config.hidden_act]
++            from torch.nn import Linear as nn_Linear
++            self.dense = nn_Linear(config.hidden_size, config.intermediate_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.intermediate_act_fn = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.dense.weight)
+         else:
++            self.dense = nn.Linear(config.hidden_size, config.intermediate_size)
+             self.intermediate_act_fn = config.hidden_act
+ 
+     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:

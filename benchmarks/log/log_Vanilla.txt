@@ -1,0 +1,285 @@
+[2023-09-22 02:17:06,803] [INFO] [real_accelerator.py:133:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+09/22/2023 02:17:07 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1distributed training: True, 16-bits training: True
+09/22/2023 02:17:07 - INFO - __main__ - Training/evaluation parameters TrainingArguments(
+_n_gpu=1,
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_pin_memory=True,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+do_eval=False,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_steps=None,
+evaluation_strategy=no,
+fp16=True,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O2,
+fsdp=[],
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=apex,
+hub_model_id=None,
+hub_private_repo=False,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_inputs_for_metrics=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=5e-05,
+length_column_name=length,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=passive,
+log_on_each_node=True,
+logging_dir=/tmp/bert/runs/Sep22_02-17-07_ip-172-31-81-243,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=500,
+logging_strategy=steps,
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=20,
+metric_for_best_model=None,
+mp_parameters=,
+no_cuda=False,
+num_train_epochs=3.0,
+optim=adamw_apex_fused,
+output_dir=/tmp/bert/,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=8,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=True,
+report_to=[],
+resume_from_checkpoint=None,
+run_name=/tmp/bert/,
+save_on_each_node=False,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+sharded_ddp=[],
+skip_memory_metrics=False,
+tf32=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.0,
+xpu_backend=None,
+)
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/datasets/load.py:2072: FutureWarning: 'use_auth_token' was deprecated in favor of 'token' in version 2.14.0 and will be removed in 3.0.0.
+You can remove this warning by passing 'token=None' instead.
+  warnings.warn(
+Loading Dataset Infos from /home/ubuntu/.cache/huggingface/modules/datasets_modules/datasets/wikitext/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+09/22/2023 02:17:07 - INFO - datasets.info - Loading Dataset Infos from /home/ubuntu/.cache/huggingface/modules/datasets_modules/datasets/wikitext/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+Overwrite dataset info from restored data version if exists.
+09/22/2023 02:17:07 - INFO - datasets.builder - Overwrite dataset info from restored data version if exists.
+Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+09/22/2023 02:17:07 - INFO - datasets.info - Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+Found cached dataset wikitext (/home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126)
+09/22/2023 02:17:07 - INFO - datasets.builder - Found cached dataset wikitext (/home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126)
+Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+09/22/2023 02:17:07 - INFO - datasets.info - Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+[INFO|configuration_utils.py:653] 2023-09-22 02:17:07,673 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--bert-large-uncased/snapshots/80792f8e8216b29f3c846b653a0ff0a37c210431/config.json
+[INFO|configuration_utils.py:705] 2023-09-22 02:17:07,674 >> Model config BertConfig {
+  "_name_or_path": "bert-large-uncased",
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "classifier_dropout": null,
+  "gradient_checkpointing": false,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 4096,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 24,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "transformers_version": "4.24.0.dev0",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+[INFO|configuration_utils.py:653] 2023-09-22 02:17:07,690 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--bert-large-uncased/snapshots/80792f8e8216b29f3c846b653a0ff0a37c210431/config.json
+[INFO|configuration_utils.py:705] 2023-09-22 02:17:07,690 >> Model config BertConfig {
+  "_name_or_path": "bert-large-uncased",
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "classifier_dropout": null,
+  "gradient_checkpointing": false,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 4096,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 24,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "transformers_version": "4.24.0.dev0",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+[INFO|tokenization_utils_base.py:1776] 2023-09-22 02:17:07,691 >> loading file vocab.txt from cache at /home/ubuntu/.cache/huggingface/hub/models--bert-large-uncased/snapshots/80792f8e8216b29f3c846b653a0ff0a37c210431/vocab.txt
+[INFO|tokenization_utils_base.py:1776] 2023-09-22 02:17:07,691 >> loading file tokenizer.json from cache at /home/ubuntu/.cache/huggingface/hub/models--bert-large-uncased/snapshots/80792f8e8216b29f3c846b653a0ff0a37c210431/tokenizer.json
+[INFO|tokenization_utils_base.py:1776] 2023-09-22 02:17:07,691 >> loading file added_tokens.json from cache at None
+[INFO|tokenization_utils_base.py:1776] 2023-09-22 02:17:07,691 >> loading file special_tokens_map.json from cache at None
+[INFO|tokenization_utils_base.py:1776] 2023-09-22 02:17:07,691 >> loading file tokenizer_config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--bert-large-uncased/snapshots/80792f8e8216b29f3c846b653a0ff0a37c210431/tokenizer_config.json
+[INFO|configuration_utils.py:653] 2023-09-22 02:17:07,691 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--bert-large-uncased/snapshots/80792f8e8216b29f3c846b653a0ff0a37c210431/config.json
+[INFO|configuration_utils.py:705] 2023-09-22 02:17:07,692 >> Model config BertConfig {
+  "_name_or_path": "bert-large-uncased",
+  "architectures": [
+    "BertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0.1,
+  "classifier_dropout": null,
+  "gradient_checkpointing": false,
+  "hidden_act": "gelu",
+  "hidden_dropout_prob": 0.1,
+  "hidden_size": 1024,
+  "initializer_range": 0.02,
+  "intermediate_size": 4096,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "bert",
+  "num_attention_heads": 16,
+  "num_hidden_layers": 24,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "transformers_version": "4.24.0.dev0",
+  "type_vocab_size": 2,
+  "use_cache": true,
+  "vocab_size": 30522
+}
+
+09/22/2023 02:17:07 - INFO - __main__ - Training new model from scratch
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-dcee8cc4c6c70c47.arrow
+09/22/2023 02:17:16 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-dcee8cc4c6c70c47.arrow
+Running tokenizer on every text in dataset:   0%|          | 0/36718 [00:00<?, ? examples/s]Caching processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-40c31d3965b9be61.arrow
+09/22/2023 02:17:16 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-40c31d3965b9be61.arrow
+Running tokenizer on every text in dataset:   3%|▎         | 1000/36718 [00:00<00:03, 8970.99 examples/s][WARNING|tokenization_utils_base.py:3520] 2023-09-22 02:17:16,893 >> Token indices sequence length is longer than the specified maximum sequence length for this model (647 > 512). Running this sequence through the model will result in indexing errors
+Running tokenizer on every text in dataset:   5%|▌         | 2000/36718 [00:00<00:03, 9276.79 examples/s]Running tokenizer on every text in dataset:  11%|█         | 4000/36718 [00:00<00:03, 10398.87 examples/s]Running tokenizer on every text in dataset:  16%|█▋        | 6000/36718 [00:00<00:02, 11282.36 examples/s]Running tokenizer on every text in dataset:  22%|██▏       | 8000/36718 [00:00<00:02, 10553.46 examples/s]Running tokenizer on every text in dataset:  27%|██▋       | 10000/36718 [00:01<00:03, 8530.13 examples/s]Running tokenizer on every text in dataset:  33%|███▎      | 12000/36718 [00:01<00:02, 9201.10 examples/s]Running tokenizer on every text in dataset:  38%|███▊      | 14000/36718 [00:01<00:02, 9734.60 examples/s]Running tokenizer on every text in dataset:  44%|████▎     | 16000/36718 [00:01<00:02, 9984.20 examples/s]Running tokenizer on every text in dataset:  49%|████▉     | 18000/36718 [00:01<00:01, 10157.41 examples/s]Running tokenizer on every text in dataset:  54%|█████▍    | 20000/36718 [00:01<00:01, 10560.10 examples/s]Running tokenizer on every text in dataset:  60%|█████▉    | 22000/36718 [00:02<00:01, 8701.79 examples/s] Running tokenizer on every text in dataset:  65%|██████▌   | 24000/36718 [00:02<00:01, 9422.09 examples/s]Running tokenizer on every text in dataset:  71%|███████   | 26000/36718 [00:02<00:01, 9999.18 examples/s]Running tokenizer on every text in dataset:  76%|███████▋  | 28000/36718 [00:02<00:00, 9926.25 examples/s]Running tokenizer on every text in dataset:  82%|████████▏ | 30000/36718 [00:03<00:00, 10342.21 examples/s]Running tokenizer on every text in dataset:  87%|████████▋ | 32000/36718 [00:03<00:00, 10212.46 examples/s]Running tokenizer on every text in dataset:  93%|█████████▎| 34000/36718 [00:03<00:00, 10120.57 examples/s]Running tokenizer on every text in dataset:  98%|█████████▊| 36000/36718 [00:03<00:00, 8682.27 examples/s] Running tokenizer on every text in dataset: 100%|██████████| 36718/36718 [00:03<00:00, 9501.43 examples/s]
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-0a85785595e86e2a.arrow
+09/22/2023 02:17:20 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-0a85785595e86e2a.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-e9dc9a10d734b8e9.arrow
+09/22/2023 02:17:20 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-e9dc9a10d734b8e9.arrow
+Grouping texts in chunks of 512:   0%|          | 0/36718 [00:00<?, ? examples/s]Caching processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-4e1a3fcaf3d4a32a.arrow
+09/22/2023 02:17:20 - INFO - datasets.arrow_dataset - Caching processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-4e1a3fcaf3d4a32a.arrow
+Grouping texts in chunks of 512:   3%|▎         | 1000/36718 [00:00<00:04, 7490.38 examples/s]Grouping texts in chunks of 512:   5%|▌         | 2000/36718 [00:00<00:05, 6865.29 examples/s]Grouping texts in chunks of 512:   8%|▊         | 3000/36718 [00:00<00:04, 7297.95 examples/s]Grouping texts in chunks of 512:  11%|█         | 4000/36718 [00:00<00:04, 7361.42 examples/s]Grouping texts in chunks of 512:  14%|█▎        | 5000/36718 [00:00<00:04, 7780.53 examples/s]Grouping texts in chunks of 512:  16%|█▋        | 6000/36718 [00:00<00:03, 7965.79 examples/s]Grouping texts in chunks of 512:  19%|█▉        | 7000/36718 [00:00<00:04, 7333.70 examples/s]Grouping texts in chunks of 512:  22%|██▏       | 8000/36718 [00:01<00:03, 7239.09 examples/s]Grouping texts in chunks of 512:  25%|██▍       | 9000/36718 [00:01<00:03, 7263.99 examples/s]Grouping texts in chunks of 512:  27%|██▋       | 10000/36718 [00:01<00:03, 7060.19 examples/s]Grouping texts in chunks of 512:  30%|██▉       | 11000/36718 [00:01<00:03, 7078.33 examples/s]Grouping texts in chunks of 512:  33%|███▎      | 12000/36718 [00:01<00:03, 7205.14 examples/s]Grouping texts in chunks of 512:  35%|███▌      | 13000/36718 [00:01<00:03, 7118.76 examples/s]Grouping texts in chunks of 512:  38%|███▊      | 14000/36718 [00:01<00:03, 6991.54 examples/s]Grouping texts in chunks of 512:  41%|████      | 15000/36718 [00:02<00:03, 7078.03 examples/s]Grouping texts in chunks of 512:  44%|████▎     | 16000/36718 [00:02<00:03, 6856.84 examples/s]Grouping texts in chunks of 512:  46%|████▋     | 17000/36718 [00:02<00:02, 6956.35 examples/s]Grouping texts in chunks of 512:  49%|████▉     | 18000/36718 [00:02<00:02, 7125.96 examples/s]Grouping texts in chunks of 512:  52%|█████▏    | 19000/36718 [00:02<00:02, 7073.01 examples/s]Grouping texts in chunks of 512:  54%|█████▍    | 20000/36718 [00:02<00:02, 7245.68 examples/s]Grouping texts in chunks of 512:  57%|█████▋    | 21000/36718 [00:02<00:02, 7214.09 examples/s]Grouping texts in chunks of 512:  60%|█████▉    | 22000/36718 [00:03<00:02, 7186.61 examples/s]Grouping texts in chunks of 512:  63%|██████▎   | 23000/36718 [00:03<00:01, 7397.34 examples/s]Grouping texts in chunks of 512:  65%|██████▌   | 24000/36718 [00:03<00:01, 7700.22 examples/s]Grouping texts in chunks of 512:  68%|██████▊   | 25000/36718 [00:03<00:01, 7879.38 examples/s]Grouping texts in chunks of 512:  71%|███████   | 26000/36718 [00:03<00:01, 7545.29 examples/s]Grouping texts in chunks of 512:  74%|███████▎  | 27000/36718 [00:03<00:01, 7278.50 examples/s]Grouping texts in chunks of 512:  76%|███████▋  | 28000/36718 [00:03<00:01, 7101.67 examples/s]Grouping texts in chunks of 512:  79%|███████▉  | 29000/36718 [00:03<00:01, 7376.63 examples/s]Grouping texts in chunks of 512:  82%|████████▏ | 30000/36718 [00:04<00:00, 7376.00 examples/s]Grouping texts in chunks of 512:  84%|████████▍ | 31000/36718 [00:04<00:00, 7014.87 examples/s]Grouping texts in chunks of 512:  87%|████████▋ | 32000/36718 [00:04<00:00, 7045.14 examples/s]Grouping texts in chunks of 512:  90%|████████▉ | 33000/36718 [00:04<00:00, 6948.07 examples/s]Grouping texts in chunks of 512:  93%|█████████▎| 34000/36718 [00:04<00:00, 6947.97 examples/s]Grouping texts in chunks of 512:  95%|█████████▌| 35000/36718 [00:04<00:00, 6976.21 examples/s]Grouping texts in chunks of 512:  98%|█████████▊| 36000/36718 [00:05<00:00, 6925.85 examples/s]Grouping texts in chunks of 512: 100%|██████████| 36718/36718 [00:05<00:00, 6238.28 examples/s]Grouping texts in chunks of 512: 100%|██████████| 36718/36718 [00:05<00:00, 7116.86 examples/s]
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-6076c417ad9a81e0.arrow
+09/22/2023 02:17:25 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-6076c417ad9a81e0.arrow
+[INFO|trainer.py:503] 2023-09-22 02:17:27,268 >> max_steps is given, it will override any value given in num_train_epochs
+[INFO|trainer.py:557] 2023-09-22 02:17:27,268 >> Using apex half precision backend
+[INFO|trainer.py:725] 2023-09-22 02:17:27,507 >> The following columns in the training set don't have a corresponding argument in `BertForMaskedLM.forward` and have been ignored: special_tokens_mask. If special_tokens_mask are not expected by `BertForMaskedLM.forward`,  you can safely ignore this message.
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+  warnings.warn(msg, DeprecatedFeatureWarning)
+Selected optimization level O2:  FP16 training with FP32 batchnorm and FP32 master weights.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O2
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : True
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O2
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : True
+loss_scale             : dynamic
+[INFO|trainer.py:1607] 2023-09-22 02:17:27,829 >> ***** Running training *****
+[INFO|trainer.py:1608] 2023-09-22 02:17:27,830 >>   Num examples = 4627
+[INFO|trainer.py:1609] 2023-09-22 02:17:27,830 >>   Num Epochs = 1
+[INFO|trainer.py:1610] 2023-09-22 02:17:27,830 >>   Instantaneous batch size per device = 8
+[INFO|trainer.py:1611] 2023-09-22 02:17:27,830 >>   Total train batch size (w. parallel, distributed & accumulation) = 8
+[INFO|trainer.py:1612] 2023-09-22 02:17:27,830 >>   Gradient Accumulation steps = 1
+[INFO|trainer.py:1613] 2023-09-22 02:17:27,830 >>   Total optimization steps = 20
+  0%|          | 0/20 [00:00<?, ?it/s][WARNING|logging.py:281] 2023-09-22 02:17:27,841 >> You're using a BertTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+[W reducer.cpp:1300] Warning: find_unused_parameters=True was specified in DDP constructor, but did not find any unused parameters in the forward pass. This flag results in an extra traversal of the autograd graph every iteration,  which can adversely affect performance. If your model indeed never has any unused parameters in the forward pass, consider turning this flag off. Note that this warning may be a false positive if your model has flow control causing later iterations to have unused parameters. (function operator())
+Gradient overflow.  Skipping step, loss scaler 0 reducing loss scale to 32768.0
+  5%|▌         | 1/20 [00:01<00:20,  1.08s/it] 10%|█         | 2/20 [00:01<00:15,  1.20it/s] 15%|█▌        | 3/20 [00:02<00:13,  1.31it/s] 20%|██        | 4/20 [00:03<00:11,  1.36it/s] 25%|██▌       | 5/20 [00:03<00:10,  1.39it/s] 30%|███       | 6/20 [00:04<00:09,  1.41it/s] 35%|███▌      | 7/20 [00:05<00:09,  1.42it/s] 40%|████      | 8/20 [00:05<00:08,  1.43it/s] 45%|████▌     | 9/20 [00:06<00:07,  1.43it/s] 50%|█████     | 10/20 [00:07<00:06,  1.44it/s] 55%|█████▌    | 11/20 [00:07<00:06,  1.44it/s] 60%|██████    | 12/20 [00:08<00:05,  1.45it/s] 65%|██████▌   | 13/20 [00:09<00:04,  1.45it/s] 70%|███████   | 14/20 [00:10<00:04,  1.45it/s] 75%|███████▌  | 15/20 [00:10<00:03,  1.45it/s] 80%|████████  | 16/20 [00:11<00:02,  1.45it/s] 85%|████████▌ | 17/20 [00:12<00:02,  1.45it/s] 90%|█████████ | 18/20 [00:12<00:01,  1.45it/s] 95%|█████████▌| 19/20 [00:13<00:00,  1.45it/s]100%|██████████| 20/20 [00:14<00:00,  1.45it/s][INFO|trainer.py:1855] 2023-09-22 02:17:42,001 >> 
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+                                               {'train_runtime': 14.2242, 'train_samples_per_second': 11.248, 'train_steps_per_second': 1.406, 'step_time_list': [1.068011999130249, 0.6569998264312744, 0.6715099811553955, 0.677293062210083, 0.6825931072235107, 0.6800947189331055, 0.6903817653656006, 0.6812982559204102, 0.679495096206665, 0.6794636249542236, 0.685495138168335, 0.675438642501831, 0.6789979934692383, 0.679755687713623, 0.680030107498169, 0.6765129566192627, 0.6829419136047363, 0.6800370216369629, 0.6828181743621826, 0.6843316555023193], 'train_loss': 9.22109375, 'init_mem_cpu_alloc_delta': -388497408, 'init_mem_gpu_alloc_delta': 1341517312, 'init_mem_cpu_peaked_delta': 1337389056, 'init_mem_gpu_peaked_delta': 0, 'train_mem_cpu_alloc_delta': 805613568, 'train_mem_gpu_alloc_delta': 4040158720, 'train_mem_cpu_peaked_delta': 0, 'train_mem_gpu_peaked_delta': 8748795392, 'before_init_mem_cpu': 1932185600, 'before_init_mem_gpu': 0, 'epoch': 0.03}
+100%|██████████| 20/20 [00:14<00:00,  1.45it/s]100%|██████████| 20/20 [00:14<00:00,  1.38it/s]
+[INFO|trainer.py:2675] 2023-09-22 02:17:42,277 >> Saving model checkpoint to /tmp/bert/
+[INFO|configuration_utils.py:447] 2023-09-22 02:17:42,278 >> Configuration saved in /tmp/bert/config.json
+[INFO|modeling_utils.py:1624] 2023-09-22 02:17:54,487 >> Model weights saved in /tmp/bert/pytorch_model.bin
+[INFO|tokenization_utils_base.py:2126] 2023-09-22 02:17:54,488 >> tokenizer config file saved in /tmp/bert/tokenizer_config.json
+[INFO|tokenization_utils_base.py:2133] 2023-09-22 02:17:54,488 >> Special tokens file saved in /tmp/bert/special_tokens_map.json
+***** train metrics *****
+  before_init_mem_cpu        =                                                                                                                               1842MB
+  before_init_mem_gpu        =                                                                                                                                  0MB
+  epoch                      =                                                                                                                                 0.03
+  init_mem_cpu_alloc_delta   =                                                                                                                               -371MB
+  init_mem_cpu_peaked_delta  =                                                                                                                               1275MB
+  init_mem_gpu_alloc_delta   =                                                                                                                               1279MB
+  init_mem_gpu_peaked_delta  =                                                                                                                                  0MB
+  step_time_list             = 1.068,0.657,0.6715,0.6773,0.6826,0.6801,0.6904,0.6813,0.6795,0.6795,0.6855,0.6754,0.679,0.6798,0.68,0.6765,0.6829,0.68,0.6828,0.6843
+  train_loss                 =                                                                                                                               9.2211
+  train_mem_cpu_alloc_delta  =                                                                                                                                768MB
+  train_mem_cpu_peaked_delta =                                                                                                                                  0MB
+  train_mem_gpu_alloc_delta  =                                                                                                                               3852MB
+  train_mem_gpu_peaked_delta =                                                                                                                               8343MB
+  train_runtime              =                                                                                                                           0:00:14.22
+  train_samples              =                                                                                                                                 4627
+  train_samples_per_second   =                                                                                                                               11.248
+  train_steps_per_second     =                                                                                                                                1.406
+[INFO|modelcard.py:444] 2023-09-22 02:17:54,651 >> Dropping the following result as it does not have all the necessary fields:
+{'task': {'name': 'Masked Language Modeling', 'type': 'fill-mask'}, 'dataset': {'name': 'wikitext wikitext-2-raw-v1', 'type': 'wikitext', 'args': 'wikitext-2-raw-v1'}}

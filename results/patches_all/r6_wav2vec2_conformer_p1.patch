@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/wav2vec2_conformer/modeling_wav2vec2_conformer.py.ori	2023-11-21 18:30:54.608402998 +0000
++++ models/huggingface_transformers/src/transformers/models/wav2vec2_conformer/modeling_wav2vec2_conformer.py.opt_1	2023-11-21 18:30:54.612402991 +0000
+@@ -557,10 +557,12 @@
+         super().__init__()
+         self.intermediate_dropout = nn.Dropout(config.activation_dropout)
+ 
+-        self.intermediate_dense = nn.Linear(config.hidden_size, config.intermediate_size)
+         if isinstance(config.hidden_act, str):
+-            self.intermediate_act_fn = ACT2FN[config.hidden_act]
++            self.intermediate_dense = torch.nn.Linear(config.hidden_size, config.intermediate_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.intermediate_act_fn = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.intermediate_dense.weight)
+         else:
++            self.intermediate_dense = nn.Linear(config.hidden_size, config.intermediate_size)
+             self.intermediate_act_fn = config.hidden_act
+ 
+         self.output_dense = nn.Linear(config.intermediate_size, config.hidden_size)

@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/mpt/modeling_mpt.py.ori	2023-11-21 18:20:39.557518452 +0000
++++ models/huggingface_transformers/src/transformers/models/mpt/modeling_mpt.py.opt_1	2023-11-21 18:20:39.557518452 +0000
+@@ -172,7 +172,8 @@
+             attention_scores = attention_scores.masked_fill(attention_mask, torch.finfo(query_states.dtype).min)
+ 
+         # (batch_size, n_heads, seq_length, key_length)
+-        attn_weights = nn.functional.softmax(attention_scores.float(), dim=-1).to(value_states.dtype)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attention_scores.float()).to(value_states.dtype)
+         attn_weights = nn.functional.dropout(attn_weights, p=self.attn_dropout_p, training=self.training)
+ 
+         context_states = torch.matmul(attn_weights, value_states)

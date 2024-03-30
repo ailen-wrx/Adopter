@@ -1,0 +1,22 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/altclip/modeling_altclip.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/altclip/modeling_altclip.py
+@@ -432,8 +432,7 @@
+ 
+     def forward(self, hidden_states: torch.Tensor, input_tensor: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense(hidden_states)
+-        hidden_states = self.dropout(hidden_states)
+-        hidden_states = self.LayerNorm(hidden_states + input_tensor)
++        self.fused_dropout_layernorm(hidden_states + input_tensor)
+         return hidden_states
+ 
+ 
+@@ -513,8 +512,7 @@
+ 
+     def forward(self, hidden_states: torch.Tensor, input_tensor: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense(hidden_states)
+-        hidden_states = self.dropout(hidden_states)
+-        hidden_states = self.LayerNorm(hidden_states + input_tensor)
++        self.fused_dropout_layernorm(hidden_states + input_tensor)
+         return hidden_states
+ 
+ 

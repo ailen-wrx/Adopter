@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/nystromformer/modeling_nystromformer.py.ori	2023-11-21 18:20:53.105493934 +0000
++++ models/huggingface_transformers/src/transformers/models/nystromformer/modeling_nystromformer.py.opt_2	2023-11-21 18:20:53.109493926 +0000
+@@ -194,7 +194,8 @@
+                 # Apply the attention mask is (precomputed for all layers in NystromformerModel forward() function)
+                 attention_scores = attention_scores + attention_mask
+ 
+-            attention_probs = nn.functional.softmax(attention_scores, dim=-1)
++            from xformers.triton.softmax import softmax as softmax_softmax
++            attention_probs = softmax_softmax(attention_scores)
+             context_layer = torch.matmul(attention_probs, value_layer)
+ 
+         else:

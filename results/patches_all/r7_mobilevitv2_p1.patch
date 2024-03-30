@@ -1,0 +1,51 @@
+--- models/huggingface_transformers/src/transformers/models/mobilevitv2/modeling_mobilevitv2.py.ori	2023-11-21 18:33:47.728088489 +0000
++++ models/huggingface_transformers/src/transformers/models/mobilevitv2/modeling_mobilevitv2.py.opt_1	2023-11-21 18:33:47.728088489 +0000
+@@ -106,29 +106,14 @@
+         if out_channels % groups != 0:
+             raise ValueError(f"Output channels ({out_channels}) are not divisible by {groups} groups.")
+ 
+-        self.convolution = nn.Conv2d(
+-            in_channels=in_channels,
+-            out_channels=out_channels,
+-            kernel_size=kernel_size,
+-            stride=stride,
+-            padding=padding,
+-            dilation=dilation,
+-            groups=groups,
+-            bias=bias,
+-            padding_mode="zeros",
+-        )
+-
+         if use_normalization:
+-            self.normalization = nn.BatchNorm2d(
+-                num_features=out_channels,
+-                eps=1e-5,
+-                momentum=0.1,
+-                affine=True,
+-                track_running_stats=True,
+-            )
++            from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++            self.conv_batchnorm = torchscript_ops_FusedConv2dBatchNorm2d(in_channels, out_channels, kernel_size, stride=stride, bias=bias)
+         else:
++            self.convolution = nn.Conv2d(in_channels=in_channels, out_channels=out_channels, kernel_size=kernel_size, stride=stride, padding=padding, dilation=dilation, groups=groups, bias=bias, padding_mode='zeros')
+             self.normalization = None
+ 
++
+         if use_activation:
+             if isinstance(use_activation, str):
+                 self.activation = ACT2FN[use_activation]
+@@ -140,9 +125,11 @@
+             self.activation = None
+ 
+     def forward(self, features: torch.Tensor) -> torch.Tensor:
+-        features = self.convolution(features)
+-        if self.normalization is not None:
+-            features = self.normalization(features)
++        if (self.normalization is not None):
++            features = self.conv_batchnorm(features)
++        else:
++            features = self.convolution(features)
++        features = self.normalization(features)
+         if self.activation is not None:
+             features = self.activation(features)
+         return features

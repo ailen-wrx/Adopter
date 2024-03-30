@@ -1,0 +1,30 @@
+--- models/huggingface_transformers/src/transformers/models/gpt_neo/modeling_gpt_neo.py.ori	2023-11-21 18:41:41.979202815 +0000
++++ models/huggingface_transformers/src/transformers/models/gpt_neo/modeling_gpt_neo.py.opt_1	2023-11-21 18:41:41.979202815 +0000
+@@ -160,9 +160,8 @@
+                 f" {self.num_heads})."
+             )
+ 
+-        self.k_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)
+-        self.v_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)
+-        self.q_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=False)
++        from slapo.op.linear import FusedQKV as linear_FusedQKV
++        self.qkv = linear_FusedQKV(self.embed_dim, self.num_heads, 1)
+         self.out_proj = nn.Linear(self.embed_dim, self.embed_dim, bias=True)
+ 
+     def _split_heads(self, tensor, num_heads, attn_head_size):
+@@ -221,13 +220,8 @@
+         use_cache=False,
+         output_attentions=False,
+     ):
+-        query = self.q_proj(hidden_states)
+-        key = self.k_proj(hidden_states)
+-        value = self.v_proj(hidden_states)
+-
+-        query = self._split_heads(query, self.num_heads, self.head_dim)
+-        key = self._split_heads(key, self.num_heads, self.head_dim)
+-        value = self._split_heads(value, self.num_heads, self.head_dim)
++        (query, key, value) = self.qkv(hidden_states)
++
+ 
+         if layer_past is not None:
+             past_key = layer_past[0]

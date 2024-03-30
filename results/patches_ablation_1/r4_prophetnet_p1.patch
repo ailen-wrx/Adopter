@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/prophetnet/modeling_prophetnet.py.ori	2023-12-14 20:54:28.493354775 +0000
++++ models/huggingface_transformers/src/transformers/models/prophetnet/modeling_prophetnet.py.opt_1	2023-12-14 20:54:28.493354775 +0000
+@@ -725,7 +725,8 @@
+         else:
+             attn_weights_reshaped = None
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attn_weights)
+ 
+         if layer_head_mask is not None:
+             assert layer_head_mask.size() == (self.num_attn_heads,), (

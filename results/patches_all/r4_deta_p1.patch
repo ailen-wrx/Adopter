@@ -1,0 +1,14 @@
+--- models/huggingface_transformers/src/transformers/models/deta/modeling_deta.py.ori	2023-11-21 18:19:35.057635131 +0000
++++ models/huggingface_transformers/src/transformers/models/deta/modeling_deta.py.opt_1	2023-11-21 18:19:35.061635124 +0000
+@@ -586,9 +586,8 @@
+         attention_weights = self.attention_weights(hidden_states).view(
+             batch_size, num_queries, self.n_heads, self.n_levels * self.n_points
+         )
+-        attention_weights = F.softmax(attention_weights, -1).view(
+-            batch_size, num_queries, self.n_heads, self.n_levels, self.n_points
+-        )
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_weights = softmax_softmax(attention_weights).view(batch_size, num_queries, self.n_heads, self.n_levels, self.n_points)
+         # batch_size, num_queries, n_heads, n_levels, n_points, 2
+         if reference_points.shape[-1] == 2:
+             offset_normalizer = torch.stack([spatial_shapes[..., 1], spatial_shapes[..., 0]], -1)

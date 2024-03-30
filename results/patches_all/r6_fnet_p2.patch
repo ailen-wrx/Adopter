@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/fnet/modeling_fnet.py.ori	2023-11-21 18:28:07.776705924 +0000
++++ models/huggingface_transformers/src/transformers/models/fnet/modeling_fnet.py.opt_2	2023-11-21 18:28:07.776705924 +0000
+@@ -334,10 +334,12 @@
+ class FNetPredictionHeadTransform(nn.Module):
+     def __init__(self, config):
+         super().__init__()
+-        self.dense = nn.Linear(config.hidden_size, config.hidden_size)
+         if isinstance(config.hidden_act, str):
+-            self.transform_act_fn = ACT2FN[config.hidden_act]
++            self.dense = torch.nn.Linear(config.hidden_size, config.hidden_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.transform_act_fn = torchscript_ops_FusedBiasGELU(config.hidden_size, prev_weight=self.dense.weight)
+         else:
++            self.dense = nn.Linear(config.hidden_size, config.hidden_size)
+             self.transform_act_fn = config.hidden_act
+         self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
+ 

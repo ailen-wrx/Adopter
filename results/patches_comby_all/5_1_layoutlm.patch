@@ -1,0 +1,22 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/layoutlm/modeling_layoutlm.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/layoutlm/modeling_layoutlm.py
+@@ -273,8 +273,7 @@
+ 
+     def forward(self, hidden_states: torch.Tensor, input_tensor: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense(hidden_states)
+-        hidden_states = self.dropout(hidden_states)
+-        hidden_states = self.LayerNorm(hidden_states + input_tensor)
++        self.fused_dropout_layernorm(hidden_states + input_tensor)
+         return hidden_states
+ 
+ 
+@@ -354,8 +353,7 @@
+ 
+     def forward(self, hidden_states: torch.Tensor, input_tensor: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense(hidden_states)
+-        hidden_states = self.dropout(hidden_states)
+-        hidden_states = self.LayerNorm(hidden_states + input_tensor)
++        self.fused_dropout_layernorm(hidden_states + input_tensor)
+         return hidden_states
+ 
+ 

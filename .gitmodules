@@ -1,0 +1,6 @@
+[submodule "benchmarks/transformers"]
+	path = benchmarks/transformers
+	url = https://github.com/huggingface/transformers
+[submodule "models/transformers"]
+	path = models/transformers
+	url = https://github.com/huggingface/transformers

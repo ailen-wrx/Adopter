@@ -1,0 +1,19 @@
+--- models/huggingface_transformers/src/transformers/models/convbert/modeling_convbert.py.ori	2023-11-21 18:27:37.008761769 +0000
++++ models/huggingface_transformers/src/transformers/models/convbert/modeling_convbert.py.opt_1	2023-11-21 18:27:37.012761762 +0000
+@@ -508,13 +508,14 @@
+     def __init__(self, config):
+         super().__init__()
+         if config.num_groups == 1:
+-            self.dense = nn.Linear(config.hidden_size, config.intermediate_size)
++            self.dense = torch.nn.Linear(config.hidden_size, config.intermediate_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.intermediate_act_fn = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.dense.weight)
+         else:
+             self.dense = GroupedLinearLayer(
+                 input_size=config.hidden_size, output_size=config.intermediate_size, num_groups=config.num_groups
+             )
+         if isinstance(config.hidden_act, str):
+-            self.intermediate_act_fn = ACT2FN[config.hidden_act]
+         else:
+             self.intermediate_act_fn = config.hidden_act
+ 

@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/gpt_bigcode/modeling_gpt_bigcode.py.ori	2023-11-21 18:19:55.009599047 +0000
++++ models/huggingface_transformers/src/transformers/models/gpt_bigcode/modeling_gpt_bigcode.py.opt_1	2023-11-21 18:19:55.013599040 +0000
+@@ -185,7 +185,8 @@
+                 # The fused kernel is very slow when the key length is not a multiple of 8, so we skip fusion.
+                 attn_weights = torch.where(attention_mask, attn_weights, mask_value)
+ 
+-            attn_weights = torch.nn.functional.softmax(attn_weights, dim=-1)
++            from xformers.triton.softmax import softmax as softmax_softmax
++            attn_weights = softmax_softmax(attn_weights)
+ 
+         attn_weights = self.attn_dropout(attn_weights)
+ 

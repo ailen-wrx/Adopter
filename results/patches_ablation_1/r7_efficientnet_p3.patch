@@ -1,0 +1,27 @@
+--- models/huggingface_transformers/src/transformers/models/efficientnet/modeling_efficientnet.py.ori	2023-12-14 21:20:27.942050144 +0000
++++ models/huggingface_transformers/src/transformers/models/efficientnet/modeling_efficientnet.py.opt_3	2023-12-14 21:20:27.942050144 +0000
+@@ -283,21 +283,12 @@
+     ):
+         super().__init__()
+         self.apply_dropout = stride == 1 and not id_skip
+-        self.project_conv = nn.Conv2d(
+-            in_channels=in_dim,
+-            out_channels=out_dim,
+-            kernel_size=1,
+-            padding="same",
+-            bias=False,
+-        )
+-        self.project_bn = nn.BatchNorm2d(
+-            num_features=out_dim, eps=config.batch_norm_eps, momentum=config.batch_norm_momentum
+-        )
++        from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++        self.conv_batchnorm = torchscript_ops_FusedConv2dBatchNorm2d(in_dim, out_dim, 1, bias=False)
+         self.dropout = nn.Dropout(p=drop_rate)
+ 
+     def forward(self, embeddings: torch.FloatTensor, hidden_states: torch.FloatTensor) -> torch.Tensor:
+-        hidden_states = self.project_conv(hidden_states)
+-        hidden_states = self.project_bn(hidden_states)
++        hidden_states = self.conv_batchnorm(hidden_states)
+ 
+         if self.apply_dropout:
+             hidden_states = self.dropout(hidden_states)

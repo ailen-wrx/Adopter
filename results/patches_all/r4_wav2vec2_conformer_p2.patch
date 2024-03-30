@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/wav2vec2_conformer/modeling_wav2vec2_conformer.py.ori	2023-11-21 18:22:00.997371019 +0000
++++ models/huggingface_transformers/src/transformers/models/wav2vec2_conformer/modeling_wav2vec2_conformer.py.opt_2	2023-11-21 18:22:01.001371012 +0000
+@@ -1916,7 +1916,8 @@
+         logits = self.classifier(hidden_states)
+ 
+         loss = None
+-        if labels is not None:
++        from xformers.triton.softmax import softmax as softmax_softmax
++        norm_weights = softmax_softmax(self.layer_weights)
+             loss_fct = CrossEntropyLoss()
+             loss = loss_fct(logits.view(-1, self.num_labels), torch.argmax(labels.view(-1, self.num_labels), axis=1))
+ 

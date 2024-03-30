@@ -1,0 +1,21 @@
+--- models/huggingface_transformers/src/transformers/models/resnet/modeling_resnet.py.ori	2023-11-21 18:34:40.127993268 +0000
++++ models/huggingface_transformers/src/transformers/models/resnet/modeling_resnet.py.opt_1	2023-11-21 18:34:40.131993261 +0000
+@@ -64,15 +64,12 @@
+         self, in_channels: int, out_channels: int, kernel_size: int = 3, stride: int = 1, activation: str = "relu"
+     ):
+         super().__init__()
+-        self.convolution = nn.Conv2d(
+-            in_channels, out_channels, kernel_size=kernel_size, stride=stride, padding=kernel_size // 2, bias=False
+-        )
+-        self.normalization = nn.BatchNorm2d(out_channels)
++        from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++        self.conv_batchnorm = torchscript_ops_FusedConv2dBatchNorm2d(kernel_size, stride=stride, bias=False)
+         self.activation = ACT2FN[activation] if activation is not None else nn.Identity()
+ 
+     def forward(self, input: Tensor) -> Tensor:
+-        hidden_state = self.convolution(input)
+-        hidden_state = self.normalization(hidden_state)
++        hidden_state = self.conv_batchnorm(input)
+         hidden_state = self.activation(hidden_state)
+         return hidden_state
+ 

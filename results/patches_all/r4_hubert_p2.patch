@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/hubert/modeling_hubert.py.ori	2023-11-21 18:20:02.713585112 +0000
++++ models/huggingface_transformers/src/transformers/models/hubert/modeling_hubert.py.opt_2	2023-11-21 18:20:02.713585112 +0000
+@@ -1385,7 +1385,8 @@
+         if attention_mask is None:
+             pooled_output = hidden_states.mean(dim=1)
+         else:
+-            padding_mask = self._get_feature_vector_attention_mask(hidden_states.shape[1], attention_mask)
++            from xformers.triton.softmax import softmax as softmax_softmax
++            norm_weights = softmax_softmax(self.layer_weights)
+             hidden_states[~padding_mask] = 0.0
+             pooled_output = hidden_states.sum(dim=1) / padding_mask.sum(dim=1).view(-1, 1)
+ 

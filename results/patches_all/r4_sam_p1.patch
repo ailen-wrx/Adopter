@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/sam/modeling_sam.py.ori	2023-11-21 18:21:25.469435351 +0000
++++ models/huggingface_transformers/src/transformers/models/sam/modeling_sam.py.opt_1	2023-11-21 18:21:25.469435351 +0000
+@@ -847,7 +847,8 @@
+                 attn_weights, query, self.rel_pos_h, self.rel_pos_w, (height, width), (height, width)
+             )
+ 
+-        attn_weights = torch.nn.functional.softmax(attn_weights, dtype=torch.float32, dim=-1).to(query.dtype)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attn_weights).to(query.dtype)
+ 
+         attn_probs = nn.functional.dropout(attn_weights, p=self.dropout, training=self.training)
+ 

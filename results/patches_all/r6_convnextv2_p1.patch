@@ -1,0 +1,14 @@
+--- models/huggingface_transformers/src/transformers/models/convnextv2/modeling_convnextv2.py.ori	2023-11-21 18:27:38.008759955 +0000
++++ models/huggingface_transformers/src/transformers/models/convnextv2/modeling_convnextv2.py.opt_1	2023-11-21 18:27:38.008759955 +0000
+@@ -189,8 +189,9 @@
+         self.dwconv = nn.Conv2d(dim, dim, kernel_size=7, padding=3, groups=dim)
+         self.layernorm = ConvNextV2LayerNorm(dim, eps=1e-6)
+         # pointwise/1x1 convs, implemented with linear layers
+-        self.pwconv1 = nn.Linear(dim, 4 * dim)
+-        self.act = ACT2FN[config.hidden_act]
++        self.pwconv1 = torch.nn.Linear(dim, (4 * dim), bias=False)
++        from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++        self.act = torchscript_ops_FusedBiasGELU((4 * dim), prev_weight=self.pwconv1.weight)
+         self.grn = ConvNextV2GRN(4 * dim)
+         self.pwconv2 = nn.Linear(4 * dim, dim)
+         self.drop_path = ConvNextV2DropPath(drop_path) if drop_path > 0.0 else nn.Identity()

@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/gpt2/modeling_gpt2.py.ori	2023-11-21 18:19:53.773601282 +0000
++++ models/huggingface_transformers/src/transformers/models/gpt2/modeling_gpt2.py.opt_2	2023-11-21 18:19:53.777601275 +0000
+@@ -255,7 +255,8 @@
+             # Apply the attention mask
+             attn_weights = attn_weights + attention_mask
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attn_weights)
+ 
+         # Downcast (if necessary) back to V's dtype (if in mixed-precision) -- No-Op if otherwise
+         if attn_weights.dtype != torch.float32:

@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/bark/modeling_bark.py.ori	2023-11-21 18:18:49.085718241 +0000
++++ models/huggingface_transformers/src/transformers/models/bark/modeling_bark.py.opt_1	2023-11-21 18:18:49.089718233 +0000
+@@ -129,7 +129,8 @@
+             # Apply the attention mask
+             attn_weights = attn_weights + attention_mask
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attn_weights)
+         attn_weights = attn_weights.to(value.dtype)
+         attn_weights = self.attn_dropout(attn_weights)
+ 

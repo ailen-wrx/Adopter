@@ -1,0 +1,11 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/deformable_detr/modeling_deformable_detr.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/deformable_detr/modeling_deformable_detr.py
+@@ -811,7 +811,7 @@
+             attn_weights = attn_weights.view(batch_size, self.num_heads, target_len, source_len) + attention_mask
+             attn_weights = attn_weights.view(batch_size * self.num_heads, target_len, source_len)
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax; attn_weights = softmax_softmax(attn_weights)
+ 
+         if output_attentions:
+             # this operation is a bit awkward, but it's required to

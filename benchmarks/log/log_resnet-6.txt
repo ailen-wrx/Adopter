@@ -1,0 +1,247 @@
+[2023-11-07 20:25:06,572] [INFO] [real_accelerator.py:133:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+11/07/2023 20:25:07 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1distributed training: True, 16-bits training: True
+11/07/2023 20:25:07 - INFO - __main__ - Training/evaluation parameters TrainingArguments(
+_n_gpu=1,
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_pin_memory=True,
+ddp_backend=None,
+ddp_broadcast_buffers=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+dispatch_batches=None,
+do_eval=False,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_steps=None,
+evaluation_strategy=no,
+fp16=True,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O2,
+fsdp=[],
+fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=auto,
+hub_always_push=False,
+hub_model_id=None,
+hub_private_repo=False,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_inputs_for_metrics=False,
+include_tokens_per_second=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=2e-05,
+length_column_name=length,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=/tmp/beans/runs/Nov07_20-25-07_ip-172-31-81-243,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=500,
+logging_strategy=steps,
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=20,
+metric_for_best_model=None,
+mp_parameters=,
+no_cuda=False,
+num_train_epochs=3.0,
+optim=adamw_hf,
+optim_args=None,
+output_dir=/tmp/beans/,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=8,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=False,
+report_to=[],
+resume_from_checkpoint=None,
+run_name=/tmp/beans/,
+save_on_each_node=False,
+save_safetensors=False,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+skip_memory_metrics=False,
+tf32=None,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_cpu=False,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.0,
+)
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/datasets/load.py:2086: FutureWarning: 'task' was deprecated in version 2.13.0 and will be removed in 3.0.0.
+
+  warnings.warn(
+[INFO|configuration_utils.py:716] 2023-11-07 20:25:08,038 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--microsoft--resnet-50/snapshots/4067a2728b9c93fbd67b9d5a30b03495ac74a46e/config.json
+[INFO|configuration_utils.py:776] 2023-11-07 20:25:08,039 >> Model config ResNetConfig {
+  "_name_or_path": "microsoft/resnet-50",
+  "architectures": [
+    "ResNetForImageClassification"
+  ],
+  "depths": [
+    3,
+    4,
+    6,
+    3
+  ],
+  "downsample_in_bottleneck": false,
+  "downsample_in_first_stage": false,
+  "embedding_size": 64,
+  "finetuning_task": "image-classification",
+  "hidden_act": "relu",
+  "hidden_sizes": [
+    256,
+    512,
+    1024,
+    2048
+  ],
+  "id2label": {
+    "0": "angular_leaf_spot",
+    "1": "bean_rust",
+    "2": "healthy"
+  },
+  "label2id": {
+    "angular_leaf_spot": "0",
+    "bean_rust": "1",
+    "healthy": "2"
+  },
+  "layer_type": "bottleneck",
+  "model_type": "resnet",
+  "num_channels": 3,
+  "out_features": [
+    "stage4"
+  ],
+  "out_indices": [
+    4
+  ],
+  "stage_names": [
+    "stem",
+    "stage1",
+    "stage2",
+    "stage3",
+    "stage4"
+  ],
+  "torch_dtype": "float32",
+  "transformers_version": "4.35.0.dev0"
+}
+
+[INFO|modeling_utils.py:3013] 2023-11-07 20:25:08,044 >> loading weights file pytorch_model.bin from cache at /home/ubuntu/.cache/huggingface/hub/models--microsoft--resnet-50/snapshots/4067a2728b9c93fbd67b9d5a30b03495ac74a46e/pytorch_model.bin
+[INFO|modeling_utils.py:3803] 2023-11-07 20:25:08,779 >> All model checkpoint weights were used when initializing ResNetForImageClassification.
+
+[WARNING|modeling_utils.py:3805] 2023-11-07 20:25:08,779 >> Some weights of ResNetForImageClassification were not initialized from the model checkpoint at microsoft/resnet-50 and are newly initialized: ['resnet.encoder.stages.3.layers.0.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.0.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.0.shortcut.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.2.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.1.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.3.layers.0.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.0.layers.0.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.2.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.3.layers.1.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.3.layers.0.shortcut.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.0.shortcut.conv_batchnorm.conv_weight', 'resnet.encoder.stages.3.layers.2.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.3.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.3.layers.1.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.3.layers.0.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.1.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.1.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.0.layers.2.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.3.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.2.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.3.layers.2.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.3.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.0.layers.2.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.3.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.3.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.1.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.0.layers.0.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.0.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.0.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.1.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.2.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.0.layers.0.shortcut.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.5.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.0.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.3.layers.1.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.0.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.4.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.0.layers.1.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.0.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.3.layer.0.conv_batchnorm.conv_weight', 'resnet.embedder.embedder.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.2.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.5.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.0.layers.1.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.1.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.1.layers.2.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.4.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.0.layers.2.layer.2.conv_batchnorm.conv_weight', 'resnet.encoder.stages.3.layers.2.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.0.layers.1.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.0.layers.0.layer.0.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.5.layer.1.conv_batchnorm.conv_weight', 'resnet.encoder.stages.2.layers.4.layer.0.conv_batchnorm.conv_weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+[WARNING|modeling_utils.py:3824] 2023-11-07 20:25:08,779 >> Some weights of ResNetForImageClassification were not initialized from the model checkpoint at microsoft/resnet-50 and are newly initialized because the shapes did not match:
+- classifier.1.weight: found shape torch.Size([1000, 2048]) in the checkpoint and torch.Size([3, 2048]) in the model instantiated
+- classifier.1.bias: found shape torch.Size([1000]) in the checkpoint and torch.Size([3]) in the model instantiated
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+[INFO|image_processing_utils.py:369] 2023-11-07 20:25:09,337 >> loading configuration file preprocessor_config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--microsoft--resnet-50/snapshots/4067a2728b9c93fbd67b9d5a30b03495ac74a46e/preprocessor_config.json
+[WARNING|image_processing_auto.py:358] 2023-11-07 20:25:09,338 >> Could not find image processor class in the image processor config or the model config. Loading based on pattern matching with the model's feature extractor configuration.
+[INFO|image_processing_utils.py:732] 2023-11-07 20:25:09,340 >> size should be a dictionary on of the following set of keys: ({'height', 'width'}, {'shortest_edge'}, {'shortest_edge', 'longest_edge'}, {'longest_edge'}), got 224. Converted to {'shortest_edge': 224}.
+[INFO|image_processing_utils.py:419] 2023-11-07 20:25:09,340 >> Image processor ConvNextImageProcessor {
+  "crop_pct": 0.875,
+  "do_normalize": true,
+  "do_rescale": true,
+  "do_resize": true,
+  "image_mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "image_processor_type": "ConvNextImageProcessor",
+  "image_std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "resample": 3,
+  "rescale_factor": 0.00392156862745098,
+  "size": {
+    "shortest_edge": 224
+  }
+}
+
+[INFO|trainer.py:535] 2023-11-07 20:25:10,422 >> max_steps is given, it will override any value given in num_train_epochs
+[INFO|trainer.py:584] 2023-11-07 20:25:10,422 >> Using auto half precision backend
+/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/optimization.py:411: FutureWarning: This implementation of AdamW is deprecated and will be removed in a future version. Use the PyTorch implementation torch.optim.AdamW instead, or set `no_deprecation_warning=True` to disable this warning
+  warnings.warn(
+[INFO|trainer.py:1669] 2023-11-07 20:25:11,041 >> ***** Running training *****
+[INFO|trainer.py:1670] 2023-11-07 20:25:11,041 >>   Num examples = 1,034
+[INFO|trainer.py:1671] 2023-11-07 20:25:11,041 >>   Num Epochs = 1
+[INFO|trainer.py:1672] 2023-11-07 20:25:11,041 >>   Instantaneous batch size per device = 8
+[INFO|trainer.py:1675] 2023-11-07 20:25:11,041 >>   Total train batch size (w. parallel, distributed & accumulation) = 8
+[INFO|trainer.py:1676] 2023-11-07 20:25:11,041 >>   Gradient Accumulation steps = 1
+[INFO|trainer.py:1677] 2023-11-07 20:25:11,041 >>   Total optimization steps = 20
+[INFO|trainer.py:1678] 2023-11-07 20:25:11,042 >>   Number of trainable parameters = 46,969,091
+  0%|          | 0/20 [00:00<?, ?it/s]  5%|▌         | 1/20 [00:01<00:23,  1.26s/it] 10%|█         | 2/20 [00:01<00:10,  1.68it/s] 15%|█▌        | 3/20 [00:01<00:06,  2.64it/s] 20%|██        | 4/20 [00:01<00:04,  3.65it/s] 25%|██▌       | 5/20 [00:01<00:03,  4.38it/s] 30%|███       | 6/20 [00:01<00:02,  5.05it/s] 35%|███▌      | 7/20 [00:02<00:02,  5.93it/s] 40%|████      | 8/20 [00:02<00:01,  6.38it/s] 45%|████▌     | 9/20 [00:02<00:01,  6.66it/s] 50%|█████     | 10/20 [00:02<00:01,  6.94it/s] 55%|█████▌    | 11/20 [00:02<00:01,  7.03it/s] 60%|██████    | 12/20 [00:02<00:01,  7.20it/s] 65%|██████▌   | 13/20 [00:02<00:00,  7.33it/s] 70%|███████   | 14/20 [00:02<00:00,  7.43it/s] 75%|███████▌  | 15/20 [00:03<00:00,  7.44it/s] 80%|████████  | 16/20 [00:03<00:00,  7.52it/s] 85%|████████▌ | 17/20 [00:03<00:00,  7.30it/s] 90%|█████████ | 18/20 [00:03<00:00,  7.45it/s] 95%|█████████▌| 19/20 [00:03<00:00,  7.41it/s]100%|██████████| 20/20 [00:03<00:00,  7.42it/s][INFO|trainer.py:1905] 2023-11-07 20:25:14,800 >> 
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+                                               {'train_runtime': 3.7583, 'train_samples_per_second': 42.573, 'train_steps_per_second': 5.322, 'step_time_list': [1.1522636413574219, 0.06895136833190918, 0.0694577693939209, 0.06128072738647461, 0.09429049491882324, 0.08753538131713867, 0.059327125549316406, 0.08248734474182129, 0.08243012428283691, 0.08318543434143066, 0.08323097229003906, 0.08177733421325684, 0.08181452751159668, 0.0814371109008789, 0.08128595352172852, 0.08050227165222168, 0.08157038688659668, 0.07976222038269043, 0.08235931396484375, 0.08166265487670898], 'train_loss': 1.1809844970703125, 'init_mem_cpu_alloc_delta': 1021652992, 'init_mem_gpu_alloc_delta': 189172736, 'init_mem_cpu_peaked_delta': 0, 'init_mem_gpu_peaked_delta': 0, 'train_mem_cpu_alloc_delta': 1497903104, 'train_mem_gpu_alloc_delta': 408162816, 'train_mem_cpu_peaked_delta': 0, 'train_mem_gpu_peaked_delta': 434291200, 'before_init_mem_cpu': 811929600, 'before_init_mem_gpu': 0, 'epoch': 0.15}
+100%|██████████| 20/20 [00:03<00:00,  7.42it/s]100%|██████████| 20/20 [00:03<00:00,  5.13it/s]
+[INFO|trainer.py:2810] 2023-11-07 20:25:14,942 >> Saving model checkpoint to /tmp/beans/
+[INFO|configuration_utils.py:461] 2023-11-07 20:25:14,943 >> Configuration saved in /tmp/beans/config.json
+[INFO|modeling_utils.py:2121] 2023-11-07 20:25:15,607 >> Model weights saved in /tmp/beans/pytorch_model.bin
+[INFO|image_processing_utils.py:253] 2023-11-07 20:25:15,608 >> Image processor saved in /tmp/beans/preprocessor_config.json
+***** train metrics *****
+  before_init_mem_cpu        =                                                                                                                                      774MB
+  before_init_mem_gpu        =                                                                                                                                        0MB
+  epoch                      =                                                                                                                                       0.15
+  init_mem_cpu_alloc_delta   =                                                                                                                                      974MB
+  init_mem_cpu_peaked_delta  =                                                                                                                                        0MB
+  init_mem_gpu_alloc_delta   =                                                                                                                                      180MB
+  init_mem_gpu_peaked_delta  =                                                                                                                                        0MB
+  step_time_list             = 1.1523,0.069,0.0695,0.0613,0.0943,0.0875,0.0593,0.0825,0.0824,0.0832,0.0832,0.0818,0.0818,0.0814,0.0813,0.0805,0.0816,0.0798,0.0824,0.0817
+  train_loss                 =                                                                                                                                      1.181
+  train_mem_cpu_alloc_delta  =                                                                                                                                     1428MB
+  train_mem_cpu_peaked_delta =                                                                                                                                        0MB
+  train_mem_gpu_alloc_delta  =                                                                                                                                      389MB
+  train_mem_gpu_peaked_delta =                                                                                                                                      414MB
+  train_runtime              =                                                                                                                                 0:00:03.75
+  train_samples_per_second   =                                                                                                                                     42.573
+  train_steps_per_second     =                                                                                                                                      5.322
+[INFO|modelcard.py:452] 2023-11-07 20:25:15,645 >> Dropping the following result as it does not have all the necessary fields:
+{'task': {'name': 'Image Classification', 'type': 'image-classification'}, 'dataset': {'name': 'beans', 'type': 'beans', 'config': 'default', 'split': 'train', 'args': 'default'}}

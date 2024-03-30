@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/layoutlmv2/modeling_layoutlmv2.py.ori	2023-11-21 18:20:13.273566009 +0000
++++ models/huggingface_transformers/src/transformers/models/layoutlmv2/modeling_layoutlmv2.py.opt_1	2023-11-21 18:20:13.277566002 +0000
+@@ -182,7 +182,8 @@
+         attention_scores = attention_scores.float().masked_fill_(
+             attention_mask.to(torch.bool), torch.finfo(attention_scores.dtype).min
+         )
+-        attention_probs = nn.functional.softmax(attention_scores, dim=-1, dtype=torch.float32).type_as(value_layer)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_probs = softmax_softmax(attention_scores).type_as(value_layer)
+         # This is actually dropping out entire tokens to attend to, which might
+         # seem a bit unusual, but is taken from the original Transformer paper.
+         attention_probs = self.dropout(attention_probs)

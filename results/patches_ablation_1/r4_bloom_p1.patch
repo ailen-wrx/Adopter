@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/bloom/modeling_bloom.py.ori	2023-12-14 20:48:36.874136238 +0000
++++ models/huggingface_transformers/src/transformers/models/bloom/modeling_bloom.py.opt_1	2023-12-14 20:48:36.874136238 +0000
+@@ -330,7 +330,8 @@
+         if input_dtype == torch.float16:
+             attention_scores = attention_scores.to(torch.float)
+         attn_weights = torch.masked_fill(attention_scores, attention_mask, torch.finfo(attention_scores.dtype).min)
+-        attention_probs = F.softmax(attn_weights, dim=-1, dtype=torch.float32).to(input_dtype)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_probs = softmax_softmax(attn_weights).to(input_dtype)
+ 
+         # [batch_size, num_heads, q_length, kv_length]
+         attention_probs = self.attention_dropout(attention_probs)

@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/graphormer/modeling_graphormer.py.ori	2023-11-21 18:20:00.953588296 +0000
++++ models/huggingface_transformers/src/transformers/models/graphormer/modeling_graphormer.py.opt_1	2023-11-21 18:20:00.953588296 +0000
+@@ -461,7 +461,8 @@
+         if before_softmax:
+             return attn_weights, v
+ 
+-        attn_weights_float = torch.nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights_float = softmax_softmax(attn_weights)
+         attn_weights = attn_weights_float.type_as(attn_weights)
+         attn_probs = self.attention_dropout_module(attn_weights)
+ 

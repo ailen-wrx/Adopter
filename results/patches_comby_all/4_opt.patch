@@ -1,0 +1,11 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/opt/modeling_opt.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/opt/modeling_opt.py
+@@ -230,7 +230,7 @@
+         if attn_weights.dtype == torch.float16:
+             attn_weights = nn.functional.softmax(attn_weights, dim=-1, dtype=torch.float32).to(torch.float16)
+         else:
+-            attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++            from xformers.triton.softmax import softmax as softmax_softmax; attn_weights = softmax_softmax(attn_weights)
+ 
+         if layer_head_mask is not None:
+             if layer_head_mask.size() != (self.num_heads,):

@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/jukebox/modeling_jukebox.py.ori	2023-11-21 18:20:11.225569714 +0000
++++ models/huggingface_transformers/src/transformers/models/jukebox/modeling_jukebox.py.opt_1	2023-11-21 18:20:11.229569707 +0000
+@@ -896,7 +896,8 @@
+             )
+             if mask is not None:
+                 attention_weight = attention_weight * mask + -1e9 * (1 - mask)
+-        attention_prob = F.softmax(attention_weight, dim=-1).type(attn_weight_type)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_prob = softmax_softmax(attention_weight).type(attn_weight_type)
+         if self.record_attn:
+             self.attention_prob = attention_prob
+             if self.attn_func == "prime_attn":

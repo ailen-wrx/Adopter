@@ -1,0 +1,42 @@
+--- models/huggingface_transformers/src/transformers/models/dpt/modeling_dpt.py.ori	2023-11-21 18:32:26.592235907 +0000
++++ models/huggingface_transformers/src/transformers/models/dpt/modeling_dpt.py.opt_1	2023-11-21 18:32:26.596235900 +0000
+@@ -727,18 +727,13 @@
+         )
+ 
+         self.activation2 = ACT2FN["relu"]
+-        self.convolution2 = nn.Conv2d(
+-            config.fusion_hidden_size,
+-            config.fusion_hidden_size,
+-            kernel_size=3,
+-            stride=1,
+-            padding=1,
+-            bias=not self.use_batch_norm,
+-        )
+-
+         if self.use_batch_norm:
++            from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++            self.conv_batchnorm = torchscript_ops_FusedConv2dBatchNorm2d(3, stride=1, bias=(not self.use_batch_norm))
+             self.batch_norm1 = nn.BatchNorm2d(config.fusion_hidden_size)
+-            self.batch_norm2 = nn.BatchNorm2d(config.fusion_hidden_size)
++        else:
++            self.convolution2 = nn.Conv2d(config.fusion_hidden_size, config.fusion_hidden_size, kernel_size=3, stride=1, padding=1, bias=(not self.use_batch_norm))
++
+ 
+     def forward(self, hidden_state: torch.Tensor) -> torch.Tensor:
+         residual = hidden_state
+@@ -750,10 +745,12 @@
+             hidden_state = self.batch_norm1(hidden_state)
+ 
+         hidden_state = self.activation2(hidden_state)
+-        hidden_state = self.convolution2(hidden_state)
+-
+         if self.use_batch_norm:
+-            hidden_state = self.batch_norm2(hidden_state)
++            hidden_state = self.conv_batchnorm(hidden_state)
++        else:
++            hidden_state = self.convolution2(hidden_state)
++        hidden_state = self.batch_norm2(hidden_state)
++
+ 
+         return hidden_state + residual
+ 

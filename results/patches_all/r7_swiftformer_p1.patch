@@ -1,0 +1,18 @@
+--- models/huggingface_transformers/src/transformers/models/swiftformer/modeling_swiftformer.py.ori	2023-11-21 18:34:58.059960680 +0000
++++ models/huggingface_transformers/src/transformers/models/swiftformer/modeling_swiftformer.py.opt_1	2023-11-21 18:34:58.059960680 +0000
+@@ -145,12 +145,11 @@
+         stride = stride if isinstance(stride, collections.abc.Iterable) else (stride, stride)
+         padding = padding if isinstance(padding, collections.abc.Iterable) else (padding, padding)
+ 
+-        self.proj = nn.Conv2d(in_chans, embed_dim, kernel_size=patch_size, stride=stride, padding=padding)
+-        self.norm = nn.BatchNorm2d(embed_dim, eps=config.batch_norm_eps)
++        from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++        self.conv_batchnorm = torchscript_ops_FusedConv2dBatchNorm2d(patch_size, stride=stride)
+ 
+     def forward(self, x):
+-        x = self.proj(x)
+-        x = self.norm(x)
++        x = self.conv_batchnorm(x)
+         return x
+ 
+ 

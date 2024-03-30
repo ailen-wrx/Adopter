@@ -1,0 +1,372 @@
+[2023-11-06 19:57:13,342] [INFO] [real_accelerator.py:133:get_accelerator] Setting ds_accelerator to cuda (auto detect)
+11/06/2023 19:57:14 - WARNING - __main__ - Process rank: 0, device: cuda:0, n_gpu: 1distributed training: True, 16-bits training: True
+11/06/2023 19:57:14 - INFO - __main__ - Training/evaluation parameters TrainingArguments(
+_n_gpu=1,
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_pin_memory=True,
+ddp_backend=None,
+ddp_broadcast_buffers=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+dispatch_batches=None,
+do_eval=False,
+do_predict=False,
+do_train=True,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_steps=None,
+evaluation_strategy=no,
+fp16=True,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O2,
+fsdp=[],
+fsdp_config={'min_num_params': 0, 'xla': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+greater_is_better=None,
+group_by_length=False,
+half_precision_backend=apex,
+hub_always_push=False,
+hub_model_id=None,
+hub_private_repo=False,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_inputs_for_metrics=False,
+include_tokens_per_second=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=5e-05,
+length_column_name=length,
+load_best_model_at_end=False,
+local_rank=0,
+log_level=passive,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=/tmp/bert/runs/Nov06_19-57-14_ip-172-31-81-243,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=500,
+logging_strategy=steps,
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=20,
+metric_for_best_model=None,
+mp_parameters=,
+no_cuda=False,
+num_train_epochs=3.0,
+optim=adamw_apex_fused,
+optim_args=None,
+output_dir=/tmp/bert/,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=8,
+per_device_train_batch_size=8,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=True,
+report_to=[],
+resume_from_checkpoint=None,
+run_name=/tmp/bert/,
+save_on_each_node=False,
+save_safetensors=False,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+skip_memory_metrics=False,
+tf32=None,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_cpu=False,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.0,
+)
+Loading Dataset Infos from /home/ubuntu/.cache/huggingface/modules/datasets_modules/datasets/wikitext/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+11/06/2023 19:57:14 - INFO - datasets.info - Loading Dataset Infos from /home/ubuntu/.cache/huggingface/modules/datasets_modules/datasets/wikitext/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+Overwrite dataset info from restored data version if exists.
+11/06/2023 19:57:14 - INFO - datasets.builder - Overwrite dataset info from restored data version if exists.
+Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+11/06/2023 19:57:14 - INFO - datasets.info - Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+Found cached dataset wikitext (/home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126)
+11/06/2023 19:57:14 - INFO - datasets.builder - Found cached dataset wikitext (/home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126)
+Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+11/06/2023 19:57:14 - INFO - datasets.info - Loading Dataset info from /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126
+[INFO|configuration_utils.py:716] 2023-11-06 19:57:14,386 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--albert-base-v2/snapshots/1609e3e3df9ac066606df93cd0b12e7539ac68c4/config.json
+[INFO|configuration_utils.py:776] 2023-11-06 19:57:14,387 >> Model config AlbertConfig {
+  "_name_or_path": "albert-base-v2",
+  "architectures": [
+    "AlbertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0,
+  "bos_token_id": 2,
+  "classifier_dropout_prob": 0.1,
+  "down_scale_factor": 1,
+  "embedding_size": 128,
+  "eos_token_id": 3,
+  "gap_size": 0,
+  "hidden_act": "gelu_new",
+  "hidden_dropout_prob": 0,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "inner_group_num": 1,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "albert",
+  "net_structure_type": 0,
+  "num_attention_heads": 12,
+  "num_hidden_groups": 1,
+  "num_hidden_layers": 12,
+  "num_memory_blocks": 0,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "transformers_version": "4.35.0.dev0",
+  "type_vocab_size": 2,
+  "vocab_size": 30000
+}
+
+[INFO|tokenization_auto.py:551] 2023-11-06 19:57:14,402 >> Could not locate the tokenizer configuration file, will try to use the model config instead.
+[INFO|configuration_utils.py:716] 2023-11-06 19:57:14,419 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--albert-base-v2/snapshots/1609e3e3df9ac066606df93cd0b12e7539ac68c4/config.json
+[INFO|configuration_utils.py:776] 2023-11-06 19:57:14,420 >> Model config AlbertConfig {
+  "_name_or_path": "albert-base-v2",
+  "architectures": [
+    "AlbertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0,
+  "bos_token_id": 2,
+  "classifier_dropout_prob": 0.1,
+  "down_scale_factor": 1,
+  "embedding_size": 128,
+  "eos_token_id": 3,
+  "gap_size": 0,
+  "hidden_act": "gelu_new",
+  "hidden_dropout_prob": 0,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "inner_group_num": 1,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "albert",
+  "net_structure_type": 0,
+  "num_attention_heads": 12,
+  "num_hidden_groups": 1,
+  "num_hidden_layers": 12,
+  "num_memory_blocks": 0,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "transformers_version": "4.35.0.dev0",
+  "type_vocab_size": 2,
+  "vocab_size": 30000
+}
+
+[INFO|tokenization_utils_base.py:2053] 2023-11-06 19:57:14,470 >> loading file spiece.model from cache at /home/ubuntu/.cache/huggingface/hub/models--albert-base-v2/snapshots/1609e3e3df9ac066606df93cd0b12e7539ac68c4/spiece.model
+[INFO|tokenization_utils_base.py:2053] 2023-11-06 19:57:14,470 >> loading file tokenizer.json from cache at /home/ubuntu/.cache/huggingface/hub/models--albert-base-v2/snapshots/1609e3e3df9ac066606df93cd0b12e7539ac68c4/tokenizer.json
+[INFO|tokenization_utils_base.py:2053] 2023-11-06 19:57:14,470 >> loading file added_tokens.json from cache at None
+[INFO|tokenization_utils_base.py:2053] 2023-11-06 19:57:14,470 >> loading file special_tokens_map.json from cache at None
+[INFO|tokenization_utils_base.py:2053] 2023-11-06 19:57:14,470 >> loading file tokenizer_config.json from cache at None
+[INFO|configuration_utils.py:716] 2023-11-06 19:57:14,471 >> loading configuration file config.json from cache at /home/ubuntu/.cache/huggingface/hub/models--albert-base-v2/snapshots/1609e3e3df9ac066606df93cd0b12e7539ac68c4/config.json
+[INFO|configuration_utils.py:776] 2023-11-06 19:57:14,471 >> Model config AlbertConfig {
+  "_name_or_path": "albert-base-v2",
+  "architectures": [
+    "AlbertForMaskedLM"
+  ],
+  "attention_probs_dropout_prob": 0,
+  "bos_token_id": 2,
+  "classifier_dropout_prob": 0.1,
+  "down_scale_factor": 1,
+  "embedding_size": 128,
+  "eos_token_id": 3,
+  "gap_size": 0,
+  "hidden_act": "gelu_new",
+  "hidden_dropout_prob": 0,
+  "hidden_size": 768,
+  "initializer_range": 0.02,
+  "inner_group_num": 1,
+  "intermediate_size": 3072,
+  "layer_norm_eps": 1e-12,
+  "max_position_embeddings": 512,
+  "model_type": "albert",
+  "net_structure_type": 0,
+  "num_attention_heads": 12,
+  "num_hidden_groups": 1,
+  "num_hidden_layers": 12,
+  "num_memory_blocks": 0,
+  "pad_token_id": 0,
+  "position_embedding_type": "absolute",
+  "transformers_version": "4.35.0.dev0",
+  "type_vocab_size": 2,
+  "vocab_size": 30000
+}
+
+11/06/2023 19:57:14 - INFO - __main__ - Training new model from scratch
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-8d8225cf121f189b.arrow
+11/06/2023 19:57:15 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-8d8225cf121f189b.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-7e86b2ab4a8aebc3.arrow
+11/06/2023 19:57:15 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-7e86b2ab4a8aebc3.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-2c36cb30fba20c4e.arrow
+11/06/2023 19:57:15 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-2c36cb30fba20c4e.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-c92df36eb30a1142.arrow
+11/06/2023 19:57:15 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-c92df36eb30a1142.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-d4377420d356c28d.arrow
+11/06/2023 19:57:15 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-d4377420d356c28d.arrow
+Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-a73863c0799cc0d7.arrow
+11/06/2023 19:57:15 - INFO - datasets.arrow_dataset - Loading cached processed dataset at /home/ubuntu/.cache/huggingface/datasets/wikitext/wikitext-2-raw-v1/1.0.0/a241db52902eaf2c6aa732210bead40c090019a499ceb13bcbfa3f8ab646a126/cache-a73863c0799cc0d7.arrow
+[INFO|trainer.py:535] 2023-11-06 19:57:16,179 >> max_steps is given, it will override any value given in num_train_epochs
+[INFO|trainer.py:693] 2023-11-06 19:57:16,523 >> The following columns in the training set don't have a corresponding argument in `AlbertForMaskedLM.forward` and have been ignored: special_tokens_mask. If special_tokens_mask are not expected by `AlbertForMaskedLM.forward`,  you can safely ignore this message.
+/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/apex/__init__.py:68: DeprecatedFeatureWarning: apex.amp is deprecated and will be removed by the end of February 2023. Use [PyTorch AMP](https://pytorch.org/docs/stable/amp.html)
+  warnings.warn(msg, DeprecatedFeatureWarning)
+Selected optimization level O2:  FP16 training with FP32 batchnorm and FP32 master weights.
+
+Defaults for this optimization level are:
+enabled                : True
+opt_level              : O2
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : True
+loss_scale             : dynamic
+Processing user overrides (additional kwargs that are not None)...
+After processing overrides, optimization options are:
+enabled                : True
+opt_level              : O2
+cast_model_type        : torch.float16
+patch_torch_functions  : False
+keep_batchnorm_fp32    : True
+master_weights         : True
+loss_scale             : dynamic
+[INFO|trainer.py:1669] 2023-11-06 19:57:16,786 >> ***** Running training *****
+[INFO|trainer.py:1670] 2023-11-06 19:57:16,786 >>   Num examples = 5,219
+[INFO|trainer.py:1671] 2023-11-06 19:57:16,786 >>   Num Epochs = 1
+[INFO|trainer.py:1672] 2023-11-06 19:57:16,786 >>   Instantaneous batch size per device = 8
+[INFO|trainer.py:1675] 2023-11-06 19:57:16,786 >>   Total train batch size (w. parallel, distributed & accumulation) = 8
+[INFO|trainer.py:1676] 2023-11-06 19:57:16,786 >>   Gradient Accumulation steps = 1
+[INFO|trainer.py:1677] 2023-11-06 19:57:16,786 >>   Total optimization steps = 20
+[INFO|trainer.py:1678] 2023-11-06 19:57:16,786 >>   Number of trainable parameters = 11,221,680
+  0%|          | 0/20 [00:00<?, ?it/s][WARNING|logging.py:316] 2023-11-06 19:57:16,794 >> You're using a AlbertTokenizerFast tokenizer. Please note that with a fast tokenizer, using the `__call__` method is faster than using a method to encode the text followed by a call to the `pad` method to get a padded encoding.
+[768] [8, 512, 3072]
+Traceback (most recent call last):
+  File "transformers/examples/pytorch/language-modeling/run_mlm.py", line 684, in <module>
+    main()
+  File "transformers/examples/pytorch/language-modeling/run_mlm.py", line 633, in main
+    train_result = trainer.train(resume_from_checkpoint=checkpoint)
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/trainer.py", line 1506, in train
+    return inner_training_loop(
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/trainer.py", line 1803, in _inner_training_loop
+    tr_loss_step = self.training_step(model, inputs)
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/trainer.py", line 2654, in training_step
+    loss = self.compute_loss(model, inputs)
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/trainer.py", line 2677, in compute_loss
+    outputs = model(**inputs)
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/nn/parallel/distributed.py", line 1156, in forward
+    output = self._run_ddp_forward(*inputs, **kwargs)
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/nn/parallel/distributed.py", line 1110, in _run_ddp_forward
+    return module_to_run(*inputs[0], **kwargs[0])  # type: ignore[index]
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/apex/amp/_initialize.py", line 198, in new_fwd
+    output = old_fwd(*applier(args, input_caster),
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/models/albert/modeling_albert.py", line 989, in forward
+    outputs = self.albert(
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/models/albert/modeling_albert.py", line 735, in forward
+    encoder_outputs = self.encoder(
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/models/albert/modeling_albert.py", line 484, in forward
+    layer_group_output = self.albert_layer_groups[group_idx](
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/models/albert/modeling_albert.py", line 436, in forward
+    layer_output = albert_layer(hidden_states, attention_mask, head_mask[layer_index], output_attentions)
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/models/albert/modeling_albert.py", line 401, in forward
+    ffn_output = apply_chunking_to_forward(
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/pytorch_utils.py", line 241, in apply_chunking_to_forward
+    return forward_fn(*input_tensors)
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/transformers/src/transformers/models/albert/modeling_albert.py", line 413, in ff_chunk
+    ffn_output = self.activation(ffn_output)
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1501, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/epoi/epoi/ops/torchscript_ops.py", line 68, in forward
+    return BiasGeLUFunction.apply(input, self.bias)
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/autograd/function.py", line 506, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/epoi/epoi/ops/torchscript_ops.py", line 41, in forward
+    return BiasGeLUFunction.bias_gelu(bias, input)
+RuntimeError: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript (most recent call last):
+  File "/home/ubuntu/pytorch-opt/transformers-benchmarks/epoi/epoi/ops/torchscript_ops.py", line 21, in bias_gelu
+    def bias_gelu(bias, y):
+        print(bias.size(), y.size())
+        x = bias + y
+            ~~~~~~~~ <--- HERE
+        return x * 0.5 * (1.0 + torch.tanh(0.79788456 * x * (1 + 0.044715 * x * x)))
+RuntimeError: The size of tensor a (768) must match the size of tensor b (3072) at non-singleton dimension 2
+
+  0%|          | 0/20 [00:00<?, ?it/s]
+ERROR:torch.distributed.elastic.multiprocessing.api:failed (exitcode: 1) local_rank: 0 (pid: 11032) of binary: /home/ubuntu/pytorch-opt/venv/bin/python3
+Traceback (most recent call last):
+  File "/home/ubuntu/pytorch-opt/venv/bin/torchrun", line 8, in <module>
+    sys.exit(main())
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/errors/__init__.py", line 346, in wrapper
+    return f(*args, **kwargs)
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/distributed/run.py", line 794, in main
+    run(args)
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/distributed/run.py", line 785, in run
+    elastic_launch(
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 134, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/home/ubuntu/pytorch-opt/venv/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 250, in launch_agent
+    raise ChildFailedError(
+torch.distributed.elastic.multiprocessing.errors.ChildFailedError: 
+============================================================
+transformers/examples/pytorch/language-modeling/run_mlm.py FAILED
+------------------------------------------------------------
+Failures:
+  <NO_OTHER_FAILURES>
+------------------------------------------------------------
+Root Cause (first observed failure):
+[0]:
+  time      : 2023-11-06_19:57:20
+  host      : ip-172-31-81-243.ec2.internal
+  rank      : 0 (local_rank: 0)
+  exitcode  : 1 (pid: 11032)
+  error_file: <N/A>
+  traceback : To enable traceback see: https://pytorch.org/docs/stable/elastic/errors.html
+============================================================

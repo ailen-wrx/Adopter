@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/bert/modeling_bert.py.ori	2023-12-14 20:16:33.066087049 +0000
++++ models/huggingface_transformers/src/transformers/models/bert/modeling_bert.py.opt_1	2023-12-14 20:16:33.066087049 +0000
+@@ -392,7 +392,8 @@
+ class BertAttention(nn.Module):
+     def __init__(self, config, position_embedding_type=None):
+         super().__init__()
+-        self.self = BertSelfAttention(config, position_embedding_type=position_embedding_type)
++        from epoi.ops.xformers_attn import BertSelfAttentionWithXF as xformers_attn_BertSelfAttentionWithXF
++        self.self = xformers_attn_BertSelfAttentionWithXF(config, position_embedding_type=position_embedding_type, attn_op_name="cutlass")
+         self.output = BertSelfOutput(config)
+         self.pruned_heads = set()
+ 

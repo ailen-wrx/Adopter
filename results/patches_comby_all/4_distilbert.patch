@@ -1,0 +1,11 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/distilbert/modeling_distilbert.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/distilbert/modeling_distilbert.py
+@@ -223,7 +223,7 @@
+             mask, torch.tensor(torch.finfo(scores.dtype).min)
+         )  # (bs, n_heads, q_length, k_length)
+ 
+-        weights = nn.functional.softmax(scores, dim=-1)  # (bs, n_heads, q_length, k_length)
++        from xformers.triton.softmax import softmax as softmax_softmax; weights = softmax_softmax(scores)  # (bs, n_heads, q_length, k_length)
+         weights = self.dropout(weights)  # (bs, n_heads, q_length, k_length)
+ 
+         # Mask heads if we want to

@@ -1,0 +1,12 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/cpmant/modeling_cpmant.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/cpmant/modeling_cpmant.py
+@@ -518,8 +518,7 @@
+     def __init__(self, config):
+         super().__init__()
+         self.dense = nn.Linear(config.intermediate_size, config.hidden_size)
+-        self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=config.layer_norm_eps)
+-        self.dropout = nn.Dropout(config.hidden_dropout_prob)
++        from epoi.ops.torchscript_ops import FusedDropoutAddLayerNorm; self.fused_dropout_layernorm = epoi.ops.torchscript_ops.FusedDropoutAddLayerNorm(config.hidden_size, config.hidden_dropout_prob, config.layer_norm_eps)
+ 
+     def forward(self, hidden_states: torch.Tensor, input_tensor: torch.Tensor) -> torch.Tensor:
+         hidden_states = self.dense(hidden_states)

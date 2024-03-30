@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/pix2struct/modeling_pix2struct.py.ori	2023-12-14 20:54:14.121386156 +0000
++++ models/huggingface_transformers/src/transformers/models/pix2struct/modeling_pix2struct.py.opt_2	2023-12-14 20:54:14.121386156 +0000
+@@ -900,7 +900,8 @@
+ 
+         scores += position_bias_masked
+         # (batch_size, n_heads, seq_length, key_length)
+-        attn_weights = nn.functional.softmax(scores.float(), dim=-1).type_as(scores)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(scores.float()).type_as(scores)
+ 
+         # (batch_size, n_heads, seq_length, key_length)
+         attn_weights = nn.functional.dropout(attn_weights, p=self.dropout, training=self.training)

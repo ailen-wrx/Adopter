@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/groupvit/modeling_groupvit.py.ori	2023-11-21 18:37:25.919689097 +0000
++++ models/huggingface_transformers/src/transformers/models/groupvit/modeling_groupvit.py.opt_1	2023-11-21 18:37:25.919689097 +0000
+@@ -1372,12 +1372,8 @@
+         self.text_model = GroupViTTextTransformer(text_config)
+         self.vision_model = GroupViTVisionTransformer(vision_config)
+ 
+-        self.visual_projection = nn.Sequential(
+-            nn.Linear(self.vision_embed_dim, self.projection_intermediate_dim, bias=True),
+-            nn.BatchNorm1d(self.projection_intermediate_dim),
+-            nn.ReLU(inplace=True),
+-            nn.Linear(self.projection_intermediate_dim, self.projection_dim, bias=True),
+-        )
++        from torch.nn.intrinsic.qat.modules import LinearBn1d as modules_LinearBn1d
++        self.visual_projection = nn.Sequential(modules_LinearBn1d(self.vision_embed_dim, self.projection_intermediate_dim), nn.ReLU(inplace=True), nn.Linear(self.projection_intermediate_dim, self.projection_dim, bias=True))
+         self.text_projection = nn.Sequential(
+             nn.Linear(self.text_embed_dim, self.projection_intermediate_dim, bias=True),
+             nn.BatchNorm1d(self.projection_intermediate_dim),

@@ -1,0 +1,26 @@
+--- models/huggingface_transformers/src/transformers/models/upernet/modeling_upernet.py.ori	2023-12-14 21:26:41.513277775 +0000
++++ models/huggingface_transformers/src/transformers/models/upernet/modeling_upernet.py.opt_1	2023-12-14 21:26:41.513277775 +0000
+@@ -53,20 +53,12 @@
+         dilation: Union[int, Tuple[int, int]] = 1,
+     ) -> None:
+         super().__init__()
+-        self.conv = nn.Conv2d(
+-            in_channels=in_channels,
+-            out_channels=out_channels,
+-            kernel_size=kernel_size,
+-            padding=padding,
+-            bias=bias,
+-            dilation=dilation,
+-        )
+-        self.batch_norm = nn.BatchNorm2d(out_channels)
++        from epoi.ops.torchscript_ops import FusedConv2dBatchNorm2d as torchscript_ops_FusedConv2dBatchNorm2d
++        self.conv_batchnorm = torchscript_ops_FusedConv2dBatchNorm2d(in_channels, out_channels, kernel_size, bias=bias)
+         self.activation = nn.ReLU()
+ 
+     def forward(self, input: torch.Tensor) -> torch.Tensor:
+-        output = self.conv(input)
+-        output = self.batch_norm(output)
++        output = self.conv_batchnorm(input)
+         output = self.activation(output)
+ 
+         return output

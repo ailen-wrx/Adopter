@@ -1,0 +1,14 @@
+--- models/huggingface_transformers/src/transformers/models/owlvit/modeling_owlvit.py.ori	2023-11-21 18:29:39.948538585 +0000
++++ models/huggingface_transformers/src/transformers/models/owlvit/modeling_owlvit.py.opt_1	2023-11-21 18:29:39.952538578 +0000
+@@ -461,8 +461,9 @@
+     def __init__(self, config):
+         super().__init__()
+         self.config = config
+-        self.activation_fn = ACT2FN[config.hidden_act]
+-        self.fc1 = nn.Linear(config.hidden_size, config.intermediate_size)
++        self.fc1 = torch.nn.Linear(config.hidden_size, config.intermediate_size, bias=False)
++        from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++        self.activation_fn = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.fc1.weight)
+         self.fc2 = nn.Linear(config.intermediate_size, config.hidden_size)
+ 
+     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:

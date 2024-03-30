@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/chinese_clip/modeling_chinese_clip.py.ori	2023-12-14 20:48:54.626095943 +0000
++++ models/huggingface_transformers/src/transformers/models/chinese_clip/modeling_chinese_clip.py.opt_2	2023-12-14 20:48:54.626095943 +0000
+@@ -459,7 +459,8 @@
+                 f" {attn_weights.size()}"
+             )
+ 
+-        attn_weights = nn.functional.softmax(attn_weights, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attn_weights = softmax_softmax(attn_weights)
+ 
+         if output_attentions:
+             # this operation is a bit akward, but it's required to

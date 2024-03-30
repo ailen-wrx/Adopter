@@ -1,0 +1,13 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gptj/modeling_gptj.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/gptj/modeling_gptj.py
+@@ -204,9 +204,7 @@
+         Tuple[torch.Tensor, Tuple[torch.Tensor]],
+         Optional[Tuple[torch.Tensor, Tuple[torch.Tensor], Tuple[torch.Tensor, ...]]],
+     ]:
+-        query = self.q_proj(hidden_states)
+-        key = self.k_proj(hidden_states)
+-        value = self.v_proj(hidden_states)
++        (query, key, value) = self.qkv(hidden_states)
+ 
+         query = self._split_heads(query, self.num_attention_heads, self.head_dim, True)
+         key = self._split_heads(key, self.num_attention_heads, self.head_dim, True)

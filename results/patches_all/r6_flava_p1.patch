@@ -1,0 +1,17 @@
+--- models/huggingface_transformers/src/transformers/models/flava/modeling_flava.py.ori	2023-11-21 18:28:06.580708095 +0000
++++ models/huggingface_transformers/src/transformers/models/flava/modeling_flava.py.opt_1	2023-11-21 18:28:06.584708088 +0000
+@@ -561,10 +561,12 @@
+ class FlavaIntermediate(nn.Module):
+     def __init__(self, config: FlavaPossibleConfigs) -> None:
+         super().__init__()
+-        self.dense = nn.Linear(config.hidden_size, config.intermediate_size)
+         if isinstance(config.hidden_act, str):
+-            self.intermediate_act_fn = ACT2FN[config.hidden_act]
++            self.dense = torch.nn.Linear(config.hidden_size, config.intermediate_size, bias=False)
++            from epoi.ops.torchscript_ops import FusedBiasGELU as torchscript_ops_FusedBiasGELU
++            self.intermediate_act_fn = torchscript_ops_FusedBiasGELU(config.intermediate_size, prev_weight=self.dense.weight)
+         else:
++            self.dense = nn.Linear(config.hidden_size, config.intermediate_size)
+             self.intermediate_act_fn = config.hidden_act
+ 
+     # Copied from transformers.models.vit.modeling_vit.ViTIntermediate.forward

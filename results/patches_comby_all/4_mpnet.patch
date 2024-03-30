@@ -1,0 +1,11 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/mpnet/modeling_mpnet.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/mpnet/modeling_mpnet.py
+@@ -185,7 +185,7 @@
+             attention_scores = attention_scores + attention_mask
+ 
+         # Normalize the attention scores to probabilities.
+-        attention_probs = nn.functional.softmax(attention_scores, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax; attention_probs = softmax_softmax(attention_scores)
+ 
+         attention_probs = self.dropout(attention_probs)
+ 

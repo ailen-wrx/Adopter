@@ -1,0 +1,13 @@
+--- /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/pix2struct/modeling_pix2struct.py
++++ /home/ubuntu/pytorch-opt/adopter/models/huggingface_transformers/src/transformers/models/pix2struct/modeling_pix2struct.py
+@@ -717,9 +717,7 @@
+         self.inner_dim = self.n_heads * self.key_value_proj_dim
+ 
+         # Mesh TensorFlow initialization to avoid scaling before softmax
+-        self.query = nn.Linear(self.hidden_size, self.hidden_size, bias=False)
+-        self.key = nn.Linear(self.hidden_size, self.hidden_size, bias=False)
+-        self.value = nn.Linear(self.hidden_size, self.hidden_size, bias=False)
++        from slapo.op.linear import FusedQKV as linear_FusedQKV; self.qkv = linear_FusedQKV(self.hidden_size, self.num_heads, 1)
+         self.output = nn.Linear(self.hidden_size, self.hidden_size, bias=False)
+ 
+         if self.has_relative_attention_bias:

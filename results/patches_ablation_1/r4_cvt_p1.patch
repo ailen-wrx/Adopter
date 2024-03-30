@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/cvt/modeling_cvt.py.ori	2023-12-14 20:49:21.534035071 +0000
++++ models/huggingface_transformers/src/transformers/models/cvt/modeling_cvt.py.opt_1	2023-12-14 20:49:21.534035071 +0000
+@@ -269,7 +269,8 @@
+         value = self.rearrange_for_multi_head_attention(self.projection_value(value))
+ 
+         attention_score = torch.einsum("bhlk,bhtk->bhlt", [query, key]) * self.scale
+-        attention_probs = torch.nn.functional.softmax(attention_score, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attention_probs = softmax_softmax(attention_score)
+         attention_probs = self.dropout(attention_probs)
+ 
+         context = torch.einsum("bhlt,bhtv->bhlv", [attention_probs, value])

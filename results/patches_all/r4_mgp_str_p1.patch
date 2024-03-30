@@ -1,0 +1,12 @@
+--- models/huggingface_transformers/src/transformers/models/mgp_str/modeling_mgp_str.py.ori	2023-11-21 18:20:34.637527355 +0000
++++ models/huggingface_transformers/src/transformers/models/mgp_str/modeling_mgp_str.py.opt_1	2023-11-21 18:20:34.637527355 +0000
+@@ -301,7 +301,8 @@
+         hidden_states = hidden_states.transpose(1, 2).unsqueeze(-1)
+         selected = self.tokenLearner(hidden_states)
+         selected = selected.flatten(2)
+-        attentions = F.softmax(selected, dim=-1)
++        from xformers.triton.softmax import softmax as softmax_softmax
++        attentions = softmax_softmax(selected)
+ 
+         feat = self.feat(hidden_states)
+         feat = feat.flatten(2).transpose(1, 2)

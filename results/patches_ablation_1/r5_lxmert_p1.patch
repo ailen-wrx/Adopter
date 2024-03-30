@@ -1,0 +1,19 @@
+--- models/huggingface_transformers/src/transformers/models/lxmert/modeling_lxmert.py.ori	2023-12-14 21:02:20.336340130 +0000
++++ models/huggingface_transformers/src/transformers/models/lxmert/modeling_lxmert.py.opt_1	2023-12-14 21:02:20.336340130 +0000
+@@ -374,13 +374,12 @@
+     def __init__(self, config):
+         super().__init__()
+         self.dense = nn.Linear(config.hidden_size, config.hidden_size)
+-        self.LayerNorm = nn.LayerNorm(config.hidden_size, eps=1e-12)
+-        self.dropout = nn.Dropout(config.hidden_dropout_prob)
++        from epoi.ops.torchscript_ops import FusedDropoutAddLayerNorm as torchscript_ops_FusedDropoutAddLayerNorm
++        self.dropout_add_layernorm = torchscript_ops_FusedDropoutAddLayerNorm(config.hidden_size, config.hidden_dropout_prob, eps=1e-12)
+ 
+     def forward(self, hidden_states, input_tensor):
+         hidden_states = self.dense(hidden_states)
+-        hidden_states = self.dropout(hidden_states)
+-        hidden_states = self.LayerNorm(hidden_states + input_tensor)
++        hidden_states = self.dropout_add_layernorm(hidden_states, input_tensor)
+         return hidden_states
+ 
+ 
