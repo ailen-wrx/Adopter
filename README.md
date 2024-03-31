@@ -1,8 +1,6 @@
 # Adopter: Automated Deep Learning Optimization via DSL-based Source Code Transformation
 
-Ruixin Wang, Minghai Lu, Cody Hao Yu, Yi-Hsiang Lai, Tianyi Zhang
-
-ISSTA'24: Proceedings of the 33rd ACM SIGSOFT International Symposium on Software Testing and Analysis
+Official implementation for our paper "Automated Deep Learning Optimization via DSL-based Source Code Transformation", ISSTA 2024.
 
 ## Overview
 
@@ -23,10 +21,41 @@ Adopter
 
 ```
 
+## Deep Learning Optimization
+
+Adopter includes 9 deep learning model optimization rules.
+
+| Name                | Description                                           | Source                                                    |
+|---------------------|-------------------------------------------------------|-----------------------------------------------------------|
+| `BertSelfAttention` | `BertSelfAttention` with xformers’ attention ops      | [xformers](https://github.com/facebookresearch/xformers)   |
+| `T5Attention`       | `T5Attention` with xformers’ attention ops            | [xformers](https://github.com/facebookresearch/xformers)   |
+| `GPT2Attention`     | `GPT2Attention` with xformers’ attention ops          | [xformers](https://github.com/facebookresearch/xformers)   |
+| `softmax`           | A drop-in replacement to `torch.nn.softmax`           | [triton](https://github.com/openai/triton)                 |
+| `Dropout_LayerNorm` | Fusing `Dropout` and `LayerNorm`                      | [epoi](https://github.com/comaniac/epoi)                   |
+| `biased_GeLU`       | Fusing biased `Linear` and `GeLU` activation          | [epoi](https://github.com/comaniac/epoi)                   |
+| `Conv_BatchNorm`    | Fusing `Conv2d` and `BatchNorm2d`                     | [PyTorch](https://github.com/pytorch/pytorch)              |
+| `Linear_BatchNorm`  | Fusing `Linear` and `BatchNorm1d`                     | [PyTorch](https://github.com/pytorch/pytorch)              |
+| `fused_QKV`         | Fusing three `Linear` layers as `q`, `k`, and `v` in encoder | [slapo](https://github.com/awslabs/slapo)              |
+
+## Requirements
+ -  Operating System: Ubuntu 20.04
+ -  Python Version: 3.9.10
+ -  PyTorch Version: 2.0.1
+ -  CUDA Version: 11.7
+ -  Python dependencies:
+     -   python_graphs
+     -   ast
+     -   gast
+     -   astunparse
+     -   importlib
+     -   inspect
+
+
 ## Run Adopter
 ```
-python3 main.py all
-python3 main.py all ablation
+git submodule update --init     # initialize submodules
+python3 main.py all 
+python3 main.py all ablation    # ablation study
 ```
 
 ## Checkout Evaluation Result
@@ -34,6 +63,7 @@ python3 main.py all ablation
 cd results
 python3 compare.py
 ```
+Check out the `.tsv` files under the directory `results/`.
 
 ## Optimization Benchmarks
-Please check out `benchmarks/benchmarks.ipynb`.
+Please follow `benchmarks/benchmarks.ipynb` to check out the results.
