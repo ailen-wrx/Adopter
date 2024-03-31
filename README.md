@@ -52,14 +52,14 @@ Adopter includes 9 deep learning model optimization rules.
 
 
 ## Run Adopter
-```
+```bash
 git submodule update --init     # initialize submodules
 python3 main.py all 
 python3 main.py all ablation    # ablation study
 ```
 
 ## Checkout Evaluation Result
-```
+```bash
 cd results
 python3 compare.py
 ```
@@ -67,3 +67,16 @@ Check out the `.tsv` files under the directory `results/`.
 
 ## Optimization Benchmarks
 Please follow `benchmarks/benchmarks.ipynb` to check out the results.
+
+## Citation
+If you find our work helpful, please cite:
+```bibtex
+@inproceedings{wang2024automated,
+  title={Automated Deep Learning Optimization via DSL-based Source Code Transformation},
+  author={Ruixin Wang, Minghai Lu, Cody Hao Yu, Yi-Hsiang Lai, and Tianyi Zhang},
+  booktitle={Proceedings of the 33rd ACM SIGSOFT International Symposium on Software Testing and Analysis (ISSTA'24)},
+  year={2024},
+  organization={IEEE/ACM},
+  doi={10.1145/3650212.3652143}
+}
+```
