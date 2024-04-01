@@ -7,7 +7,7 @@ Official implementation for our paper "[Automated Deep Learning Optimization via
 ```
 Adopter
  ├── dsl.py              Domain-specific langiage (§3.1)
- |                       and model structure abstraction (§3.2)
+ │                       and model structure abstraction (§3.2)
  ├── pattern_matcher.py  Pattern matching (§3.3)
  ├── refactor.py         Synthesis-based code transformation (§3.4)
  ├── ...
